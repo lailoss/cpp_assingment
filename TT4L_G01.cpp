@@ -34,7 +34,7 @@ int main()
 
     string fileOutputName;
 
-    //string fileInput name = "C:\\Your Name\\fileInput1.mdb";
+    string fileInputName = "C:\\cpp_assingment\\fileInput1.mdb";
     //string fileInput name = "C:\\Your Name\\fileInput2.mdb";
     //string fileInput name = "C:\\your name\\fileInput3.mdb";
 
@@ -50,6 +50,7 @@ int main()
     while ( getline(fileInput, line))
     {
         cout << line << endl;
+    }
 
         fileInput.close();
 
@@ -60,7 +61,7 @@ int main()
         cout << fileInputName << endl;
 
         return 0;
-    }
+}
 
     // function definitions
     void create_output_screen_and_file()
@@ -84,4 +85,4 @@ int main()
 
     }
 
-}
+
