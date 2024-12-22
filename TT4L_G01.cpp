@@ -56,11 +56,10 @@ int main()
 {
     fstream fileInput;
 
-    string fileOutputName;
-
     string fileInputName = "C:\\cpp_assingment\\fileInput1.mdb";
     //string fileInput name = "C:\\Your Name\\fileInput2.mdb";
     //string fileInput name = "C:\\your name\\fileInput3.mdb";
+    string fileOutputName =  "C:\\cpp_assignment\\fileOutput1.txt";
 
     fileInput.open(fileInputName);
 
@@ -81,8 +80,8 @@ int main()
         //fileOutputName = "fileOutput1.txt"; //incorrect
         //cout << "> CREATE " << fileOutputName << ";" endl;
 
-        cout << "> DATABASES;" << endl;
-        cout << fileInputName << endl;
+        //create_database(fileInputName);
+
 
         return 0;
 }
@@ -92,10 +91,11 @@ int main()
     {
 
     }
-    void create_database()
-    {
-
+    void create_database(const string& fileInputName){
+        cout << ">DATABASES;" << endl;
+        cout << fileInputName << endl;
     }
+
     void create_table()
     {
 
