@@ -47,20 +47,21 @@ using namespace std;
 
 //function prototypes
 void create_output_screen_and_file();
-void create_database();
+void create_database(const string& fileInputName, const string& fileOutputName); //to display & log database name
 void create_table();
 void insert_into_table();
 void select_all_from_table_in_csv_mode();
 
 int main()
 {
-    fstream fileInput;
+
 
     string fileInputName = "C:\\cpp_assingment\\fileInput1.mdb";
     //string fileInput name = "C:\\Your Name\\fileInput2.mdb";
     //string fileInput name = "C:\\your name\\fileInput3.mdb";
     string fileOutputName =  "C:\\cpp_assignment\\fileOutput1.txt";
 
+    fstream fileInput;
     fileInput.open(fileInputName);
 
     if ( !fileInput.is_open() )
@@ -81,6 +82,7 @@ int main()
         //cout << "> CREATE " << fileOutputName << ";" endl;
 
         //create_database(fileInputName);
+        create_database(fileInputName, fileOutputName); //call create_database to display n log database name
 
 
         return 0;
@@ -91,9 +93,24 @@ int main()
     {
 
     }
-    void create_database(const string& fileInputName){
-        cout << ">DATABASES;" << endl;
+    void create_database(const string& fileInputName, const string& fileOutputName)
+    {
+        cout << ">DATABASES;" << endl; //display on console
         cout << fileInputName << endl;
+
+        ofstream fileOutput(fileOutputName); //open output file for writng
+        if (!fileOutput.is_open())
+        {
+            cout << "Unable to create output file: " << fileOutputName << endl; //display error message if output file cant be created
+            return;
+        }
+        //write db info to the output file
+        fileOutput << "> DATABASES;" << endl; //db header
+        fileOutput << fileInputName << endl; //name of the db file
+
+        fileOutput.close();
+
+        cout << "Database information written to " << fileOutputName << endl;
     }
 
     void create_table()
