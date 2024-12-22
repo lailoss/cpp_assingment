@@ -10,9 +10,33 @@
 // *********************************************************
 // *********************************************************
 // Task Distribution
-// Member_1:
-// Member_2:
-// Member_3:
+// Member_1: Feqhah Delilah
+// File Handling: fileInput1.mdb & fileOutput1.txt
+// - Create and read from the first input file (fileInput1.mdb).
+// - Handle the logic to output the database name and view the database in the program.
+// - Create a file output for this input (fileOutput1.txt).
+// - Implement create_database() to display the database name.
+// - Write code to load and display table data using the first file.
+// - Assist in writing pseudocode and documentation for these functions.
+
+// Member_2: Wan Hanani Iman
+// Table Operations:
+// - Write the functions create_table() and insert_into_table().
+// - Ensure the table supports two data types (INT and TEXT) and inserts rows correctly.
+// Error Handling:
+// - Add error-checking mechanisms for file processing and database/table creation.
+// - Assist in writing pseudocode and documentation for these functions.
+
+// Member_3: Vidhya Dariney
+// create_output_screen_and_file()
+// select_all_from_table_in_csv_mode()
+// Output and CSV Mode:
+// - Implement select_all_from_table_in_csv_mode() to view the table data in CSV format.
+// - Ensure data from all three input files is properly exported and formatted in CSV outputs.
+// Explanations and Reports:
+// - Create structured diagrams, flowcharts, and sample input/output screenshots.
+// - Draft the overall user documentation and explanations for program behavior.
+// - Collaborate on pseudocode.
 // *********************************************************
 
 #include <iostream>
