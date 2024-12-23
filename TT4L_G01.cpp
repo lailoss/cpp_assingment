@@ -4,9 +4,9 @@
 // Lecture Class: TC1L
 // Tutorial Class: TT4L
 // Trimester: 2430
-// Member_1: 242UC244FY | FEQHAH DELILAH BINTI MOHD FAIZUK | feqhah01@gmail.com | 013-662 0012
+// Member_1: 242UC244FY | FEQHAH DELILAH BINTI MOHD FAIZUL | feqhah01@gmail.com | 013-662 0012
 // Member_2: 242UC244CK | WAN HANANI IMAN | EMAIL | PHONE
-// Member_3: 242UC244L8 | VIDHYA DARINEY | EMAIL | PHONE
+// Member_3: 242UC244L8 | VIDHYA DARINEY A/P RAJASINGAM | EMAIL | PHONE
 // *********************************************************
 // *********************************************************
 // Task Distribution
@@ -65,10 +65,11 @@ int main()
 
     ifstream fileInput;
 
-    string fileInputName = "C:\\cpp_assignment\\fileInput1.mdb";
+    string fileInputName = "C:\\Users\\vidhi\\cpp_assingment\\fileInput1.mdb";
     //string fileInput name = "C:\\Your Name\\fileInput2.mdb";
     //string fileInput name = "C:\\your name\\fileInput3.mdb";
-    string fileOutputName =  "C:\\cpp_assignment\\fileOutput1.txt";
+    string fileOutputName =  "C:\\Users\\vidhi\\cpp_assingment\\fileOutput1.txt";
+    string fileCsv =  "C:\\Users\\vidhi\\cpp_assingment\\output.csv";
 
     fileInput.open(fileInputName);
 
@@ -88,7 +89,7 @@ int main()
         }
         else  if( has_substring(line, "CREATE"))
         {
-            fileOutputName = "?";
+            //fileOutputName = "?";
             cout << ">CREATE " << fileOutputName << ";" << endl;
         }
         else if ( has_substring(line, "DATABASES;"))
@@ -152,10 +153,26 @@ int main()
             return false; //substring not found
         }
     }
-    void create_output_screen_and_file()
-    {
 
+    //CREATE OUTPUT SCREEN------------------------------------------------
+    void create_output_screen_and_file(const string& fileOutputName)
+    {
+        ofstream outputFile(fileOutputName);
+
+        if (!outputFile.is_open())
+        {
+            cout << "Unable to open output file for writing." << endl;
+            return;
+        }
+
+        string summary = "Database output summary.";
+        cout << summary << endl;
+        outputFile << summary << endl;
+
+        outputFile.close();
+        cout << "Summary written to " << fileOutputName << endl;
     }
+
     void create_database(const string& fileInputName, const string& fileOutputName)
     {
         cout << ">DATABASES;" << endl; //display on console
@@ -208,6 +225,7 @@ int main()
 
 
     }
+
     void insert_into_table(vector<vector<string>>&table)
     {
         //let's say there's no table created, so therefore...
@@ -245,9 +263,37 @@ int main()
         cout<<"Row successfully made";
     }
 
-    void select_all_from_table_in_csv_mode()
+    //SELECT ALL FROM TABLE------------------------------------------------
+    void select_all_from_table_in_csv_mode(const vector<vector<string>>& table, const string& fileCsv)
     {
+        if (table.empty())
+        {
+            cerr << "Table is empty." << endl;
+            return;
+        }
 
+        ofstream outputFile(fileCsv);
+        if (!outputFile.is_open())
+        {
+            cerr << "Unable to open file for csv output." << endl;
+            return;
+        }
+
+        for (const auto& row : table)
+        {
+            for (size_t i= 0; i < row.size(); ++i)
+            {
+                outputFile << row[i];
+
+                if (i < row.size() - 1)
+                {
+                    outputFile << ";";
+                }
+            }
+        }
+
+        outputFile.close();
+        cout << "Table exported to" << fileCsv << endl;
     }
 
 
