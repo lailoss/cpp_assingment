@@ -59,7 +59,6 @@ void select_all_from_table_in_csv_mode();
 int main()
 {
     ofstream fileOutput;
-    string fileOutputName;
 
     vector<vector<string>> table;
     string tableName;
@@ -85,19 +84,19 @@ int main()
         //cout << line << endl;
         if( has_substring(line, "CREATE TABLE"))
         {
-            cout << "? CREATE " << fileOutputName << ";" << endl;
+            cout << "Creating Table " << fileOutputName << ";" << endl;
         }
         else  if( has_substring(line, "CREATE"))
         {
             fileOutputName = "?";
             cout << ">CREATE " << fileOutputName << ";" << endl;
         }
-        else if ( has substring(line, "DATABASES;"))
+        else if ( has_substring(line, "DATABASES;"))
         {
             cout << "> " << line << endl;
             cout << "?" << endl;
         }
-        else if ( has_substring(line, "?1"))
+       /* else if ( has_substring(line, "?1"))
         {
             cout << "?1" << endl;
         }
@@ -120,7 +119,7 @@ int main()
         else if ( has_substring(line, "?6"))
         {
             cout << "?6" << endl;
-        }
+        } */
       //  else
        // {
        //     cout << "Error message : Invalid input command" << endl;
@@ -197,11 +196,12 @@ int main()
 
 
     }
-    void insert_into_table(vector<vector<string>>&table )
+    void insert_into_table(vector<vector<string>>&table, const vector<string>& columnnames)
     {
         //let's say there's no table created, so therefore...
-        if (table.empty){
+        if (table.empty()){
             cerr<<"No table found.";
+            return;
         }
 
         const vector<string>&table = table[0];
