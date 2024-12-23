@@ -56,7 +56,7 @@ int main()
 {
 
 
-    string fileInputName = "C:\\cpp_assingment\\fileInput1.mdb";
+    string fileInputName = "C:\\cpp_assignment\\fileInput1.mdb";
     //string fileInput name = "C:\\Your Name\\fileInput2.mdb";
     //string fileInput name = "C:\\your name\\fileInput3.mdb";
     string fileOutputName =  "C:\\cpp_assignment\\fileOutput1.txt";
