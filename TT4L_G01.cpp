@@ -46,6 +46,7 @@
 using namespace std;
 
 //function prototypes
+bool has_substring(const string& line, const string& substring);
 void create_output_screen_and_file();
 void create_database(const string& fileInputName, const string& fileOutputName); //to display & log database name
 void create_table();
@@ -54,14 +55,19 @@ void select_all_from_table_in_csv_mode();
 
 int main()
 {
+    ofstream fileOutput;
+    string fileOutputName;
 
+    vector<vector<string>> table;
+    string tableName;
+
+    ifstream fileInput;
 
     string fileInputName = "C:\\cpp_assignment\\fileInput1.mdb";
     //string fileInput name = "C:\\Your Name\\fileInput2.mdb";
     //string fileInput name = "C:\\your name\\fileInput3.mdb";
     string fileOutputName =  "C:\\cpp_assignment\\fileOutput1.txt";
 
-    fstream fileInput;
     fileInput.open(fileInputName);
 
     if ( !fileInput.is_open() )
@@ -73,10 +79,54 @@ int main()
     string line;
     while ( getline(fileInput, line))
     {
-        cout << line << endl;
+        //cout << line << endl;
+        if( has_substring(line, "CREATE TABLE"))
+        {
+            cout << "? CREATE " << fileOutputName << ";" << endl;
+        }
+        else  if( has_substring(line, "CREATE"))
+        {
+            fileOutputName = "?";
+            cout << ">CREATE " << fileOutputName << ";" << endl;
+        }
+        else if ( has substring(line, "DATABASES;"))
+        {
+            cout << "> " << line << endl;
+            cout << "?" << endl;
+        }
+        else if ( has_substring(line, "?1"))
+        {
+            cout << "?1" << endl;
+        }
+        else if ( has_substring(line, "?2"))
+        {
+            cout << "?2" << endl;
+        }
+        else if ( has_substring(line, "?3"))
+        {
+            cout << "3" << endl;
+        }
+        else if ( has_substring(line, "?4"))
+        {
+            cout << "?4" << endl;
+        }
+        else if ( has_substring(line, "?5"))
+        {
+            cout << "?5" << endl;
+        }
+        else if ( has_substring(line, "?6"))
+        {
+            cout << "?6" << endl;
+        }
+      //  else
+       // {
+       //     cout << "Error message : Invalid input command" << endl;
+       // }
     }
+    cout << endl;
 
         fileInput.close();
+        fileOutput.close();
 
         //fileOutputName = "fileOutput1.txt"; //incorrect
         //cout << "> CREATE " << fileOutputName << ";" endl;
@@ -89,6 +139,17 @@ int main()
 }
 
     // function definitions
+    bool has_substring(const string& line, const string& substring)
+    {
+        if (line.find(substring) != string::npos)
+        {
+            return true; //substring found
+        }
+        else
+        {
+            return false; //substring not found
+        }
+    }
     void create_output_screen_and_file()
     {
 
