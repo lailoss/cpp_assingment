@@ -33,8 +33,9 @@
 // Output and CSV Mode:
 // - Implement select_all_from_table_in_csv_mode() to view the table data in CSV format.
 // - Ensure data from all three input files is properly exported and formatted in CSV outputs.
+
 // Explanations and Reports:
-// - Create structured diagrams, flowcharts, and sample input/output screenshots.
+// - Create pseudocode, flowcharts, and sample input/output screenshots.
 // - Draft the overall user documentation and explanations for program behavior.
 // - Collaborate on pseudocode.
 // *********************************************************
