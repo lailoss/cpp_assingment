@@ -33,8 +33,9 @@
 // Output and CSV Mode:
 // - Implement select_all_from_table_in_csv_mode() to view the table data in CSV format.
 // - Ensure data from all three input files is properly exported and formatted in CSV outputs.
+
 // Explanations and Reports:
-// - Create structured diagrams, flowcharts, and sample input/output screenshots.
+// - Create pseudocode, flowcharts, and sample input/output screenshots.
 // - Draft the overall user documentation and explanations for program behavior.
 // - Collaborate on pseudocode.
 // *********************************************************
@@ -46,22 +47,30 @@
 using namespace std;
 
 //function prototypes
+bool has_substring(const string& line, const string& substring);
 void create_output_screen_and_file();
 void create_database(const string& fileInputName, const string& fileOutputName); //to display & log database name
-void create_table();
-void insert_into_table();
+void create_table(const string& fileInputName, const string& fileOutputName);
+void insert_into_table(vector<vector<string>>&table);
 void select_all_from_table_in_csv_mode();
+
+
 
 int main()
 {
+    ofstream fileOutput;
+    string fileOutputName;
 
+    vector<vector<string>> table;
+    string tableName;
+
+    ifstream fileInput;
 
     string fileInputName = "C:\\cpp_assignment\\fileInput1.mdb";
     //string fileInput name = "C:\\Your Name\\fileInput2.mdb";
     //string fileInput name = "C:\\your name\\fileInput3.mdb";
     string fileOutputName =  "C:\\cpp_assignment\\fileOutput1.txt";
 
-    fstream fileInput;
     fileInput.open(fileInputName);
 
     if ( !fileInput.is_open() )
@@ -73,10 +82,54 @@ int main()
     string line;
     while ( getline(fileInput, line))
     {
-        cout << line << endl;
+        //cout << line << endl;
+        if( has_substring(line, "CREATE TABLE"))
+        {
+            cout << "? CREATE " << fileOutputName << ";" << endl;
+        }
+        else  if( has_substring(line, "CREATE"))
+        {
+            fileOutputName = "?";
+            cout << ">CREATE " << fileOutputName << ";" << endl;
+        }
+        else if ( has substring(line, "DATABASES;"))
+        {
+            cout << "> " << line << endl;
+            cout << "?" << endl;
+        }
+        else if ( has_substring(line, "?1"))
+        {
+            cout << "?1" << endl;
+        }
+        else if ( has_substring(line, "?2"))
+        {
+            cout << "?2" << endl;
+        }
+        else if ( has_substring(line, "?3"))
+        {
+            cout << "3" << endl;
+        }
+        else if ( has_substring(line, "?4"))
+        {
+            cout << "?4" << endl;
+        }
+        else if ( has_substring(line, "?5"))
+        {
+            cout << "?5" << endl;
+        }
+        else if ( has_substring(line, "?6"))
+        {
+            cout << "?6" << endl;
+        }
+      //  else
+       // {
+       //     cout << "Error message : Invalid input command" << endl;
+       // }
     }
+    cout << endl;
 
         fileInput.close();
+        fileOutput.close();
 
         //fileOutputName = "fileOutput1.txt"; //incorrect
         //cout << "> CREATE " << fileOutputName << ";" endl;
@@ -89,6 +142,17 @@ int main()
 }
 
     // function definitions
+    bool has_substring(const string& line, const string& substring)
+    {
+        if (line.find(substring) != string::npos)
+        {
+            return true; //substring found
+        }
+        else
+        {
+            return false; //substring not found
+        }
+    }
     void create_output_screen_and_file()
     {
 
@@ -113,15 +177,48 @@ int main()
         cout << "Database information written to " << fileOutputName << endl;
     }
 
-    void create_table()//hanani
-    {
-        CREAT
-
-    }
-    void insert_into_table()//hanani
+    void create_table(vector<vector<string>>&table, string& tableName)
     {
 
+        tableName="Customer";
+
+        vector<string> columnnames = {
+            "customer_id",
+            "customer_name",
+            "customer_city",
+            "customer_state",
+            "customer_country",
+            "customer_phone",
+            "customer_email"
+        };
+
+        cout<<tableName<<"has successfully been created.";
+
+
+
     }
+    void insert_into_table(vector<vector<string>>&table )
+    {
+        //let's say there's no table created, so therefore...
+        if (table.empty){
+            cerr<<"No table found.";
+        }
+
+        const vector<string>&table = table[0];
+        vector<string> newRow;
+
+        for (size_t i=0; i<columnnames.size(); i++)
+            {
+            string value;
+            cout<<","<<columnnames[i];
+            cin>>value;
+            newRow.push_back(value);
+
+        }
+        table.push_back(newRow);
+        cout<<"Row successfully made"
+    }
+
     void select_all_from_table_in_csv_mode()
     {
 
