@@ -113,11 +113,12 @@ int main()
         cout << "Database information written to " << fileOutputName << endl;
     }
 
-    void create_table()
+    void create_table()//hanani
     {
+        CREAT
 
     }
-    void insert_into_table()
+    void insert_into_table()//hanani
     {
 
     }
