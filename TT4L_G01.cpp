@@ -50,9 +50,10 @@ using namespace std;
 bool has_substring(const string& line, const string& substring);
 void create_output_screen_and_file();
 void create_database(const string& fileInputName, const string& fileOutputName); //to display & log database name
-void create_table(const string& fileInputName, const string& fileOutputName);
+void create_table(vector<vector<string>>& table, string& tableName);
 void insert_into_table(vector<vector<string>>&table);
-void select_all_from_table_in_csv_mode();
+void select_all_from_table_in_csv_mode(const vector<vector<string>>& table, const string& fileCsv);
+
 
 
 
@@ -65,11 +66,11 @@ int main()
 
     ifstream fileInput;
 
-    string fileInputName = "C:\\Users\\vidhi\\cpp_assingment\\fileInput1.mdb";
+    string fileInputName = "C:\\cpp_assignment\\fileInput1.mdb";
     //string fileInput name = "C:\\Your Name\\fileInput2.mdb";
     //string fileInput name = "C:\\your name\\fileInput3.mdb";
-    string fileOutputName =  "C:\\Users\\vidhi\\cpp_assingment\\fileOutput1.txt";
-    string fileCsv =  "C:\\Users\\vidhi\\cpp_assingment\\output.csv";
+    string fileOutputName =  "C:\\cpp_assignment\\fileOutput1.txt";
+    string fileCsv =  "C:\\cpp_assignment\\output.csv";
 
     fileInput.open(fileInputName);
 
@@ -79,25 +80,25 @@ int main()
         exit(-1);
     }
 
+    // Process input file
     string line;
-    while ( getline(fileInput, line))
-    {
-        //cout << line << endl;
-        if( has_substring(line, "CREATE TABLE"))
-        {
-            cout << "Creating Table " << fileOutputName << ";" << endl;
+    while (getline(fileInput, line)) {
+        if (has_substring(line, "CREATE TABLE")) {
+            cout << "Creating table: " << tableName << endl;
+            create_table(table, tableName);
+        } else if (has_substring(line, "INSERT INTO")) {
+            cout << "Inserting data into table: " << tableName << endl;
+            insert_into_table(table);
         }
-        else  if( has_substring(line, "CREATE"))
-        {
-            //fileOutputName = "?";
-            cout << ">CREATE " << fileOutputName << ";" << endl;
-        }
-        else if ( has_substring(line, "DATABASES;"))
+    }
+
+
+        /*else if ( has_substring(line, "DATABASES;"))
         {
             cout << "> " << line << endl;
             cout << "?" << endl;
         }
-       /* else if ( has_substring(line, "?1"))
+        else if ( has_substring(line, "?1"))
         {
             cout << "?1" << endl;
         }
@@ -125,17 +126,16 @@ int main()
        // {
        //     cout << "Error message : Invalid input command" << endl;
        // }
-    }
-    cout << endl;
 
         fileInput.close();
-        fileOutput.close();
 
         //fileOutputName = "fileOutput1.txt"; //incorrect
         //cout << "> CREATE " << fileOutputName << ";" endl;
 
         //create_database(fileInputName);
         create_database(fileInputName, fileOutputName); //call create_database to display n log database name
+        // Output table in CSV mode
+        select_all_from_table_in_csv_mode(table, fileCsv);
 
 
         return 0;
