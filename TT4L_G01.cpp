@@ -1,4 +1,4 @@
-// *********************************************************
+ // *********************************************************
 // Program: TT4L_G01.cpp
 // Course: CCP6114 Programming Fundamentals
 // Lecture Class: TC1L
@@ -190,13 +190,25 @@ int main()
             "customer_phone",
             "customer_email"
         };
+        vector<string> columntypes={
+            "INT",
+            "TEXT",
+            "TEXT",
+            "TEXT",
+            "TEXT",
+            "TEXT",
+            "TEXT"
+        };
+        table.clear();
+        table.push_back(columnnames);
+        table.push_back(columntypes);
 
         cout<<tableName<<"has successfully been created.";
 
 
 
     }
-    void insert_into_table(vector<vector<string>>&table, const vector<string>& columnnames)
+    void insert_into_table(vector<vector<string>>&table)
     {
         //let's say there's no table created, so therefore...
         if (table.empty()){
@@ -204,19 +216,33 @@ int main()
             return;
         }
 
-        const vector<string>&table = table[0];
+        const vector<string>&columnnames = table[0];
+        const vector<string>& columntypes = table[1];
         vector<string> newRow;
 
+
+    cout<<"Please enter your details: ";
         for (size_t i=0; i<columnnames.size(); i++)
             {
             string value;
-            cout<<","<<columnnames[i];
+            cout<<","<<columnnames[i]<<"("<<columntypes[i]<<")";
             cin>>value;
-            newRow.push_back(value);
 
+            //the part above is for string, below is for int input
+            if (columntypes[i]=="INT"){
+
+                for (char c : value)
+                    {
+                        if(!isdigit(c)){
+                            cerr<<"Error:"<<columnnames[i]<<"column only accepts integer";
+                            return;
+                        }
+                }
+            }
+            newRow.push_back(value);
         }
         table.push_back(newRow);
-        cout<<"Row successfully made"
+        cout<<"Row successfully made";
     }
 
     void select_all_from_table_in_csv_mode()
