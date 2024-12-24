@@ -130,11 +130,14 @@ int main()
 
         fileInput.close();
 
+
         //fileOutputName = "fileOutput1.txt"; //incorrect
         //cout << "> CREATE " << fileOutputName << ";" endl;
 
         //create_database(fileInputName);
         create_database(fileInputName, fileOutputName); //call create_database to display n log database name
+
+
         // Output table in CSV mode
         select_all_from_table_in_csv_mode(table, fileCsv);
 
@@ -190,6 +193,8 @@ int main()
         fileOutput << fileInputName << endl; //name of the db file
 
         fileOutput.close();
+        cout << "Output file successfully created: " << fileOutputName << endl;
+
 
         cout << "Database information written to " << fileOutputName << endl;
     }
@@ -221,7 +226,7 @@ int main()
         table.push_back(columnnames);
         table.push_back(columntypes);
 
-        cout<<tableName<<"has successfully been created.";
+        cout<<tableName<<"has successfully been created."<< endl;
 
 
 
