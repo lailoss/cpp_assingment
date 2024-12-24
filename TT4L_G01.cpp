@@ -44,11 +44,13 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include <cctype> //for isdigit()
+#include <cstdlib> //for system()
 using namespace std;
 
 //function prototypes
 bool has_substring(const string& line, const string& substring);
-void create_output_screen_and_file();
+void create_output_screen_and_file(const string& fileOutputName);
 void create_database(const string& fileInputName, const string& fileOutputName); //to display & log database name
 void create_table(vector<vector<string>>& table, string& tableName);
 void insert_into_table(vector<vector<string>>&table);
@@ -59,25 +61,23 @@ void select_all_from_table_in_csv_mode(const vector<vector<string>>& table, cons
 
 int main()
 {
-    ofstream fileOutput;
-
-    vector<vector<string>> table;
-    string tableName;
-
-    ifstream fileInput;
-
     string fileInputName = "C:\\cpp_assignment\\fileInput1.mdb";
     //string fileInput name = "C:\\Your Name\\fileInput2.mdb";
     //string fileInput name = "C:\\your name\\fileInput3.mdb";
     string fileOutputName =  "C:\\cpp_assignment\\fileOutput1.txt";
     string fileCsv =  "C:\\cpp_assignment\\output.csv";
 
-    fileInput.open(fileInputName);
+    system ("mkdir C:\\cpp_assignment"); //to ensure directory exist
+    ifstream fileInput(fileInputName);
+    ofstream fileOutput;
+    vector<vector<string>> table;
+    string tableName;
+
 
     if ( !fileInput.is_open() )
     {
-        cout << "Unable to open file" << endl;
-        exit(-1);
+        cout << "Unable to open file: " << fileInputName << endl;
+        return -1;
     }
 
     // Process input file
@@ -148,14 +148,7 @@ int main()
     // function definitions
     bool has_substring(const string& line, const string& substring)
     {
-        if (line.find(substring) != string::npos)
-        {
-            return true; //substring found
-        }
-        else
-        {
-            return false; //substring not found
-        }
+        return line.find(substring) != string::npos;
     }
 
     //CREATE OUTPUT SCREEN------------------------------------------------
@@ -185,7 +178,7 @@ int main()
         ofstream fileOutput(fileOutputName); //open output file for writng
         if (!fileOutput.is_open())
         {
-            cout << "Unable to create output file: " << fileOutputName << endl; //display error message if output file cant be created
+            cout << "Error: Unable to create output file: " << fileOutputName << endl; //display error message if output file cant be created
             return;
         }
         //write db info to the output file
@@ -193,9 +186,6 @@ int main()
         fileOutput << fileInputName << endl; //name of the db file
 
         fileOutput.close();
-        cout << "Output file successfully created: " << fileOutputName << endl;
-
-
         cout << "Database information written to " << fileOutputName << endl;
     }
 
@@ -256,7 +246,7 @@ int main()
             // Check for 'exit' keyword to break the loop
             if (value == "exit") {
                 cout << "Input terminated by user." << endl;
-            return;
+                return;
             }
 
             //the part above is for string, below is for int input
