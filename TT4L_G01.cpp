@@ -83,6 +83,7 @@ int main()
     // Process input file
     string line;
     while (getline(fileInput, line)) {
+            cout << "Line read: " << line << endl; //debugging output
         if (has_substring(line, "CREATE TABLE")) {
             cout << "Creating table: " << tableName << endl;
             create_table(table, tableName);
@@ -239,12 +240,19 @@ int main()
         vector<string> newRow;
 
 
-    cout<<"Please enter your details: ";
+        cout<<"Enter 'exit' at any time to stop input";
+
         for (size_t i=0; i<columnnames.size(); i++)
             {
             string value;
             cout<<","<<columnnames[i]<<"("<<columntypes[i]<<")";
             cin>>value;
+
+            // Check for 'exit' keyword to break the loop
+            if (value == "exit") {
+                cout << "Input terminated by user." << endl;
+            return;
+            }
 
             //the part above is for string, below is for int input
             if (columntypes[i]=="INT"){
