@@ -44,6 +44,7 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include <sstream>
 #include <cctype> //for isdigit()
 #include <cstdlib> //for system()
 using namespace std;
@@ -52,8 +53,8 @@ using namespace std;
 bool has_substring(const string& line, const string& substring);
 void create_output_screen_and_file(const string& fileOutputName);
 void create_database(const string& fileInputName, const string& fileOutputName); //to display & log database name
-void create_table(vector<vector<string>>& table, string& tableName);
-void insert_into_table(vector<vector<string>>&table);
+void create_table(vector<vector<string>>& table, const vector<string>& headers);
+void insert_into_table(vector<vector<string>>& table, const string& line, const vector<string>& headers);
 void select_all_from_table_in_csv_mode(const vector<vector<string>>& table, const string& fileCsv);
 
 
@@ -72,6 +73,7 @@ int main()
     ofstream fileOutput;
     vector<vector<string>> table;
     string tableName;
+    vector<string> headers = {"customer_id", "customer_name", "customer_city", "customer_state", "customer_country", "customer_phone", "customer_email"};
 
 
     if ( !fileInput.is_open() )
@@ -80,16 +82,18 @@ int main()
         return -1;
     }
 
+
+
     // Process input file
     string line;
     while (getline(fileInput, line)) {
             cout << "Line read: " << line << endl; //debugging output
         if (has_substring(line, "CREATE TABLE")) {
             cout << "Creating table: " << tableName << endl;
-            create_table(table, tableName);
+            create_table(table, headers);
         } else if (has_substring(line, "INSERT INTO")) {
-            cout << "Inserting data into table: " << tableName << endl;
-            insert_into_table(table);
+            cout << "Inserting data into table " << endl;
+            insert_into_table(table,line,headers);
         }
     }
 
@@ -189,82 +193,34 @@ int main()
         cout << "Database information written to " << fileOutputName << endl;
     }
 
-    void create_table(vector<vector<string>>&table, string& tableName)
-    {
+  void create_table(vector<vector<string>>& table, const vector<string>& headers) {
+    table.clear();
+    table.push_back(headers);
+    cout << "Table created with headers: ";
+    for (const auto& header : headers) {
+        cout << header << " ";
+    }
+    cout << endl;
+}
 
-        tableName="Customer";
+  void insert_into_table(vector<vector<string>>& table, const string& line, const vector<string>& headers) {
+    vector<string> newRow;
+    stringstream ss(line);
+    string token;
 
-        vector<string> columnnames = {
-            "customer_id",
-            "customer_name",
-            "customer_city",
-            "customer_state",
-            "customer_country",
-            "customer_phone",
-            "customer_email"
-        };
-        vector<string> columntypes={
-            "INT",
-            "TEXT",
-            "TEXT",
-            "TEXT",
-            "TEXT",
-            "TEXT",
-            "TEXT"
-        };
-        table.clear();
-        table.push_back(columnnames);
-        table.push_back(columntypes);
-
-        cout<<tableName<<"has successfully been created."<< endl;
-
-
-
+    while (getline(ss, token, ',')) {
+        newRow.push_back(token);
     }
 
-    void insert_into_table(vector<vector<string>>&table)
-    {
-        //let's say there's no table created, so therefore...
-        if (table.empty()){
-            cerr<<"No table found.";
-            return;
-        }
-
-        const vector<string>&columnnames = table[0];
-        const vector<string>& columntypes = table[1];
-        vector<string> newRow;
-
-
-        cout<<"Enter 'exit' at any time to stop input";
-
-        for (size_t i=0; i<columnnames.size(); i++)
-            {
-            string value;
-            cout<<","<<columnnames[i]<<"("<<columntypes[i]<<")";
-            cin>>value;
-
-            // Check for 'exit' keyword to break the loop
-            if (value == "exit") {
-                cout << "Input terminated by user." << endl;
-                return;
-            }
-
-            //the part above is for string, below is for int input
-            if (columntypes[i]=="INT"){
-
-                for (char c : value)
-                    {
-                        if(!isdigit(c)){
-                            cerr<<"Error:"<<columnnames[i]<<"column only accepts integer";
-                            return;
-                        }
-                }
-            }
-            newRow.push_back(value);
-        }
-        table.push_back(newRow);
-        cout<<"Row successfully made";
+    if (newRow.size() != headers.size()) {
+        cerr << "Mismatch in number of columns." << endl;
+        return;
     }
+
+    table.push_back(newRow);
+    cout << "Row inserted successfully." << endl;
+}
+
 
     //SELECT ALL FROM TABLE------------------------------------------------
     void select_all_from_table_in_csv_mode(const vector<vector<string>>& table, const string& fileCsv)
@@ -298,5 +254,3 @@ int main()
         outputFile.close();
         cout << "Table exported to" << fileCsv << endl;
     }
-
-
