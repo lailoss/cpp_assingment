@@ -64,11 +64,9 @@ void select_all_from_table_in_csv_mode(const vector<vector<string>>& table, cons
 int main()
 {
     string fileInputName = "C:\\cpp_assignment\\fileInput1.mdb";
-
     string fileOutputName =  "C:\\cpp_assignment\\fileOutput1.txt";
     system ("mkdir C:\\cpp_assignment"); //to ensure directory exist
     ifstream fileInput(fileInputName);
-    ofstream fileOutput;
     vector<vector<string>> table;
     //string tableName;
     vector<string> headers = {"customer_id", "customer_name", "customer_city", "customer_state", "customer_country", "customer_phone", "customer_email"};
@@ -76,27 +74,24 @@ int main()
 
     if ( !fileInput.is_open() )
     {
-        cout << "Unable to open file: " << fileInputName << endl;
+        cerr << "Unable to open file: " << fileInputName << endl;
         return -1;
     }
 
 
-
+    cout << "Processing database file: " << fileInputName << endl;
     // Process input file
     string line;
     string completeCommand; //for full command
 
     while (getline(fileInput, line))
     {
-        cout << "Line read: " << line << endl; //debugging output
-
          // Combine lines for multi-line commands
         if (has_substring(line, "INSERT INTO") || !completeCommand.empty())
         {
             completeCommand += line;
             if (line.find(';') != string::npos)
             { // End of command
-                cout << "Processing complete INSERT INTO command." << endl;
                 insert_into_table(table, completeCommand, headers);
                 completeCommand.clear();
             }
@@ -105,7 +100,6 @@ int main()
 
         if (has_substring(line, "CREATE TABLE"))
         {
-            cout << "Creating table." << endl;
             create_table(table, headers);
         }
 
