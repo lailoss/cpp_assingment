@@ -249,54 +249,72 @@ int main()
     //INSERT INTO TABLE-----------------------------------------------------------------------------------------------------
     void insert_into_table(vector<vector<string>>& table, const string& line, const vector<string>& headers)
     {
-        size_t pos = line.find("VALUES");
-        if (pos == string::npos)
-        {
-            cerr << "Invalid INSERT INTO statement: missing VALUES keyword." << endl;
-            return;
-        }
-
-        string valuesPart = line.substr(pos + 6); // Extract after "VALUES"
-
-        valuesPart.erase(remove(valuesPart.begin(), valuesPart.end(), '('), valuesPart.end()); //remove parentheses
-        valuesPart.erase(remove(valuesPart.begin(), valuesPart.end(), ')'), valuesPart.end()); //remove parentheses
-        valuesPart.erase(remove_if(valuesPart.begin(), valuesPart.end(), ::isspace), valuesPart.end());
-
-        stringstream ss(valuesPart);
-        string token;
-        vector<string> newRow;
-
-        while (getline(ss, token, ','))
-        {
-            token.erase(remove_if(token.begin(), token.end(), ::isspace), token.end()); // remove whitespace
-
-            if (!token.empty() && token.front() == '\'' && token.back() == '\'') // remove quotes
-            {
-                token = token.substr(1, token.size() - 2);
-            }
-
-            newRow.push_back(token);
-
-        }
-
-        if (newRow.size() != headers.size()) //do we really need this?
-        {
-            cerr << "Mismatch in number of columns." << endl;
-            return;
-        }
-
-        table.push_back(newRow);
-
-        cout << "Row inserted successfully.";
-
-        for (const auto& val : newRow)
-        {
-            cout << val << " ";
-        }
-
-        cout << endl;
+       size_t pos = line.find("VALUES");
+    if (pos == string::npos)
+    {
+        cerr << "Error: Invalid INSERT INTO statement. Missing 'VALUES' keyword." << endl;
+        return;
     }
 
+    // Extract the part after "VALUES"
+    string valuesPart = line.substr(pos);
+    size_t keywordLength = string("VALUES").length();
+
+    // Trim everything up to and including "VALUES"
+    valuesPart = valuesPart.substr(keywordLength);
+
+    // Remove parentheses
+    valuesPart.erase(remove(valuesPart.begin(), valuesPart.end(), '('), valuesPart.end());
+    valuesPart.erase(remove(valuesPart.begin(), valuesPart.end(), ')'), valuesPart.end());
+
+    // Helper function to trim whitespace
+    auto trim = [](string& str) {
+        str.erase(str.begin(), find_if(str.begin(), str.end(), [](unsigned char ch) { return !isspace(ch); }));
+        str.erase(find_if(str.rbegin(), str.rend(), [](unsigned char ch) { return !isspace(ch); }).base(), str.end());
+    };
+
+    // Parse the values
+    stringstream ss(valuesPart);
+    string token;
+    vector<string> newRow;
+
+    while (getline(ss, token, ','))
+    {
+        trim(token);
+
+        // Remove enclosing single quotes
+        if (!token.empty() && token.front() == '\'' && token.back() == '\'')
+        {
+            token = token.substr(1, token.size() - 2);
+        }
+
+        if (token.empty())
+        {
+            cerr << "Error: Empty value detected in input." << endl;
+            return;
+        }
+
+        newRow.push_back(token);
+    }
+
+    // Validate column count
+    if (newRow.size() != headers.size())
+    {
+        cerr << "Error: Column count mismatch. Expected " << headers.size()
+             << ", but got " << newRow.size() << "." << endl;
+        return;
+    }
+
+    table.push_back(newRow);
+
+    // Confirmation message
+    cout << "Row inserted successfully: ";
+    for (const auto& val : newRow)
+    {
+        cout << val << " ";
+    }
+    cout << endl;
+}
     //SELECT ALL FROM TABLE------------------------------------------------------------------------------------------
     void select_all_from_table_in_csv_mode(const vector<vector<string>>& table, const string& fileOutputName)
     {
