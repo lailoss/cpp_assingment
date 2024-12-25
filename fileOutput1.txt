@@ -1,2 +1,1 @@
-> DATABASES;
-C:\cpp_assignment\fileInput1.mdb
+customer_id;customer_name;customer_city;customer_state;customer_country;customer_phone;customer_email

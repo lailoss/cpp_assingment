@@ -28,8 +28,8 @@
 // - Assist in writing pseudocode and documentation for these functions.
 
 // Member_3: Vidhya Dariney
-// create_output_screen_and_file()
-// select_all_from_table_in_csv_mode()
+// -create_output_screen_and_file()
+// -select_all_from_table_in_csv_mode()
 // Output and CSV Mode:
 // - Implement select_all_from_table_in_csv_mode() to view the table data in CSV format.
 // - Ensure data from all three input files is properly exported and formatted in CSV outputs.
@@ -55,7 +55,7 @@ void create_output_screen_and_file(const string& fileOutputName);
 void create_database(const string& fileInputName, const string& fileOutputName); //to display & log database name
 void create_table(vector<vector<string>>& table, const vector<string>& headers);
 void insert_into_table(vector<vector<string>>& table, const string& line, const vector<string>& headers);
-void select_all_from_table_in_csv_mode(const vector<vector<string>>& table, const string& fileCsv);
+void select_all_from_table_in_csv_mode(const vector<vector<string>>& table, const string& fileOutputName);
 
 
 
@@ -66,7 +66,7 @@ int main()
     //string fileInput name = "C:\\Your Name\\fileInput2.mdb";
     //string fileInput name = "C:\\your name\\fileInput3.mdb";
     string fileOutputName =  "C:\\cpp_assignment\\fileOutput1.txt";
-    string fileCsv =  "C:\\cpp_assignment\\output.csv";
+    //string fileCsv =  "C:\\cpp_assignment\\output.csv";
 
     system ("mkdir C:\\cpp_assignment"); //to ensure directory exist
     ifstream fileInput(fileInputName);
@@ -143,7 +143,7 @@ int main()
 
 
         // Output table in CSV mode
-        select_all_from_table_in_csv_mode(table, fileCsv);
+        select_all_from_table_in_csv_mode(table, fileOutputName);
 
 
         return 0;
@@ -155,7 +155,7 @@ int main()
         return line.find(substring) != string::npos;
     }
 
-    //CREATE OUTPUT SCREEN------------------------------------------------
+    //CREATE OUTPUT SCREEN------------------------------------------------------------------------------------------------
     void create_output_screen_and_file(const string& fileOutputName)
     {
         ofstream outputFile(fileOutputName);
@@ -179,7 +179,7 @@ int main()
         cout << ">DATABASES;" << endl; //display on console
         cout << fileInputName << endl;
 
-        ofstream fileOutput(fileOutputName); //open output file for writng
+        ofstream fileOutput(fileOutputName); //open output file for writing
         if (!fileOutput.is_open())
         {
             cout << "Error: Unable to create output file: " << fileOutputName << endl; //display error message if output file cant be created
@@ -222,8 +222,8 @@ int main()
 }
 
 
-    //SELECT ALL FROM TABLE------------------------------------------------
-    void select_all_from_table_in_csv_mode(const vector<vector<string>>& table, const string& fileCsv)
+    //SELECT ALL FROM TABLE------------------------------------------------------------------------------------------
+    void select_all_from_table_in_csv_mode(const vector<vector<string>>& table, const string& fileOutputName)
     {
         if (table.empty())
         {
@@ -231,7 +231,7 @@ int main()
             return;
         }
 
-        ofstream outputFile(fileCsv);
+        ofstream outputFile(fileOutputName);
         if (!outputFile.is_open())
         {
             cerr << "Unable to open file for csv output." << endl;
@@ -252,5 +252,5 @@ int main()
         }
 
         outputFile.close();
-        cout << "Table exported to" << fileCsv << endl;
+        cout << "Table exported to" << fileOutputName << endl;
     }
