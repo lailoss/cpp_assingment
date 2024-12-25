@@ -86,11 +86,32 @@ int main()
 
     // Process input file
     string line;
+    string completeCommand; //for full command
+
     while (getline(fileInput, line))
     {
         cout << "Line read: " << line << endl; //debugging output
 
+         // Combine lines for multi-line commands
+        if (has_substring(line, "INSERT INTO") || !completeCommand.empty())
+        {
+            completeCommand += line;
+            if (line.find(';') != string::npos)
+            { // End of command
+                cout << "Processing complete INSERT INTO command." << endl;
+                insert_into_table(table, completeCommand, headers);
+                completeCommand.clear();
+            }
+            continue; // Skip the rest of the processing for this line
+        }
+
         if (has_substring(line, "CREATE TABLE"))
+        {
+            cout << "Creating table." << endl;
+            create_table(table, headers);
+        }
+
+        /*if (has_substring(line, "CREATE TABLE"))  //original dell code ---------
         {
             cout << "Creating table. " << endl;
             create_table(table, headers);
@@ -100,7 +121,25 @@ int main()
         {
             cout << "Inserting data into table " << endl;
             insert_into_table(table,line,headers);
+        }*/
+
+        else if (has_substring(line, "SELECT*FROM customer"))
+        {
+            cout << "Displaying table in terminal:" << endl;
+
+            // Print table rows
+            for (size_t i = 1; i < table.size(); ++i)
+            {
+                for (size_t j = 0; j < table[i].size(); ++j)
+                {
+                    cout << table[i][j];
+                    if (j < table[i].size() - 1)
+                        cout << " , ";
+                }
+                cout << endl;
+            }
         }
+
     }
 
 
@@ -149,7 +188,7 @@ int main()
 
 
         // Output table in CSV mode
-        select_all_from_table_in_csv_mode(table,ofstream fileOutput(fileOutputName, ios::app));
+        select_all_from_table_in_csv_mode(table,fileOutputName);
 
 
         return 0;
@@ -275,14 +314,14 @@ int main()
             return;
         }
 
-        ofstream outputFile(fileOutputName); //open output file
+        ofstream outputFile(fileOutputName, ios::app); //open output file in append mode
         if (!outputFile.is_open())
         {
             cerr << "Unable to open file for csv output." << endl;
             return;
         }
 
-        /*for (const auto& row : table)
+        for (const auto& row : table)
         {
             for (size_t i= 0; i < row.size(); ++i)
             {
@@ -294,22 +333,6 @@ int main()
                 }
             }
             outputFile << "\n";
-        }*/
-
-        // Write table rows in CSV format
-        for (size_t i = 0; i < table.size(); ++i)
-        {
-            for (size_t j = 0; j < table[i].size(); ++j)
-            {
-                outputFile << table[i][j]; // Write each value to the file
-
-                // Add a comma between values, but not after the last value
-                if (j < table[i].size() - 1)
-                {
-                    outputFile << ",";
-                }
-            }
-            outputFile << "\n"; // After each row, insert a newline
         }
 
         outputFile.close();
