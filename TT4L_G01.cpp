@@ -47,6 +47,7 @@
 #include <sstream>
 #include <cctype> //for isdigit()
 #include <cstdlib> //for system()
+#include <algorithm> //for remove
 using namespace std;
 
 //function prototypes
@@ -66,13 +67,12 @@ int main()
     //string fileInput name = "C:\\Your Name\\fileInput2.mdb";
     //string fileInput name = "C:\\your name\\fileInput3.mdb";
     string fileOutputName =  "C:\\cpp_assignment\\fileOutput1.txt";
-    //string fileCsv =  "C:\\cpp_assignment\\output.csv";
 
     system ("mkdir C:\\cpp_assignment"); //to ensure directory exist
     ifstream fileInput(fileInputName);
     ofstream fileOutput;
     vector<vector<string>> table;
-    string tableName;
+    //string tableName;
     vector<string> headers = {"customer_id", "customer_name", "customer_city", "customer_state", "customer_country", "customer_phone", "customer_email"};
 
 
@@ -86,12 +86,18 @@ int main()
 
     // Process input file
     string line;
-    while (getline(fileInput, line)) {
-            cout << "Line read: " << line << endl; //debugging output
-        if (has_substring(line, "CREATE TABLE")) {
-            cout << "Creating table: " << tableName << endl;
+    while (getline(fileInput, line))
+    {
+        cout << "Line read: " << line << endl; //debugging output
+
+        if (has_substring(line, "CREATE TABLE"))
+        {
+            cout << "Creating table. " << endl;
             create_table(table, headers);
-        } else if (has_substring(line, "INSERT INTO")) {
+        }
+
+        else if (has_substring(line, "INSERT INTO"))
+        {
             cout << "Inserting data into table " << endl;
             insert_into_table(table,line,headers);
         }
@@ -143,7 +149,7 @@ int main()
 
 
         // Output table in CSV mode
-        select_all_from_table_in_csv_mode(table, fileOutputName);
+        select_all_from_table_in_csv_mode(table,ofstream fileOutput(fileOutputName, ios::app));
 
 
         return 0;
@@ -174,6 +180,7 @@ int main()
         cout << "Summary written to " << fileOutputName << endl;
     }
 
+    //CREATE DATABASE-----------------------------------------------------------------------------------------------------
     void create_database(const string& fileInputName, const string& fileOutputName)
     {
         cout << ">DATABASES;" << endl; //display on console
@@ -185,6 +192,7 @@ int main()
             cout << "Error: Unable to create output file: " << fileOutputName << endl; //display error message if output file cant be created
             return;
         }
+
         //write db info to the output file
         fileOutput << "> DATABASES;" << endl; //db header
         fileOutput << fileInputName << endl; //name of the db file
@@ -193,52 +201,88 @@ int main()
         cout << "Database information written to " << fileOutputName << endl;
     }
 
-  void create_table(vector<vector<string>>& table, const vector<string>& headers) {
-    table.clear();
-    table.push_back(headers);
-    cout << "Table created with headers: ";
-    for (const auto& header : headers) {
-        cout << header << " ";
-    }
-    cout << endl;
-}
+    //CREATE TABLE-----------------------------------------------------------------------------------------------------
+    void create_table(vector<vector<string>>& table, const vector<string>& headers)
+    {
+        table.clear(); //clear existing data
+        table.push_back(headers); //add headers as first row
+        cout << "Table created with headers: ";
 
-  void insert_into_table(vector<vector<string>>& table, const string& line, const vector<string>& headers) {
-    vector<string> newRow;
-    stringstream ss(line);
-    string token;
-
-    while (getline(ss, token, ',')) {
-        newRow.push_back(token);
+        for (const auto& header : headers)
+            {
+            cout << header << " ";
+            }
+        cout << endl;
     }
 
-    if (newRow.size() != headers.size()) {
-        cerr << "Mismatch in number of columns." << endl;
-        return;
+    //INSERT INTO TABLE-----------------------------------------------------------------------------------------------------
+    void insert_into_table(vector<vector<string>>& table, const string& line, const vector<string>& headers)
+    {
+        size_t pos = line.find("VALUES");
+        if (pos == string::npos)
+        {
+            cerr << "Invalid INSERT INTO statement: missing VALUES keyword." << endl;
+            return;
+        }
+
+        string valuesPart = line.substr(pos + 6); // Extract after "VALUES"
+
+        valuesPart.erase(remove(valuesPart.begin(), valuesPart.end(), '('), valuesPart.end()); //remove parentheses
+        valuesPart.erase(remove(valuesPart.begin(), valuesPart.end(), ')'), valuesPart.end()); //remove parentheses
+        valuesPart.erase(remove_if(valuesPart.begin(), valuesPart.end(), ::isspace), valuesPart.end());
+
+        stringstream ss(valuesPart);
+        string token;
+        vector<string> newRow;
+
+        while (getline(ss, token, ','))
+        {
+            token.erase(remove_if(token.begin(), token.end(), ::isspace), token.end()); // remove whitespace
+
+            if (!token.empty() && token.front() == '\'' && token.back() == '\'') // remove quotes
+            {
+                token = token.substr(1, token.size() - 2);
+            }
+
+            newRow.push_back(token);
+
+        }
+
+        if (newRow.size() != headers.size()) //do we really need this?
+        {
+            cerr << "Mismatch in number of columns." << endl;
+            return;
+        }
+
+        table.push_back(newRow);
+
+        cout << "Row inserted successfully.";
+
+        for (const auto& val : newRow)
+        {
+            cout << val << " ";
+        }
+
+        cout << endl;
     }
-
-    table.push_back(newRow);
-    cout << "Row inserted successfully." << endl;
-}
-
 
     //SELECT ALL FROM TABLE------------------------------------------------------------------------------------------
     void select_all_from_table_in_csv_mode(const vector<vector<string>>& table, const string& fileOutputName)
     {
-        if (table.empty())
+        if (table.empty()) //check if table is empty
         {
             cerr << "Table is empty." << endl;
             return;
         }
 
-        ofstream outputFile(fileOutputName);
+        ofstream outputFile(fileOutputName); //open output file
         if (!outputFile.is_open())
         {
             cerr << "Unable to open file for csv output." << endl;
             return;
         }
 
-        for (const auto& row : table)
+        /*for (const auto& row : table)
         {
             for (size_t i= 0; i < row.size(); ++i)
             {
@@ -246,11 +290,28 @@ int main()
 
                 if (i < row.size() - 1)
                 {
-                    outputFile << ";";
+                    outputFile << ",";
                 }
             }
+            outputFile << "\n";
+        }*/
+
+        // Write table rows in CSV format
+        for (size_t i = 0; i < table.size(); ++i)
+        {
+            for (size_t j = 0; j < table[i].size(); ++j)
+            {
+                outputFile << table[i][j]; // Write each value to the file
+
+                // Add a comma between values, but not after the last value
+                if (j < table[i].size() - 1)
+                {
+                    outputFile << ",";
+                }
+            }
+            outputFile << "\n"; // After each row, insert a newline
         }
 
         outputFile.close();
-        cout << "Table exported to" << fileOutputName << endl;
+        cout << "Table exported to " << fileOutputName << endl;
     }
