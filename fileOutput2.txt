@@ -1,0 +1,7 @@
+> DATABASES;
+C:\cpp_assignment\fileInput2.mdb
+customer_id,customer_name,customer_city,customer_state,customer_country,customer_phone,customer_email
+1,Oliver,Toronto,Ontario,Canada,022221,'oliver@email.com';
+2,Bianca,Auckland,Auckland Region,New Zealand,022222,'bianca@email.com';
+3,Celia,Paris,Ile-de-France,France,022223,'celia@email.com';
+4,Glenn,Cape Town,Western Cape,South Africa,022224,'glenn@email.com';
