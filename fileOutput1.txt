@@ -1,7 +1,20 @@
+> CREATE fileOutput1.txt;
 > DATABASES;
-C:\cpp_assignment\fileInput1.mdb
-customer_id,customer_name,customer_city,customer_state,customer_country,customer_phone,customer_email
-1,Scott,Denver,Colorado,USA,011111,'scott@email.com';
-2,Vivian,Kyoto,Kyoto Prefecture,Japan,011112,'vivian@email.com';
-3,Noah,Kuala Lumpur,WPKL,Malaysia,011113,'noah@email.com';
-4,Ivy,Barcelona,Catalonia,Spain,011114,'ivy@email.com';
+C:\mariadb\fileInput1.mdb
+> CREATE TABLE customer(
+customer_id INT,
+customer_name TEXT,
+customer_city TEXT,
+customer_state TEXT,
+customer_country TEXT,
+customer_phone TEXT,
+customer_email TEXT
+);
+> TABLES;
+customer
+> INSERT INTO
+> INSERT INTO
+> INSERT INTO
+> INSERT INTO
+> SELECT * FROM customer;
+customer_id,customer_name,customer_city,customer_state,customer_country,customer_phone,customer_email,

@@ -18,7 +18,7 @@ customer(customer_id,customer_name,customer_city,customer_state,customer_country
 
 INSERT INTO
 customer(customer_id,customer_name,customer_city,customer_state,customer_country,customer_phone,customer_email)VALUES
-(2,'Bianca','Auckland','Auckland Region','Japan','022222','bianca@email.com');
+(2,'Bianca','Auckland','Auckland Region','New Zealand','022222','bianca@email.com');
 
 INSERT INTO
 customer(customer_id,customer_name,customer_city,customer_state,customer_country,customer_phone,customer_email)VALUES
@@ -26,7 +26,6 @@ customer(customer_id,customer_name,customer_city,customer_state,customer_country
 
 INSERT INTO
 customer(customer_id,customer_name,customer_city,customer_state,customer_country,customer_phone,customer_email)VALUES
-(4,'Glenn','Cape Town','Western Cape','S.Africa','022224','glenn@email.com');
+(4,'Glenn','Cape Town','Western Cape','South Africa','022224','glenn@email.com');
 
-SELECT*FROM customer;
-
+SELECT * FROM customer;
