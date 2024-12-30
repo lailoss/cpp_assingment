@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 CREATE fileOutput3.txt;
 DATABASES;
 
@@ -29,3 +30,29 @@ customer(customer_id,customer_name,customer_city,customer_state,customer_country
 (4,'Maria','Kazan','Tatarstan','Russia','033334','maria@email.com');
 
 SELECT*FROM customer;
+=======
+CREATE TABLE customer (
+    customer_id INT,
+    customer_name VARCHAR(255),
+    customer_city VARCHAR(255),
+    customer_state VARCHAR(255),
+    customer_country VARCHAR(255),
+    customer_phone VARCHAR(50),
+    customer_email VARCHAR(255)
+);
+
+INSERT INTO customer(customer_id, customer_name, customer_city, customer_state, customer_country, customer_phone, customer_email)
+VALUES (1, 'Everly', 'Sydney', 'New South Wales', 'Australia', '033331', 'everly@email.com');
+
+INSERT INTO customer(customer_id, customer_name, customer_city, customer_state, customer_country, customer_phone, customer_email)
+VALUES (2, 'Liam', 'Melbourne', 'Victoria', 'Australia', '044445', 'liam@email.com');
+
+INSERT INTO customer(customer_id, customer_name, customer_city, customer_state, customer_country, customer_phone, customer_email)
+VALUES (3, 'Sophia', 'Brisbane', 'Queensland', 'Australia', '055556', 'sophia@email.com');
+
+INSERT INTO customer(customer_id, customer_name, customer_city, customer_state, customer_country, customer_phone, customer_email)
+VALUES (4, 'Noah', 'Perth', 'Western Australia', 'Australia', '066667', 'noah@email.com');
+
+INSERT INTO customer(customer_id, customer_name, customer_city, customer_state, customer_country, customer_phone, customer_email)
+VALUES (5, 'Olivia', 'Adelaide', 'South Australia', 'Australia', '077778', 'olivia@email.com');
+>>>>>>> 72220666dece4c459bd7a1a9a02055fa80c8bb60
