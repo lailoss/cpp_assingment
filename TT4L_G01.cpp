@@ -63,8 +63,8 @@ void select_all_from_table_in_csv_mode(const vector<vector<string>>& table, cons
 
 int main()
 {
-    string fileInputName = "C:\\cpp_assignment\\fileInput3.mdb";
-    string fileOutputName =  "C:\\cpp_assignment\\fileOutput3.txt";
+    string fileInputName = "c:\\cpp_assignment\\fileInput2.mdb";
+    string fileOutputName =  "fileOutput2.txt";
     system ("mkdir C:\\cpp_assignment"); //to ensure directory exist
     ifstream fileInput(fileInputName);
     vector<vector<string>> table;
@@ -79,7 +79,9 @@ int main()
     }
 
 
-    cout << "Processing database file: " << fileInputName << endl;
+    cout << ">DATABASES;"<<endl;
+    cout << fileInputName << endl;
+
     // Process input file
     string line;
     string completeCommand; //for full command
@@ -203,6 +205,8 @@ int main()
             return;
         }
 
+        cout<<"CREATE"<<fileOutputName;
+
         string summary = "Database output summary.";
         cout << summary << endl;
         outputFile << summary << endl;
@@ -237,13 +241,14 @@ int main()
     {
         table.clear(); //clear existing data
         table.push_back(headers); //add headers as first row
-        cout << "Table created with headers: ";
+        cout << ">CREATE TABLE "<<endl;
+        cout<<"("<<endl;
 
         for (const auto& header : headers)
             {
-            cout << header << " ";
+            cout << header <<endl;
             }
-        cout << endl;
+        cout <<");"<< endl;
     }
 
     //INSERT INTO TABLE-----------------------------------------------------------------------------------------------------
@@ -308,7 +313,7 @@ int main()
     table.push_back(newRow);
 
     // Confirmation message
-    cout << "Row inserted successfully: ";
+    cout << ">INSERT INTO "<<endl;
     for (const auto& val : newRow)
     {
         cout << val << " ";
@@ -331,20 +336,27 @@ int main()
             return;
         }
 
-        for (const auto& row : table)
-        {
-            for (size_t i= 0; i < row.size(); ++i)
-            {
-                outputFile << row[i];
+        cout<<"SELECT * FROM customer"<<endl;
 
-                if (i < row.size() - 1)
+            for (size_t i= 0; i < table.size(); ++i) //iterates data rows
+            {
+                const auto& row = table[i];
+                for (size_t j =0;j <row.size(); ++j) //iterates through the data value you get what i mean??
                 {
-                    outputFile << ",";
+
+                    cout<<row[j];
+                    outputFile << row[j];
+                    if (j < row.size() - 1)
+                    {
+                        cout<<",";
+                        outputFile << ",";
+
+                    }
                 }
-            }
-            outputFile << "\n";
+                cout<<endl;
+                outputFile << "\n";
         }
 
         outputFile.close();
-        cout << "Table exported to " << fileOutputName << endl;
+       // cout << "Table exported to " << fileOutputName << endl;
     }
