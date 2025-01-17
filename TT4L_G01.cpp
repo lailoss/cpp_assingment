@@ -65,13 +65,13 @@ int main()
 {
     string fileInputName = "c:\\cpp_assignment\\fileInput2.mdb";
     string fileOutputName =  "fileOutput2.txt";
-    system ("mkdir C:\\cpp_assignment"); //to ensure directory exist
+    //system ("mkdir C:\\cpp_assignment"); //to ensure directory exist
     ifstream fileInput(fileInputName);
     vector<vector<string>> table;
     //string tableName;
     vector<string> headers = {"customer_id", "customer_name", "customer_city", "customer_state", "customer_country", "customer_phone", "customer_email"};
 
-
+     create_database(fileInputName, fileOutputName);
     if ( !fileInput.is_open() )
     {
         cerr << "Unable to open file: " << fileInputName << endl;
@@ -79,8 +79,8 @@ int main()
     }
 
 
-    cout << ">DATABASES;"<<endl;
-    cout << fileInputName << endl;
+    //cout << ">DATABASES;"<<endl;
+    //cout << fileInputName << endl;
 
     // Process input file
     string line;
@@ -178,7 +178,7 @@ int main()
         //cout << "> CREATE " << fileOutputName << ";" endl;
 
         //create_database(fileInputName);
-        create_database(fileInputName, fileOutputName); //call create_database to display n log database name
+        //call create_database to display n log database name
 
 
         // Output table in CSV mode
@@ -218,6 +218,8 @@ int main()
     //CREATE DATABASE-----------------------------------------------------------------------------------------------------
     void create_database(const string& fileInputName, const string& fileOutputName)
     {
+        cout << ">CREATE " << fileOutputName << endl;
+
         cout << ">DATABASES;" << endl; //display on console
         cout << fileInputName << endl;
 
@@ -228,17 +230,20 @@ int main()
             return;
         }
 
+
         //write db info to the output file
         fileOutput << "> DATABASES;" << endl; //db header
         fileOutput << fileInputName << endl; //name of the db file
 
         fileOutput.close();
-        cout << "Database information written to " << fileOutputName << endl;
+
     }
 
     //CREATE TABLE-----------------------------------------------------------------------------------------------------
     void create_table(vector<vector<string>>& table, const vector<string>& headers)
     {
+
+
         table.clear(); //clear existing data
         table.push_back(headers); //add headers as first row
         cout << ">CREATE TABLE "<<endl;
@@ -253,6 +258,7 @@ int main()
 
     //INSERT INTO TABLE-----------------------------------------------------------------------------------------------------
     void insert_into_table(vector<vector<string>>& table, const string& line, const vector<string>& headers)
+    {
     {
        size_t pos = line.find("VALUES");
     if (pos == string::npos)
@@ -319,7 +325,7 @@ int main()
         cout << val << " ";
     }
     cout << endl;
-}
+}}
     //SELECT ALL FROM TABLE------------------------------------------------------------------------------------------
     void select_all_from_table_in_csv_mode(const vector<vector<string>>& table, const string& fileOutputName)
     {
