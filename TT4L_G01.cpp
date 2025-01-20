@@ -57,14 +57,14 @@ void create_database(const string& fileInputName, const string& fileOutputName);
 void create_table(vector<vector<string>>& table, const vector<string>& headers);
 void insert_into_table(vector<vector<string>>& table, const string& line, const vector<string>& headers);
 void select_all_from_table_in_csv_mode(const vector<vector<string>>& table, const string& fileOutputName);
-
+int count_row(vector<vector<string>>& table);
 
 
 
 int main()
 {
-    string fileInputName = "c:\\cpp_assignment\\fileInput2.mdb";
-    string fileOutputName =  "fileOutput2.txt";
+    string fileInputName = "c:\\cpp_assignment\\fileInput3.mdb";
+    string fileOutputName =  "fileOutput3.txt";
     //system ("mkdir C:\\cpp_assignment"); //to ensure directory exist
     ifstream fileInput(fileInputName);
     vector<vector<string>> table;
@@ -184,6 +184,9 @@ int main()
         // Output table in CSV mode
         select_all_from_table_in_csv_mode(table,fileOutputName);
 
+        int rowcount=count_row(table);
+        cout<<">SELECT COUNT (*) FROM customer;"<<endl;
+        cout<<rowcount;
 
         return 0;
 }
@@ -219,6 +222,7 @@ int main()
     void create_database(const string& fileInputName, const string& fileOutputName)
     {
         cout << ">CREATE " << fileOutputName << endl;
+        fileOutput<<">CREATE"<< fileInputName<<endl;
 
         cout << ">DATABASES;" << endl; //display on console
         cout << fileInputName << endl;
@@ -233,7 +237,7 @@ int main()
 
         //write db info to the output file
         fileOutput << "> DATABASES;" << endl; //db header
-        fileOutput << fileInputName << endl; //name of the db file
+         //name of the db file
 
         fileOutput.close();
 
@@ -247,6 +251,7 @@ int main()
         table.clear(); //clear existing data
         table.push_back(headers); //add headers as first row
         cout << ">CREATE TABLE "<<endl;
+        fileOutput<<">CREATE TABLE"<<endl;
         cout<<"("<<endl;
 
         for (const auto& header : headers)
@@ -254,6 +259,8 @@ int main()
             cout << header <<endl;
             }
         cout <<");"<< endl;
+
+
     }
 
     //INSERT INTO TABLE-----------------------------------------------------------------------------------------------------
@@ -366,3 +373,10 @@ int main()
         outputFile.close();
        // cout << "Table exported to " << fileOutputName << endl;
     }
+
+
+    //COUNT ROW--------------------------------------------------------------
+    int count_row(vector<vector<string>>& table){
+
+
+    return table.empty()? 0:table.size()-1;}
