@@ -63,8 +63,8 @@ void select_all_from_table_in_csv_mode(const vector<vector<string>>& table, cons
 
 int main()
 {
-    string fileInputName = "C:\\cpp_assignment\\fileInput3.mdb";
-    string fileOutputName =  "C:\\cpp_assignment\\fileOutput3.txt";
+    string fileInputName = "C:\\cpp_assignment\\fileInput1.mdb";
+    string fileOutputName =  "C:\\cpp_assignment\\check_fileOutput1_A2.txt";
     system ("mkdir C:\\cpp_assignment"); //to ensure directory exist
     ifstream fileInput(fileInputName);
     vector<vector<string>> table;
