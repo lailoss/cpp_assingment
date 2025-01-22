@@ -57,21 +57,27 @@ void create_database(const string& fileInputName, const string& fileOutputName);
 void create_table(vector<vector<string>>& table, const vector<string>& headers);
 void insert_into_table(vector<vector<string>>& table, const string& line, const vector<string>& headers);
 void select_all_from_table_in_csv_mode(const vector<vector<string>>& table, const string& fileOutputName);
-
+int count_row(vector<vector<string>>& table);
 
 
 
 int main()
 {
+<<<<<<< HEAD
     string fileInputName = "C:\\cpp_assignment\\fileInput1.mdb";
     string fileOutputName =  "C:\\cpp_assignment\\check_fileOutput1_A2.txt";
     system ("mkdir C:\\cpp_assignment"); //to ensure directory exist
+=======
+    string fileInputName = "c:\\cpp_assignment\\fileInput3.mdb";
+    string fileOutputName =  "fileOutput3.txt";
+    //system ("mkdir C:\\cpp_assignment"); //to ensure directory exist
+>>>>>>> d82b314ec04d2399b8f9df4df2fb6a4eb10ff3f0
     ifstream fileInput(fileInputName);
     vector<vector<string>> table;
     //string tableName;
     vector<string> headers = {"customer_id", "customer_name", "customer_city", "customer_state", "customer_country", "customer_phone", "customer_email"};
 
-
+     create_database(fileInputName, fileOutputName);
     if ( !fileInput.is_open() )
     {
         cerr << "Unable to open file: " << fileInputName << endl;
@@ -79,7 +85,9 @@ int main()
     }
 
 
-    cout << "Processing database file: " << fileInputName << endl;
+    //cout << ">DATABASES;"<<endl;
+    //cout << fileInputName << endl;
+
     // Process input file
     string line;
     string completeCommand; //for full command
@@ -176,12 +184,15 @@ int main()
         //cout << "> CREATE " << fileOutputName << ";" endl;
 
         //create_database(fileInputName);
-        create_database(fileInputName, fileOutputName); //call create_database to display n log database name
+        //call create_database to display n log database name
 
 
         // Output table in CSV mode
         select_all_from_table_in_csv_mode(table,fileOutputName);
 
+        int rowcount=count_row(table);
+        cout<<">SELECT COUNT (*) FROM customer;"<<endl;
+        cout<<rowcount;
 
         return 0;
 }
@@ -203,6 +214,8 @@ int main()
             return;
         }
 
+        cout<<"CREATE"<<fileOutputName;
+
         string summary = "Database output summary.";
         cout << summary << endl;
         outputFile << summary << endl;
@@ -214,6 +227,9 @@ int main()
     //CREATE DATABASE-----------------------------------------------------------------------------------------------------
     void create_database(const string& fileInputName, const string& fileOutputName)
     {
+        cout << ">CREATE " << fileOutputName << endl;
+        fileOutput<<">CREATE"<< fileInputName<<endl;
+
         cout << ">DATABASES;" << endl; //display on console
         cout << fileInputName << endl;
 
@@ -224,30 +240,38 @@ int main()
             return;
         }
 
+
         //write db info to the output file
         fileOutput << "> DATABASES;" << endl; //db header
-        fileOutput << fileInputName << endl; //name of the db file
+         //name of the db file
 
         fileOutput.close();
-        cout << "Database information written to " << fileOutputName << endl;
+
     }
 
     //CREATE TABLE-----------------------------------------------------------------------------------------------------
     void create_table(vector<vector<string>>& table, const vector<string>& headers)
     {
+
+
         table.clear(); //clear existing data
         table.push_back(headers); //add headers as first row
-        cout << "Table created with headers: ";
+        cout << ">CREATE TABLE "<<endl;
+        fileOutput<<">CREATE TABLE"<<endl;
+        cout<<"("<<endl;
 
         for (const auto& header : headers)
             {
-            cout << header << " ";
+            cout << header <<endl;
             }
-        cout << endl;
+        cout <<");"<< endl;
+
+
     }
 
     //INSERT INTO TABLE-----------------------------------------------------------------------------------------------------
     void insert_into_table(vector<vector<string>>& table, const string& line, const vector<string>& headers)
+    {
     {
        size_t pos = line.find("VALUES");
     if (pos == string::npos)
@@ -308,13 +332,13 @@ int main()
     table.push_back(newRow);
 
     // Confirmation message
-    cout << "Row inserted successfully: ";
+    cout << ">INSERT INTO "<<endl;
     for (const auto& val : newRow)
     {
         cout << val << " ";
     }
     cout << endl;
-}
+}}
     //SELECT ALL FROM TABLE------------------------------------------------------------------------------------------
     void select_all_from_table_in_csv_mode(const vector<vector<string>>& table, const string& fileOutputName)
     {
@@ -331,20 +355,34 @@ int main()
             return;
         }
 
-        for (const auto& row : table)
-        {
-            for (size_t i= 0; i < row.size(); ++i)
-            {
-                outputFile << row[i];
+        cout<<"SELECT * FROM customer"<<endl;
 
-                if (i < row.size() - 1)
+            for (size_t i= 0; i < table.size(); ++i) //iterates data rows
+            {
+                const auto& row = table[i];
+                for (size_t j =0;j <row.size(); ++j) //iterates through the data value you get what i mean??
                 {
-                    outputFile << ",";
+
+                    cout<<row[j];
+                    outputFile << row[j];
+                    if (j < row.size() - 1)
+                    {
+                        cout<<",";
+                        outputFile << ",";
+
+                    }
                 }
-            }
-            outputFile << "\n";
+                cout<<endl;
+                outputFile << "\n";
         }
 
         outputFile.close();
-        cout << "Table exported to " << fileOutputName << endl;
+       // cout << "Table exported to " << fileOutputName << endl;
     }
+
+
+    //COUNT ROW--------------------------------------------------------------
+    int count_row(vector<vector<string>>& table){
+
+
+    return table.empty()? 0:table.size()-1;}

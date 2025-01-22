@@ -1,5 +1,5 @@
 > DATABASES;
-C:\cpp_assignment\fileInput1.mdb
+c:\cpp_assignment\fileInput1.mdb
 customer_id,customer_name,customer_city,customer_state,customer_country,customer_phone,customer_email
 1,Scott,Denver,Colorado,USA,011111,'scott@email.com';
 2,Vivian,Kyoto,Kyoto Prefecture,Japan,011112,'vivian@email.com';

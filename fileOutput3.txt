@@ -1,7 +1,8 @@
 > DATABASES;
-C:\cpp_assignment\fileInput3.mdb
+c:\cpp_assignment\fileInput3.mdb
 customer_id,customer_name,customer_city,customer_state,customer_country,customer_phone,customer_email
 1,Everly,Sydney,New South Wales,Australia,033331,'everly@email.com';
-2,Filip,Mumbai,Maharashtra,India,033332,'filip@email.com';
-3,Dean,Lagos,Lagos State,Nigeria,033333,'dean@email.com';
-4,Maria,Kazan,Tatarstan,Russia,033334,'maria@email.com';
+2,Liam,Melbourne,Victoria,Australia,044445,'liam@email.com';
+3,Sophia,Brisbane,Queensland,Australia,055556,'sophia@email.com';
+4,Noah,Perth,Western Australia,Australia,066667,'noah@email.com';
+5,Olivia,Adelaide,South Australia,Australia,077778,'olivia@email.com';

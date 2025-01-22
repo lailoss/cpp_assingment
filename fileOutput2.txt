@@ -1,5 +1,5 @@
 > DATABASES;
-C:\cpp_assignment\fileInput2.mdb
+c:\cpp_assignment\fileInput2.mdb
 customer_id,customer_name,customer_city,customer_state,customer_country,customer_phone,customer_email
 1,Oliver,Toronto,Ontario,Canada,022221,'oliver@email.com';
 2,Bianca,Auckland,Auckland Region,New Zealand,022222,'bianca@email.com';
