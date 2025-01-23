@@ -1,7 +1,437 @@
-> DATABASES;
-c:\cpp_assignment\fileInput1.mdb
+>INSERT INTOcustomer_id , customer_name , customer_city , customer_state , customer_country , customer_phone , customer_email
+(1 , Scott , Denver , Colorado , USA , 011111 , scott@email.com);
+(2 , Vivian , Kyoto , Kyoto Prefecture , Japan , 011112 , vivian@email.com);
+(3 , Noah , Kuala Lumpur , WPKL , Malaysia , 011113 , noah@email.com);
+(4 , Ivy , Barcelona , Catalonia , Spain , 011114 , ivy@email.com);
+>SELECT COUNT (*) FROM customer;
+4
+ah@email.com); 
+>INSERT INTO 
+VALUE(4 Ivy Barcelona Catalonia Spain 011114 ivy@email.com); 
+customer_id,customer_name,customer_city,customer_state,customer_country,customer_phone,customer_email(1,Scott,Denver,Colorado,USA,011111,scott@email.com);(2,Vivian,Kyoto,Kyoto Prefecture,Japan,011112,vivian@email.com);(3,Noah,Kuala Lumpur,WPKL,Malaysia,011113,noah@email.com);(4,Ivy,Barcelona,Catalonia,Spain,011114,ivy@email.com);
+>CREATE C:\cpp_assignment\fileOutput1.txt;
+>DATABASES;
+C:\cpp_assignment\fileInput1.mdb
+>CREATE TABLE 
+(
+customer_id
+customer_name
+customer_city
+customer_state
+customer_country
+customer_phone
+customer_email
+);
+>INSERT INTO 
+VALUE(1 Scott Denver Colorado USA 011111 scott@email.com); 
+>INSERT INTO 
+VALUE(2 Vivian Kyoto Kyoto Prefecture Japan 011112 vivian@email.com); 
+>INSERT INTO 
+VALUE(3 Noah Kuala Lumpur WPKL Malaysia 011113 noah@email.com); 
+>INSERT INTO 
+VALUE(4 Ivy Barcelona Catalonia Spain 011114 ivy@email.com); 
+>INSERT INTOcustomer_id , customer_name , customer_city , customer_state , customer_country , customer_phone , customer_email
+(1 , Scott , Denver , Colorado , USA , 011111 , scott@email.com);
+(2 , Vivian , Kyoto , Kyoto Prefecture , Japan , 011112 , vivian@email.com);
+(3 , Noah , Kuala Lumpur , WPKL , Malaysia , 011113 , noah@email.com);
+(4 , Ivy , Barcelona , Catalonia , Spain , 011114 , ivy@email.com);
+customer_id,customer_name,customer_city,customer_state,customer_country,customer_phone,customer_email(1,Scott,Denver,Colorado,USA,011111,scott@email.com);(2,Vivian,Kyoto,Kyoto Prefecture,Japan,011112,vivian@email.com);(3,Noah,Kuala Lumpur,WPKL,Malaysia,011113,noah@email.com);(4,Ivy,Barcelona,Catalonia,Spain,011114,ivy@email.com);
+>SELECT COUNT (*) FROM customer;
+4
+>CREATE C:\cpp_assignment\fileOutput1.txt;
+>DATABASES;
+C:\cpp_assignment\fileInput1.mdb
+>CREATE TABLE 
+(
+customer_id
+customer_name
+customer_city
+customer_state
+customer_country
+customer_phone
+customer_email
+);
+>INSERT INTO 
+VALUE(1 Scott Denver Colorado USA 011111 scott@email.com); 
+>INSERT INTO 
+VALUE(2 Vivian Kyoto Kyoto Prefecture Japan 011112 vivian@email.com); 
+>INSERT INTO 
+VALUE(3 Noah Kuala Lumpur WPKL Malaysia 011113 noah@email.com); 
+>INSERT INTO 
+VALUE(4 Ivy Barcelona Catalonia Spain 011114 ivy@email.com); 
+>INSERT INTOcustomer_id , 
+customer_name , 
+customer_city , 
+customer_state , 
+customer_country , 
+customer_phone , 
+customer_email
+(1 , 
+Scott , 
+Denver , 
+Colorado , 
+USA , 
+011111 , 
+scott@email.com);
+(2 , 
+Vivian , 
+Kyoto , 
+Kyoto Prefecture , 
+Japan , 
+011112 , 
+vivian@email.com);
+(3 , 
+Noah , 
+Kuala Lumpur , 
+WPKL , 
+Malaysia , 
+011113 , 
+noah@email.com);
+(4 , 
+Ivy , 
+Barcelona , 
+Catalonia , 
+Spain , 
+011114 , 
+ivy@email.com);
 customer_id,customer_name,customer_city,customer_state,customer_country,customer_phone,customer_email
-1,Scott,Denver,Colorado,USA,011111,'scott@email.com';
-2,Vivian,Kyoto,Kyoto Prefecture,Japan,011112,'vivian@email.com';
-3,Noah,Kuala Lumpur,WPKL,Malaysia,011113,'noah@email.com';
-4,Ivy,Barcelona,Catalonia,Spain,011114,'ivy@email.com';
+(1,Scott,Denver,Colorado,USA,011111,scott@email.com);
+(2,Vivian,Kyoto,Kyoto Prefecture,Japan,011112,vivian@email.com);
+(3,Noah,Kuala Lumpur,WPKL,Malaysia,011113,noah@email.com);
+(4,Ivy,Barcelona,Catalonia,Spain,011114,ivy@email.com);
+>SELECT COUNT (*) FROM customer;
+4
+>CREATE C:\cpp_assignment\fileOutput1.txt;
+>DATABASES;
+C:\cpp_assignment\fileInput1.mdb
+>CREATE TABLE 
+(
+customer_id
+customer_name
+customer_city
+customer_state
+customer_country
+customer_phone
+customer_email
+);
+>INSERT INTO 
+VALUE(1 Scott Denver Colorado USA 011111 scott@email.com); 
+>INSERT INTO 
+VALUE(2 Vivian Kyoto Kyoto Prefecture Japan 011112 vivian@email.com); 
+>INSERT INTO 
+VALUE(3 Noah Kuala Lumpur WPKL Malaysia 011113 noah@email.com); 
+>INSERT INTO 
+VALUE(4 Ivy Barcelona Catalonia Spain 011114 ivy@email.com); 
+>INSERT INTOcustomer_id , customer_name , customer_city , customer_state , customer_country , customer_phone , customer_email
+(1 , Scott , Denver , Colorado , USA , 011111 , scott@email.com);
+(2 , Vivian , Kyoto , Kyoto Prefecture , Japan , 011112 , vivian@email.com);
+(3 , Noah , Kuala Lumpur , WPKL , Malaysia , 011113 , noah@email.com);
+(4 , Ivy , Barcelona , Catalonia , Spain , 011114 , ivy@email.com);
+customer_id,customer_name,customer_city,customer_state,customer_country,customer_phone,customer_email
+(1,Scott,Denver,Colorado,USA,011111,scott@email.com);
+(2,Vivian,Kyoto,Kyoto Prefecture,Japan,011112,vivian@email.com);
+(3,Noah,Kuala Lumpur,WPKL,Malaysia,011113,noah@email.com);
+(4,Ivy,Barcelona,Catalonia,Spain,011114,ivy@email.com);
+>SELECT COUNT (*) FROM customer;
+4
+>CREATE C:\cpp_assignment\fileOutput1.txt;
+>DATABASES;
+C:\cpp_assignment\fileInput1.mdb
+>CREATE TABLE 
+(
+customer_id
+customer_name
+customer_city
+customer_state
+customer_country
+customer_phone
+customer_email
+);
+>INSERT INTO 
+VALUE(1 Scott Denver Colorado USA 011111 scott@email.com); 
+>INSERT INTO 
+VALUE(2 Vivian Kyoto Kyoto Prefecture Japan 011112 vivian@email.com); 
+>INSERT INTO 
+VALUE(3 Noah Kuala Lumpur WPKL Malaysia 011113 noah@email.com); 
+>INSERT INTO 
+VALUE(4 Ivy Barcelona Catalonia Spain 011114 ivy@email.com); 
+customer_id,customer_name,customer_city,customer_state,customer_country,customer_phone,customer_email
+(1,Scott,Denver,Colorado,USA,011111,scott@email.com);
+(2,Vivian,Kyoto,Kyoto Prefecture,Japan,011112,vivian@email.com);
+(3,Noah,Kuala Lumpur,WPKL,Malaysia,011113,noah@email.com);
+(4,Ivy,Barcelona,Catalonia,Spain,011114,ivy@email.com);
+>INSERT INTOcustomer_id , customer_name , customer_city , customer_state , customer_country , customer_phone , customer_email(1 , Scott , Denver , Colorado , USA , 011111 , scott@email.com);(2 , Vivian , Kyoto , Kyoto Prefecture , Japan , 011112 , vivian@email.com);(3 , Noah , Kuala Lumpur , WPKL , Malaysia , 011113 , noah@email.com);(4 , Ivy , Barcelona , Catalonia , Spain , 011114 , ivy@email.com);>SELECT COUNT (*) FROM customer;
+4
+>CREATE C:\cpp_assignment\fileOutput1.txt;
+>DATABASES;
+C:\cpp_assignment\fileInput1.mdb
+>CREATE TABLE 
+(
+customer_id
+customer_name
+customer_city
+customer_state
+customer_country
+customer_phone
+customer_email
+);
+>INSERT INTO 
+VALUE(1 Scott Denver Colorado USA 011111 scott@email.com); 
+>INSERT INTO 
+VALUE(2 Vivian Kyoto Kyoto Prefecture Japan 011112 vivian@email.com); 
+>INSERT INTO 
+VALUE(3 Noah Kuala Lumpur WPKL Malaysia 011113 noah@email.com); 
+>INSERT INTO 
+VALUE(4 Ivy Barcelona Catalonia Spain 011114 ivy@email.com); 
+>INSERT INTOcustomer_id , customer_name , customer_city , customer_state , customer_country , customer_phone , customer_email
+(1 , Scott , Denver , Colorado , USA , 011111 , scott@email.com);
+(2 , Vivian , Kyoto , Kyoto Prefecture , Japan , 011112 , vivian@email.com);
+(3 , Noah , Kuala Lumpur , WPKL , Malaysia , 011113 , noah@email.com);
+(4 , Ivy , Barcelona , Catalonia , Spain , 011114 , ivy@email.com);
+customer_id,customer_name,customer_city,customer_state,customer_country,customer_phone,customer_email(1,Scott,Denver,Colorado,USA,011111,scott@email.com);(2,Vivian,Kyoto,Kyoto Prefecture,Japan,011112,vivian@email.com);(3,Noah,Kuala Lumpur,WPKL,Malaysia,011113,noah@email.com);(4,Ivy,Barcelona,Catalonia,Spain,011114,ivy@email.com);
+>SELECT COUNT (*) FROM customer;
+4
+>CREATE C:\cpp_assignment\fileOutput1.txt;
+>DATABASES;
+C:\cpp_assignment\fileInput1.mdb
+>CREATE TABLE 
+(
+customer_id
+customer_name
+customer_city
+customer_state
+customer_country
+customer_phone
+customer_email
+);
+>INSERT INTO 
+VALUE(1 Scott Denver Colorado USA 011111 scott@email.com); 
+>INSERT INTO 
+VALUE(2 Vivian Kyoto Kyoto Prefecture Japan 011112 vivian@email.com); 
+>INSERT INTO 
+VALUE(3 Noah Kuala Lumpur WPKL Malaysia 011113 noah@email.com); 
+>INSERT INTO 
+VALUE(4 Ivy Barcelona Catalonia Spain 011114 ivy@email.com); 
+>INSERT INTOcustomer_id , customer_name , customer_city , customer_state , customer_country , customer_phone , customer_email
+(1 , Scott , Denver , Colorado , USA , 011111 , scott@email.com);
+(2 , Vivian , Kyoto , Kyoto Prefecture , Japan , 011112 , vivian@email.com);
+(3 , Noah , Kuala Lumpur , WPKL , Malaysia , 011113 , noah@email.com);
+(4 , Ivy , Barcelona , Catalonia , Spain , 011114 , ivy@email.com);
+customer_id,customer_name,customer_city,customer_state,customer_country,customer_phone,customer_email(1,Scott,Denver,Colorado,USA,011111,scott@email.com);(2,Vivian,Kyoto,Kyoto Prefecture,Japan,011112,vivian@email.com);(3,Noah,Kuala Lumpur,WPKL,Malaysia,011113,noah@email.com);(4,Ivy,Barcelona,Catalonia,Spain,011114,ivy@email.com);
+>SELECT COUNT (*) FROM customer;
+4
+>CREATE C:\cpp_assignment\fileOutput1.txt;
+>DATABASES;
+C:\cpp_assignment\fileInput1.mdb
+>CREATE TABLE 
+(
+customer_id
+customer_name
+customer_city
+customer_state
+customer_country
+customer_phone
+customer_email
+);
+>INSERT INTO 
+VALUE(1 Scott Denver Colorado USA 011111 scott@email.com); 
+>INSERT INTO 
+VALUE(2 Vivian Kyoto Kyoto Prefecture Japan 011112 vivian@email.com); 
+>INSERT INTO 
+VALUE(3 Noah Kuala Lumpur WPKL Malaysia 011113 noah@email.com); 
+>INSERT INTO 
+VALUE(4 Ivy Barcelona Catalonia Spain 011114 ivy@email.com); 
+>INSERT INTOcustomer_id , customer_name , customer_city , customer_state , customer_country , customer_phone , customer_email
+(1 , Scott , Denver , Colorado , USA , 011111 , scott@email.com);
+(2 , Vivian , Kyoto , Kyoto Prefecture , Japan , 011112 , vivian@email.com);
+(3 , Noah , Kuala Lumpur , WPKL , Malaysia , 011113 , noah@email.com);
+(4 , Ivy , Barcelona , Catalonia , Spain , 011114 , ivy@email.com);
+customer_id,customer_name,customer_city,customer_state,customer_country,customer_phone,customer_email(1,Scott,Denver,Colorado,USA,011111,scott@email.com);(2,Vivian,Kyoto,Kyoto Prefecture,Japan,011112,vivian@email.com);(3,Noah,Kuala Lumpur,WPKL,Malaysia,011113,noah@email.com);(4,Ivy,Barcelona,Catalonia,Spain,011114,ivy@email.com);
+>SELECT COUNT (*) FROM customer;
+4
+>CREATE C:\cpp_assignment\fileOutput1.txt;
+>DATABASES;
+C:\cpp_assignment\fileInput1.mdb
+>CREATE TABLE 
+(
+customer_id
+customer_name
+customer_city
+customer_state
+customer_country
+customer_phone
+customer_email
+);
+>INSERT INTO 
+VALUE(1 Scott Denver Colorado USA 011111 scott@email.com); 
+>INSERT INTO 
+VALUE(2 Vivian Kyoto Kyoto Prefecture Japan 011112 vivian@email.com); 
+>INSERT INTO 
+VALUE(3 Noah Kuala Lumpur WPKL Malaysia 011113 noah@email.com); 
+>INSERT INTO 
+VALUE(4 Ivy Barcelona Catalonia Spain 011114 ivy@email.com); 
+customer_id,customer_name,customer_city,customer_state,customer_country,customer_phone,customer_email(1,Scott,Denver,Colorado,USA,011111,scott@email.com);(2,Vivian,Kyoto,Kyoto Prefecture,Japan,011112,vivian@email.com);(3,Noah,Kuala Lumpur,WPKL,Malaysia,011113,noah@email.com);(4,Ivy,Barcelona,Catalonia,Spain,011114,ivy@email.com);
+>INSERT INTOcustomer_id,customer_name,customer_city,customer_state,customer_country,customer_phone,customer_email
+(1,Scott,Denver,Colorado,USA,011111,scott@email.com);
+(2,Vivian,Kyoto,Kyoto Prefecture,Japan,011112,vivian@email.com);
+(3,Noah,Kuala Lumpur,WPKL,Malaysia,011113,noah@email.com);
+(4,Ivy,Barcelona,Catalonia,Spain,011114,ivy@email.com);
+>SELECT COUNT (*) FROM customer;
+4
+>CREATE C:\cpp_assignment\fileOutput1.txt;
+>DATABASES;
+C:\cpp_assignment\fileInput1.mdb
+>CREATE TABLE 
+(
+customer_id
+customer_name
+customer_city
+customer_state
+customer_country
+customer_phone
+customer_email
+);
+>INSERT INTO 
+VALUE(1 Scott Denver Colorado USA 011111 scott@email.com); 
+>INSERT INTO 
+VALUE(2 Vivian Kyoto Kyoto Prefecture Japan 011112 vivian@email.com); 
+>INSERT INTO 
+VALUE(3 Noah Kuala Lumpur WPKL Malaysia 011113 noah@email.com); 
+>INSERT INTO 
+VALUE(4 Ivy Barcelona Catalonia Spain 011114 ivy@email.com); 
+customer_id,customer_name,customer_city,customer_state,customer_country,customer_phone,customer_email
+(1,Scott,Denver,Colorado,USA,011111,scott@email.com);
+(2,Vivian,Kyoto,Kyoto Prefecture,Japan,011112,vivian@email.com);
+(3,Noah,Kuala Lumpur,WPKL,Malaysia,011113,noah@email.com);
+(4,Ivy,Barcelona,Catalonia,Spain,011114,ivy@email.com);
+>INSERT INTOcustomer_id,customer_name,customer_city,customer_state,customer_country,customer_phone,customer_email
+(1,Scott,Denver,Colorado,USA,011111,scott@email.com);
+(2,Vivian,Kyoto,Kyoto Prefecture,Japan,011112,vivian@email.com);
+(3,Noah,Kuala Lumpur,WPKL,Malaysia,011113,noah@email.com);
+(4,Ivy,Barcelona,Catalonia,Spain,011114,ivy@email.com);
+>SELECT COUNT (*) FROM customer;
+4
+>CREATE C:\cpp_assignment\fileOutput1.txt;
+>DATABASES;
+C:\cpp_assignment\fileInput1.mdb
+>CREATE TABLE 
+(
+customer_id
+customer_name
+customer_city
+customer_state
+customer_country
+customer_phone
+customer_email
+);
+>INSERT INTO 
+VALUE(1 Scott Denver Colorado USA 011111 scott@email.com); 
+>INSERT INTO 
+VALUE(2 Vivian Kyoto Kyoto Prefecture Japan 011112 vivian@email.com); 
+>INSERT INTO 
+VALUE(3 Noah Kuala Lumpur WPKL Malaysia 011113 noah@email.com); 
+>INSERT INTO 
+VALUE(4 Ivy Barcelona Catalonia Spain 011114 ivy@email.com); 
+>INSERT INTOcustomer_id , customer_name , customer_city , customer_state , customer_country , customer_phone , customer_email
+(1 , Scott , Denver , Colorado , USA , 011111 , scott@email.com);
+(2 , Vivian , Kyoto , Kyoto Prefecture , Japan , 011112 , vivian@email.com);
+(3 , Noah , Kuala Lumpur , WPKL , Malaysia , 011113 , noah@email.com);
+(4 , Ivy , Barcelona , Catalonia , Spain , 011114 , ivy@email.com);
+customer_id,customer_name,customer_city,customer_state,customer_country,customer_phone,customer_email
+(1,Scott,Denver,Colorado,USA,011111,scott@email.com);
+(2,Vivian,Kyoto,Kyoto Prefecture,Japan,011112,vivian@email.com);
+(3,Noah,Kuala Lumpur,WPKL,Malaysia,011113,noah@email.com);
+(4,Ivy,Barcelona,Catalonia,Spain,011114,ivy@email.com);
+>SELECT COUNT (*) FROM customer;
+4
+>CREATE C:\cpp_assignment\fileOutput1.txt;
+>DATABASES;
+C:\cpp_assignment\fileInput1.mdb
+>CREATE TABLE 
+(
+customer_id
+customer_name
+customer_city
+customer_state
+customer_country
+customer_phone
+customer_email
+);
+>INSERT INTO 
+VALUE(1 Scott Denver Colorado USA 011111 scott@email.com); 
+>INSERT INTO 
+VALUE(2 Vivian Kyoto Kyoto Prefecture Japan 011112 vivian@email.com); 
+>INSERT INTO 
+VALUE(3 Noah Kuala Lumpur WPKL Malaysia 011113 noah@email.com); 
+>INSERT INTO 
+VALUE(4 Ivy Barcelona Catalonia Spain 011114 ivy@email.com); 
+>INSERT INTOcustomer_id , customer_name , customer_city , customer_state , customer_country , customer_phone , customer_email
+(1 , Scott , Denver , Colorado , USA , 011111 , scott@email.com);
+(2 , Vivian , Kyoto , Kyoto Prefecture , Japan , 011112 , vivian@email.com);
+(3 , Noah , Kuala Lumpur , WPKL , Malaysia , 011113 , noah@email.com);
+(4 , Ivy , Barcelona , Catalonia , Spain , 011114 , ivy@email.com);
+customer_id,customer_name,customer_city,customer_state,customer_country,customer_phone,customer_email(1,Scott,Denver,Colorado,USA,011111,scott@email.com);(2,Vivian,Kyoto,Kyoto Prefecture,Japan,011112,vivian@email.com);(3,Noah,Kuala Lumpur,WPKL,Malaysia,011113,noah@email.com);(4,Ivy,Barcelona,Catalonia,Spain,011114,ivy@email.com);
+>SELECT COUNT (*) FROM customer;
+4
+>CREATE C:\cpp_assignment\fileOutput1.txt;
+>DATABASES;
+C:\cpp_assignment\fileInput1.mdb
+>CREATE TABLE 
+(
+customer_id
+customer_name
+customer_city
+customer_state
+customer_country
+customer_phone
+customer_email
+);
+>INSERT INTO 
+VALUE(1 Scott Denver Colorado USA 011111 scott@email.com); 
+>INSERT INTO 
+VALUE(2 Vivian Kyoto Kyoto Prefecture Japan 011112 vivian@email.com); 
+>INSERT INTO 
+VALUE(3 Noah Kuala Lumpur WPKL Malaysia 011113 noah@email.com); 
+>INSERT INTO 
+VALUE(4 Ivy Barcelona Catalonia Spain 011114 ivy@email.com); 
+>INSERT INTOcustomer_id , customer_name , customer_city , customer_state , customer_country , customer_phone , customer_email
+(1 , Scott , Denver , Colorado , USA , 011111 , scott@email.com);
+(2 , Vivian , Kyoto , Kyoto Prefecture , Japan , 011112 , vivian@email.com);
+(3 , Noah , Kuala Lumpur , WPKL , Malaysia , 011113 , noah@email.com);
+(4 , Ivy , Barcelona , Catalonia , Spain , 011114 , ivy@email.com);
+customer_id,customer_name,customer_city,customer_state,customer_country,customer_phone,customer_email
+(1,Scott,Denver,Colorado,USA,011111,scott@email.com);
+(2,Vivian,Kyoto,Kyoto Prefecture,Japan,011112,vivian@email.com);
+(3,Noah,Kuala Lumpur,WPKL,Malaysia,011113,noah@email.com);
+(4,Ivy,Barcelona,Catalonia,Spain,011114,ivy@email.com);
+>SELECT COUNT (*) FROM customer;
+4
+>CREATE C:\cpp_assignment\fileOutput1.txt;
+>DATABASES;
+C:\cpp_assignment\fileInput1.mdb
+>CREATE TABLE 
+(
+customer_id
+customer_name
+customer_city
+customer_state
+customer_country
+customer_phone
+customer_email
+);
+>INSERT INTO 
+VALUE(1 Scott Denver Colorado USA 011111 scott@email.com); 
+>INSERT INTO 
+VALUE(2 Vivian Kyoto Kyoto Prefecture Japan 011112 vivian@email.com); 
+>INSERT INTO 
+VALUE(3 Noah Kuala Lumpur WPKL Malaysia 011113 noah@email.com); 
+>INSERT INTO 
+VALUE(4 Ivy Barcelona Catalonia Spain 011114 ivy@email.com); 
+>INSERT INTOcustomer_id , customer_name , customer_city , customer_state , customer_country , customer_phone , customer_email
+(1 , Scott , Denver , Colorado , USA , 011111 , scott@email.com);
+(2 , Vivian , Kyoto , Kyoto Prefecture , Japan , 011112 , vivian@email.com);
+(3 , Noah , Kuala Lumpur , WPKL , Malaysia , 011113 , noah@email.com);
+(4 , Ivy , Barcelona , Catalonia , Spain , 011114 , ivy@email.com);
+customer_id,customer_name,customer_city,customer_state,customer_country,customer_phone,customer_email(1,Scott,Denver,Colorado,USA,011111,scott@email.com);(2,Vivian,Kyoto,Kyoto Prefecture,Japan,011112,vivian@email.com);(3,Noah,Kuala Lumpur,WPKL,Malaysia,011113,noah@email.com);(4,Ivy,Barcelona,Catalonia,Spain,011114,ivy@email.com);
+>SELECT COUNT (*) FROM customer;
+4

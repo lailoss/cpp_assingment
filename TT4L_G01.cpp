@@ -54,8 +54,8 @@ using namespace std;
 bool has_substring(const string& line, const string& substring);
 void create_output_screen_and_file(const string& fileOutputName);
 void create_database(const string& fileInputName, const string& fileOutputName); //to display & log database name
-void create_table(vector<vector<string>>& table, const vector<string>& headers);
-void insert_into_table(vector<vector<string>>& table, const string& line, const vector<string>& headers);
+void create_table(vector<vector<string>>& table, const vector<string>& headers, const string& fileOutputName);
+void insert_into_table(vector<vector<string>>& table, const string& line, const vector<string>& headers, const string& fileInputName, const string& fileOutputName);
 void select_all_from_table_in_csv_mode(const vector<vector<string>>& table, const string& fileOutputName);
 int count_row(vector<vector<string>>& table);
 
@@ -63,21 +63,21 @@ int count_row(vector<vector<string>>& table);
 
 int main()
 {
-<<<<<<< HEAD
+
     string fileInputName = "C:\\cpp_assignment\\fileInput1.mdb";
-    string fileOutputName =  "C:\\cpp_assignment\\check_fileOutput1_A2.txt";
-    system ("mkdir C:\\cpp_assignment"); //to ensure directory exist
-=======
-    string fileInputName = "c:\\cpp_assignment\\fileInput3.mdb";
-    string fileOutputName =  "fileOutput3.txt";
-    //system ("mkdir C:\\cpp_assignment"); //to ensure directory exist
->>>>>>> d82b314ec04d2399b8f9df4df2fb6a4eb10ff3f0
+    string fileOutputName =  "C:\\cpp_assignment\\fileOutput1.txt";
+    system("mkdir C:\\cpp_assignment"); //to ensure directory exist
+
+
+
     ifstream fileInput(fileInputName);
+     ofstream fileOutput(fileOutputName, ios::app);
     vector<vector<string>> table;
     //string tableName;
     vector<string> headers = {"customer_id", "customer_name", "customer_city", "customer_state", "customer_country", "customer_phone", "customer_email"};
 
      create_database(fileInputName, fileOutputName);
+
     if ( !fileInput.is_open() )
     {
         cerr << "Unable to open file: " << fileInputName << endl;
@@ -100,7 +100,7 @@ int main()
             completeCommand += line;
             if (line.find(';') != string::npos)
             { // End of command
-                insert_into_table(table, completeCommand, headers);
+                insert_into_table(table, completeCommand, headers, fileInputName, fileOutputName);
                 completeCommand.clear();
             }
             continue; // Skip the rest of the processing for this line
@@ -108,7 +108,7 @@ int main()
 
         if (has_substring(line, "CREATE TABLE"))
         {
-            create_table(table, headers);
+            create_table(table, headers, fileOutputName);
         }
 
         /*if (has_substring(line, "CREATE TABLE"))  //original dell code ---------
@@ -125,18 +125,23 @@ int main()
 
         else if (has_substring(line, "SELECT*FROM customer"))
         {
-            cout << "Displaying table in terminal:" << endl;
+            //cout << "Displaying table in terminal:" << endl;
+            //fileOutput << "Displaying table in terminal:" << endl;
 
-            // Print table rows
-            for (size_t i = 1; i < table.size(); ++i)
-            {
-                for (size_t j = 0; j < table[i].size(); ++j)
-                {
-                    cout << table[i][j];
-                    if (j < table[i].size() - 1)
+                   // Print table rows
+
+            fileOutput<<">INSERT INTO";
+             for (const auto& row : table) {
+                for (size_t j = 0; j < row.size(); ++j) {
+                    cout << row[j];
+                    fileOutput << row[j];
+                    if (j < row.size() - 1) {
                         cout << " , ";
+                        fileOutput << " , ";
+                    }
                 }
                 cout << endl;
+                fileOutput << endl;
             }
         }
 
@@ -177,7 +182,7 @@ int main()
        //     cout << "Error message : Invalid input command" << endl;
        // }
 
-        fileInput.close();
+
 
 
         //fileOutputName = "fileOutput1.txt"; //incorrect
@@ -192,8 +197,14 @@ int main()
 
         int rowcount=count_row(table);
         cout<<">SELECT COUNT (*) FROM customer;"<<endl;
-        cout<<rowcount;
+        cout<<rowcount<<endl;
 
+        fileOutput<<">SELECT COUNT (*) FROM customer;"<<endl;
+        fileOutput<<rowcount<<endl;
+
+        fileInput.close();
+        fileOutput.close();
+;
         return 0;
 }
 
@@ -204,11 +215,12 @@ int main()
     }
 
     //CREATE OUTPUT SCREEN------------------------------------------------------------------------------------------------
-    void create_output_screen_and_file(const string& fileOutputName)
+    void create_output_screen_and_file(const string& fileInputName,const string& fileOutputName)
     {
-        ofstream outputFile(fileOutputName);
+        ifstream fileInput(fileInputName);
+        ofstream fileOutput(fileOutputName, ios::app);
 
-        if (!outputFile.is_open())
+        if (!fileOutput.is_open())
         {
             cout << "Unable to open output file for writing." << endl;
             return;
@@ -218,23 +230,35 @@ int main()
 
         string summary = "Database output summary.";
         cout << summary << endl;
-        outputFile << summary << endl;
+        fileOutput << summary << endl;
 
-        outputFile.close();
+
         cout << "Summary written to " << fileOutputName << endl;
+        fileOutput.close();
     }
 
     //CREATE DATABASE-----------------------------------------------------------------------------------------------------
-    void create_database(const string& fileInputName, const string& fileOutputName)
-    {
-        cout << ">CREATE " << fileOutputName << endl;
-        fileOutput<<">CREATE"<< fileInputName<<endl;
+   void create_database(const string& fileInputName, const string& fileOutputName) {
+    ofstream fileOutput(fileOutputName, ios::app);
+    if (!fileOutput.is_open()) {
+        cerr << "Error: Unable to create output file: " << fileOutputName << endl;
+        return;
+    }
 
-        cout << ">DATABASES;" << endl; //display on console
-        cout << fileInputName << endl;
+    cout << ">CREATE " << fileOutputName << endl;
+    fileOutput << ">CREATE " << fileOutputName << ";" << endl;
 
-        ofstream fileOutput(fileOutputName); //open output file for writing
-        if (!fileOutput.is_open())
+    cout << ">DATABASES;" << endl;
+    fileOutput << ">DATABASES;" << endl;
+
+    cout << fileInputName << endl;
+    fileOutput << fileInputName << endl;
+
+    fileOutput.close(); // Ensure file is closed after writing
+}
+
+
+        /*if (!fileOutput.is_open())
         {
             cout << "Error: Unable to create output file: " << fileOutputName << endl; //display error message if output file cant be created
             return;
@@ -242,37 +266,46 @@ int main()
 
 
         //write db info to the output file
-        fileOutput << "> DATABASES;" << endl; //db header
-         //name of the db file
+        //fileOutput << "> DATABASE ;" << endl; //db header
+        //fileOutput<<":"<<endl;
+         //name of the db file */
 
-        fileOutput.close();
+       // fileOutput.close();
 
-    }
+
+
 
     //CREATE TABLE-----------------------------------------------------------------------------------------------------
-    void create_table(vector<vector<string>>& table, const vector<string>& headers)
+    void create_table(vector<vector<string>>& table, const vector<string>& headers, const string& fileOutputName)
     {
 
+        ofstream fileOutput(fileOutputName, ios::app); //open output file for writing
 
         table.clear(); //clear existing data
         table.push_back(headers); //add headers as first row
         cout << ">CREATE TABLE "<<endl;
-        fileOutput<<">CREATE TABLE"<<endl;
         cout<<"("<<endl;
 
-        for (const auto& header : headers)
-            {
-            cout << header <<endl;
-            }
-        cout <<");"<< endl;
+        fileOutput << ">CREATE TABLE "<<endl;
+        fileOutput<<"("<<endl;
 
+        for (size_t i = 0; i < headers.size(); ++i) {
+        cout << headers[i] << endl;
+        fileOutput << headers[i] << endl;
+    }
+        cout <<");"<< endl;
+        fileOutput <<");"<< endl;
+fileOutput.close();
 
     }
 
     //INSERT INTO TABLE-----------------------------------------------------------------------------------------------------
-    void insert_into_table(vector<vector<string>>& table, const string& line, const vector<string>& headers)
+    void insert_into_table(vector<vector<string>>& table, const string& line, const vector<string>& headers, const string& fileInputName, const string& fileOutputName)
     {
-    {
+        ifstream fileInput(fileInputName);
+        ofstream fileOutput(fileOutputName, ios::app);
+
+
        size_t pos = line.find("VALUES");
     if (pos == string::npos)
     {
@@ -287,58 +320,37 @@ int main()
     // Trim everything up to and including "VALUES"
     valuesPart = valuesPart.substr(keywordLength);
 
-    // Remove parentheses
-    valuesPart.erase(remove(valuesPart.begin(), valuesPart.end(), '('), valuesPart.end());
-    valuesPart.erase(remove(valuesPart.begin(), valuesPart.end(), ')'), valuesPart.end());
-
-    // Helper function to trim whitespace
-    auto trim = [](string& str) {
-        str.erase(str.begin(), find_if(str.begin(), str.end(), [](unsigned char ch) { return !isspace(ch); }));
-        str.erase(find_if(str.rbegin(), str.rend(), [](unsigned char ch) { return !isspace(ch); }).base(), str.end());
-    };
 
     // Parse the values
+   vector<string> newRow;
     stringstream ss(valuesPart);
-    string token;
-    vector<string> newRow;
+    string value;
 
-    while (getline(ss, token, ','))
-    {
-        trim(token);
+    while (getline(ss, value, ',')) {
 
-        // Remove enclosing single quotes
-        if (!token.empty() && token.front() == '\'' && token.back() == '\'')
-        {
-            token = token.substr(1, token.size() - 2);
-        }
+    value.erase(remove(value.begin(), value.end(), '\''), value.end());
 
-        if (token.empty())
-        {
-            cerr << "Error: Empty value detected in input." << endl;
-            return;
-        }
-
-        newRow.push_back(token);
+        newRow.push_back(value);
     }
 
-    // Validate column count
-    if (newRow.size() != headers.size())
-    {
-        cerr << "Error: Column count mismatch. Expected " << headers.size()
-             << ", but got " << newRow.size() << "." << endl;
-        return;
-    }
 
     table.push_back(newRow);
 
     // Confirmation message
     cout << ">INSERT INTO "<<endl;
+    fileOutput << ">INSERT INTO "<<endl;
+    cout<<"VALUE";
+    fileOutput<<"VALUE";
     for (const auto& val : newRow)
     {
         cout << val << " ";
+        fileOutput << val << " ";
+
     }
     cout << endl;
-}}
+    fileOutput << endl;
+    fileOutput.close();
+}
     //SELECT ALL FROM TABLE------------------------------------------------------------------------------------------
     void select_all_from_table_in_csv_mode(const vector<vector<string>>& table, const string& fileOutputName)
     {
@@ -348,8 +360,8 @@ int main()
             return;
         }
 
-        ofstream outputFile(fileOutputName, ios::app); //open output file in append mode
-        if (!outputFile.is_open())
+        ofstream fileOutput(fileOutputName, ios::app); //open output file in append mode
+        if (!fileOutput.is_open())
         {
             cerr << "Unable to open file for csv output." << endl;
             return;
@@ -357,26 +369,23 @@ int main()
 
         cout<<"SELECT * FROM customer"<<endl;
 
-            for (size_t i= 0; i < table.size(); ++i) //iterates data rows
-            {
-                const auto& row = table[i];
+
+          for (const auto& row : table){
                 for (size_t j =0;j <row.size(); ++j) //iterates through the data value you get what i mean??
                 {
 
                     cout<<row[j];
-                    outputFile << row[j];
+                    fileOutput << row[j];
                     if (j < row.size() - 1)
                     {
                         cout<<",";
-                        outputFile << ",";
-
+                        fileOutput << ",";
                     }
                 }
+                }
                 cout<<endl;
-                outputFile << "\n";
-        }
-
-        outputFile.close();
+                fileOutput << "\n";
+        fileOutput.close();
        // cout << "Table exported to " << fileOutputName << endl;
     }
 
