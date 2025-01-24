@@ -18,6 +18,9 @@
 // - Implement create_database() to display the database name.
 // - Write code to load and display table data using the first file.
 // - Assist in writing pseudocode and documentation for these functions.
+//Accepts the table, the column name, the value to search, the column to update, and the new value.
+//Searches for rows matching the search criteria.
+//Updates the row and logs the changes to the output file.
 
 // Member_2: Wan Hanani Iman
 // Table Operations:
@@ -57,8 +60,8 @@ void create_database(const string& fileInputName, const string& fileOutputName);
 void create_table(vector<vector<string>>& table, const vector<string>& headers, const string& fileOutputName);
 void insert_into_table(vector<vector<string>>& table, const string& line, const vector<string>& headers, const string& fileInputName, const string& fileOutputName);
 void select_all_from_table_in_csv_mode(const vector<vector<string>>& table, const string& fileOutputName);
+void update_table(vector<vector<string>>& table, const string& searchColumn, const string& searchValue, const string& updateColumn, const string& newValue, const string& fileOutputName);
 int count_row(vector<vector<string>>& table);
-
 
 
 int main()
@@ -71,7 +74,7 @@ int main()
 
 
     ifstream fileInput(fileInputName);
-     ofstream fileOutput(fileOutputName, ios::app);
+    ofstream fileOutput(fileOutputName, ios::app);
     vector<vector<string>> table;
     //string tableName;
     vector<string> headers = {"customer_id", "customer_name", "customer_city", "customer_state", "customer_country", "customer_phone", "customer_email"};
@@ -147,44 +150,6 @@ int main()
 
     }
 
-
-        /*else if ( has_substring(line, "DATABASES;"))
-        {
-            cout << "> " << line << endl;
-            cout << "?" << endl;
-        }
-        else if ( has_substring(line, "?1"))
-        {
-            cout << "?1" << endl;
-        }
-        else if ( has_substring(line, "?2"))
-        {
-            cout << "?2" << endl;
-        }
-        else if ( has_substring(line, "?3"))
-        {
-            cout << "3" << endl;
-        }
-        else if ( has_substring(line, "?4"))
-        {
-            cout << "?4" << endl;
-        }
-        else if ( has_substring(line, "?5"))
-        {
-            cout << "?5" << endl;
-        }
-        else if ( has_substring(line, "?6"))
-        {
-            cout << "?6" << endl;
-        } */
-      //  else
-       // {
-       //     cout << "Error message : Invalid input command" << endl;
-       // }
-
-
-
-
         //fileOutputName = "fileOutput1.txt"; //incorrect
         //cout << "> CREATE " << fileOutputName << ";" endl;
 
@@ -201,6 +166,7 @@ int main()
 
         fileOutput<<">SELECT COUNT (*) FROM customer;"<<endl;
         fileOutput<<rowcount<<endl;
+
 
         fileInput.close();
         fileOutput.close();
@@ -393,5 +359,33 @@ fileOutput.close();
     //COUNT ROW--------------------------------------------------------------
     int count_row(vector<vector<string>>& table){
 
+    return table.empty()? 0:table.size()-1;
+    }
 
-    return table.empty()? 0:table.size()-1;}
+    //UPDATE TABLE------------------------------------------------------------
+
+    //my reference ( notes) ----------------
+    //vector<vector<string>>: This is the entire table (rows&col)...if vector<string> only single row data in the table
+    //asal vector bukan array?
+    //vector can can grow or shrink in size automatically (arrays have a fixed size)
+    //vector -- easy to add,remove,access items
+
+    //why cerr instead of cout?
+    //cout for normal output but cerr used for error message.its specificallu meant to
+    //print errors or warning tht u want to be visible immediately
+
+    //append mode(ios::app)- tells C++ to open the file in append mode
+    //if the file already exists, it will not delete its contents,,instead, the program will add new data at the end of the file
+    //---------------------------------------
+
+    // vector<vector<string>>& table,  // The table itself
+    void update_table(vector<vector<string>>& table, const string& searchColumn, const string& searchValue,
+                  const string& updateColumn, const string& newValue, const string& fileOutputName) {
+       ofstream fileOutput(fileOutputName, ios::app); //open file to log updates - append mode-
+
+       if(!fileOutput.is_open()) {
+         cerr << "Error: Unable to open file for writing updates. " << endl;
+         return; //exit fn if file cant be opened
+       }
+    }
+
