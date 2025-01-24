@@ -97,6 +97,27 @@ int main()
 
     while (getline(fileInput, line))
     {
+        if (has_substring(line, "UPDATE"))
+        {
+        // Parse the UPDATE command
+           size_t setPos = line.find("SET");
+           size_t wherePos = line.find("WHERE");
+
+            if (setPos != string::npos && wherePos != string::npos)
+            {
+                // Extract column and value to update
+
+
+                // Extract column and value to search
+
+
+
+               // Call the update function
+               update_table(table, searchColumn, searchValue, updateColumn, newValue, fileOutputName);
+        }
+    }
+    while (getline(fileInput, line))
+    {
          // Combine lines for multi-line commands
         if (has_substring(line, "INSERT INTO") || !completeCommand.empty())
         {
@@ -149,6 +170,7 @@ int main()
         }
 
     }
+}
 
         //fileOutputName = "fileOutput1.txt"; //incorrect
         //cout << "> CREATE " << fileOutputName << ";" endl;
@@ -379,13 +401,28 @@ fileOutput.close();
     //---------------------------------------
 
     // vector<vector<string>>& table,  // The table itself
-    void update_table(vector<vector<string>>& table, const string& searchColumn, const string& searchValue,
+    // UPDATE TABLE FUNCTION
+void update_table(vector<vector<string>>& table, const string& searchColumn, const string& searchValue,
                   const string& updateColumn, const string& newValue, const string& fileOutputName) {
-       ofstream fileOutput(fileOutputName, ios::app); //open file to log updates - append mode-
+    ofstream fileOutput(fileOutputName, ios::app); // Open the output file in append mode
 
-       if(!fileOutput.is_open()) {
-         cerr << "Error: Unable to open file for writing updates. " << endl;
-         return; //exit fn if file cant be opened
-       }
+    if (!fileOutput.is_open()) {
+        cerr << "Unable to open file for writing updates." << endl;
+        return;
     }
+
+    // Find the index of the search and update columns
+    int searchColumnIndex = -1, updateColumnIndex = -1;
+    if (!table.empty()) {
+        const vector<string>& headers = table[0];
+        for (size_t i = 0; i < headers.size(); ++i) {
+            if (headers[i] == searchColumn) searchColumnIndex = i;
+            if (headers[i] == updateColumn) updateColumnIndex = i;
+        }
+    }
+
+    fileOutput.close(); // Close the output file
+}
+
+
 
