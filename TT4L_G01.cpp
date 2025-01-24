@@ -62,6 +62,7 @@ void insert_into_table(vector<vector<string>>& table, const string& line, const 
 void select_all_from_table_in_csv_mode(const vector<vector<string>>& table, const string& fileOutputName);
 void update_table(vector<vector<string>>& table, const string& searchColumn, const string& searchValue, const string& updateColumn, const string& newValue, const string& fileOutputName);
 int count_row(vector<vector<string>>& table, const string& fileOutputName);
+void delete_from_table(vector<vector<string>>& table,const string& fileInputName,const string& fileOutputName);
 
 
 int main()
@@ -112,70 +113,77 @@ int main()
 
 
                // Call the update function
-               update_table(table, searchColumn, searchValue, updateColumn, newValue, fileOutputName);
-        }
-    }
-    while (getline(fileInput, line))
-    {
-         // Combine lines for multi-line commands
-        if (has_substring(line, "INSERT INTO") || !completeCommand.empty())
-        {
-            completeCommand += line;
-            if (line.find(';') != string::npos)
-            { // End of command
-                insert_into_table(table, completeCommand, headers, fileInputName, fileOutputName);
-                completeCommand.clear();
+               //update_table(table, searchColumn, searchValue, updateColumn, newValue, fileOutputName);
             }
-            continue; // Skip the rest of the processing for this line
         }
 
-        if (has_substring(line, "CREATE TABLE"))
+
+        while (getline(fileInput, line))
         {
-            create_table(table, headers, fileOutputName);
+             // Combine lines for multi-line commands
+            if (has_substring(line, "INSERT INTO") || !completeCommand.empty())
+            {
+                completeCommand += line;
+                if (line.find(';') != string::npos)
+                { // End of command
+                    insert_into_table(table, completeCommand, headers, fileInputName, fileOutputName);
+                    completeCommand.clear();
+                }
+                continue; // Skip the rest of the processing for this line
+            }
+
+            if (has_substring(line, "CREATE TABLE"))
+            {
+                create_table(table, headers, fileOutputName);
+            }
+
+            /*if (has_substring(line, "CREATE TABLE"))  //original dell code ---------
+            {
+                cout << "Creating table. " << endl;
+                create_table(table, headers);
+            }
+
+            else if (has_substring(line, "INSERT INTO"))
+            {
+                cout << "Inserting data into table " << endl;
+                insert_into_table(table,line,headers);
+            }*/
+
+            else if (has_substring(line, "SELECT*FROM customer"))
+            {
+                //cout << "Displaying table in terminal:" << endl;
+                //fileOutput << "Displaying table in terminal:" << endl;
+
+                       // Print table rows
+
+                 select_all_from_table_in_csv_mode(table,fileOutputName);
+            }
+
+            else if (has_substring (line, "DELETE"))
+            {
+                delete_from_table(table, fileInputName, fileOutputName);
+            }
+
         }
-
-        /*if (has_substring(line, "CREATE TABLE"))  //original dell code ---------
-        {
-            cout << "Creating table. " << endl;
-            create_table(table, headers);
-        }
-
-        else if (has_substring(line, "INSERT INTO"))
-        {
-            cout << "Inserting data into table " << endl;
-            insert_into_table(table,line,headers);
-        }*/
-
-        else if (has_substring(line, "SELECT*FROM customer"))
-        {
-            //cout << "Displaying table in terminal:" << endl;
-            //fileOutput << "Displaying table in terminal:" << endl;
-
-                   // Print table rows
-
-             select_all_from_table_in_csv_mode(table,fileOutputName);
-        }
-
     }
-}
 
-        //fileOutputName = "fileOutput1.txt"; //incorrect
-        //cout << "> CREATE " << fileOutputName << ";" endl;
+            //fileOutputName = "fileOutput1.txt"; //incorrect
+            //cout << "> CREATE " << fileOutputName << ";" endl;
 
-        //create_database(fileInputName);
-        //call create_database to display n log database name
-
-
-        count_row(table,fileOutputName);
-        // Output table in CSV mode
-        fileInput.close();
+            //create_database(fileInputName);
+            //call create_database to display n log database name
 
 
+            count_row(table,fileOutputName);
+            // Output table in CSV mode
+            fileInput.close();
 
-        fileInput.close();
-        fileOutput.close();
 
-        return 0;
+
+            fileInput.close();
+            fileOutput.close();
+
+            return 0;
 }
 
     // function definitions
@@ -355,8 +363,9 @@ fileOutput.close();
     }
 
 
-    //COUNT ROW--------------------------------------------------------------
-    int count_row(vector<vector<string>>& table, const string& fileOutputName) {
+    //COUNT ROW------------------------------------------------------------------------------------------------------------
+    int count_row(vector<vector<string>>& table, const string& fileOutputName)
+    {
         ofstream fileOutput(fileOutputName, ios::app);
         int rowcount=  table.empty()? 0:table.size()-1;
         cout<<">SELECT COUNT (*) FROM customer;"<<endl;
@@ -364,9 +373,11 @@ fileOutput.close();
         fileOutput<<">SELECT COUNT (*) FROM customer;"<<endl;
         fileOutput<<rowcount<<endl;
 
+        return rowcount;
+
     }
 
-    //UPDATE TABLE------------------------------------------------------------
+    //UPDATE TABLE----------------------------------------------------------------------------------------------------------
 
     //my reference ( notes) ----------------
     //vector<vector<string>>: This is the entire table (rows&col)...if vector<string> only single row data in the table
@@ -384,27 +395,65 @@ fileOutput.close();
 
     // vector<vector<string>>& table,  // The table itself
     // UPDATE TABLE FUNCTION
-void update_table(vector<vector<string>>& table, const string& searchColumn, const string& searchValue,
-                  const string& updateColumn, const string& newValue, const string& fileOutputName) {
-    ofstream fileOutput(fileOutputName, ios::app); // Open the output file in append mode
+    void update_table(vector<vector<string>>& table, const string& searchColumn, const string& searchValue, const string& updateColumn, const string& newValue, const string& fileOutputName)
+    {
+        ofstream fileOutput(fileOutputName, ios::app); // Open the output file in append mode
 
-    if (!fileOutput.is_open()) {
-        cerr << "Unable to open file for writing updates." << endl;
-        return;
-    }
-
-    // Find the index of the search and update columns
-    int searchColumnIndex = -1, updateColumnIndex = -1;
-    if (!table.empty()) {
-        const vector<string>& headers = table[0];
-        for (size_t i = 0; i < headers.size(); ++i) {
-            if (headers[i] == searchColumn) searchColumnIndex = i;
-            if (headers[i] == updateColumn) updateColumnIndex = i;
+        if (!fileOutput.is_open()) {
+            cerr << "Unable to open file for writing updates." << endl;
+            return;
         }
+
+        // Find the index of the search and update columns
+        int searchColumnIndex = -1, updateColumnIndex = -1;
+        if (!table.empty()) {
+            const vector<string>& headers = table[0];
+            for (size_t i = 0; i < headers.size(); ++i) {
+                if (headers[i] == searchColumn) searchColumnIndex = i;
+                if (headers[i] == updateColumn) updateColumnIndex = i;
+            }
+        }
+
+        fileOutput.close(); // Close the output file
     }
 
-    fileOutput.close(); // Close the output file
-}
+    //DELETE FROM TABLE------------------------------------------------------------------------------------------
+    void delete_from_table(vector<vector<string>>& table, const string& fileInputName, const string& fileOutputName)
+    {
+        ifstream fileInput(fileInputName);
+        ofstream fileOutput(fileOutputName, ios::app);
 
+        if (!fileInput.is_open())
+        {
+            cerr << "Unable to open file for deleting row." << endl;
+            return;
+        }
+
+        if (!fileOutput.is_open())
+        {
+            cerr << "Unable to open file for deleting row." << endl;
+            return;
+        }
+
+        string line;
+        cout << "test"<<endl;
+
+        while(getline(fileInput, line))
+        {
+            if(has_substring(line, "DELETE FROM") && has_substring(line, "WHERE") && has_substring(line, ";"))
+            {
+                size_t deleteStart = line.find("customer_id=")+12;
+                size_t deleteEnd = line.find(";", deleteStart);
+
+                string deleteID = line.substr(deleteStart, deleteEnd - deleteStart);
+                int deleteId = stoi(deleteID);
+                cout << "delete id:" << deleteId;
+
+                cout << "> DELETE FROM customer WHERE customer_id=4;" << endl;
+                cout << "delete id: " << deleteId << endl;
+            }
+        }
+
+    }
 
 
