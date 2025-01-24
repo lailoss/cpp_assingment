@@ -61,7 +61,7 @@ void create_table(vector<vector<string>>& table, const vector<string>& headers, 
 void insert_into_table(vector<vector<string>>& table, const string& line, const vector<string>& headers, const string& fileInputName, const string& fileOutputName);
 void select_all_from_table_in_csv_mode(const vector<vector<string>>& table, const string& fileOutputName);
 void update_table(vector<vector<string>>& table, const string& searchColumn, const string& searchValue, const string& updateColumn, const string& newValue, const string& fileOutputName);
-int count_row(vector<vector<string>>& table);
+int count_row(vector<vector<string>>& table, const string& fileOutputName);
 
 
 int main()
@@ -72,9 +72,8 @@ int main()
     system("mkdir C:\\cpp_assignment"); //to ensure directory exist
 
 
-
     ifstream fileInput(fileInputName);
-    ofstream fileOutput(fileOutputName, ios::app);
+    ofstream fileOutput(fileOutputName);
     vector<vector<string>> table;
     //string tableName;
     vector<string> headers = {"customer_id", "customer_name", "customer_city", "customer_state", "customer_country", "customer_phone", "customer_email"};
@@ -154,19 +153,7 @@ int main()
 
                    // Print table rows
 
-            fileOutput<<">INSERT INTO";
-             for (const auto& row : table) {
-                for (size_t j = 0; j < row.size(); ++j) {
-                    cout << row[j];
-                    fileOutput << row[j];
-                    if (j < row.size() - 1) {
-                        cout << " , ";
-                        fileOutput << " , ";
-                    }
-                }
-                cout << endl;
-                fileOutput << endl;
-            }
+             select_all_from_table_in_csv_mode(table,fileOutputName);
         }
 
     }
@@ -179,20 +166,15 @@ int main()
         //call create_database to display n log database name
 
 
+        count_row(table,fileOutputName);
         // Output table in CSV mode
-        select_all_from_table_in_csv_mode(table,fileOutputName);
+        fileInput.close();
 
-        int rowcount=count_row(table);
-        cout<<">SELECT COUNT (*) FROM customer;"<<endl;
-        cout<<rowcount<<endl;
-
-        fileOutput<<">SELECT COUNT (*) FROM customer;"<<endl;
-        fileOutput<<rowcount<<endl;
 
 
         fileInput.close();
         fileOutput.close();
-;
+
         return 0;
 }
 
@@ -305,18 +287,13 @@ fileOutput.close();
     string valuesPart = line.substr(pos);
     size_t keywordLength = string("VALUES").length();
 
-    // Trim everything up to and including "VALUES"
-    valuesPart = valuesPart.substr(keywordLength);
-
 
     // Parse the values
-   vector<string> newRow;
+    vector<string> newRow;
     stringstream ss(valuesPart);
     string value;
 
     while (getline(ss, value, ',')) {
-
-    value.erase(remove(value.begin(), value.end(), '\''), value.end());
 
         newRow.push_back(value);
     }
@@ -379,9 +356,14 @@ fileOutput.close();
 
 
     //COUNT ROW--------------------------------------------------------------
-    int count_row(vector<vector<string>>& table){
+    int count_row(vector<vector<string>>& table, const string& fileOutputName) {
+        ofstream fileOutput(fileOutputName, ios::app);
+        int rowcount=  table.empty()? 0:table.size()-1;
+        cout<<">SELECT COUNT (*) FROM customer;"<<endl;
+        cout<<rowcount<<endl;
+        fileOutput<<">SELECT COUNT (*) FROM customer;"<<endl;
+        fileOutput<<rowcount<<endl;
 
-    return table.empty()? 0:table.size()-1;
     }
 
     //UPDATE TABLE------------------------------------------------------------
