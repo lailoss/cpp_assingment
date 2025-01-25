@@ -33,6 +33,7 @@
 // Member_3: Vidhya Dariney
 // -create_output_screen_and_file()
 // -select_all_from_table_in_csv_mode()
+// -delete_from_table()
 // Output and CSV Mode:
 // - Implement select_all_from_table_in_csv_mode() to view the table data in CSV format.
 // - Ensure data from all three input files is properly exported and formatted in CSV outputs.
@@ -75,7 +76,7 @@ int main()
 
     ifstream fileInput(fileInputName);
 
-    ofstream fileOutput(fileOutputName, ios::app);
+    ofstream fileOutput(fileOutputName); //HERE MF !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     vector<vector<string>> table;
     //string tableName;
     vector<string> headers = {"customer_id", "customer_name", "customer_city", "customer_state", "customer_country", "customer_phone", "customer_email"};
@@ -477,13 +478,6 @@ int main()
                 {
                     if (i == deleteId) //
                     {
-                        cout << "delete THIS LINE HSADKJHSJHDAK: ";
-                        for (const auto& cell : table[i]) // go through elements of each row
-                        {
-                            cout << cell << " , ";
-                        }
-                        cout << endl;
-
                         table.erase(table.begin() + i); // table.begin() = first element = 0, + i = exact row id, so it becomes table.erase(i) = specific row
                         break;
                     }
