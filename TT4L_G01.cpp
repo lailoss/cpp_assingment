@@ -68,8 +68,8 @@ void delete_from_table(vector<vector<string>>& table,const string& fileInputName
 int main()
 {
 
-    string fileInputName = "C:\\cpp_assignment\\fileInput1.mdb";
-    string fileOutputName =  "C:\\cpp_assignment\\fileOutput1.txt";
+    string fileInputName = "C:\\cpp_assignment\\fileInput2.mdb";
+    string fileOutputName =  "C:\\cpp_assignment\\fileOutput2.txt";
     system("mkdir C:\\cpp_assignment"); //to ensure directory exist
 
 
@@ -437,7 +437,7 @@ int main()
         }
 
         string line;
-        cout << "test"<<endl;
+        ;
 
         while(getline(fileInput, line))
         {
@@ -448,10 +448,10 @@ int main()
 
                 string deleteID = line.substr(deleteStart, deleteEnd - deleteStart);
                 int deleteId = stoi(deleteID);
-                cout << "delete id:" << deleteId;
+                //cout << "delete id:" << deleteId;
 
-                cout << "> DELETE FROM customer WHERE customer_id=4;" << endl;
-                cout << "delete id: " << deleteId << endl;
+                cout << "> DELETE FROM customer WHERE ";
+                cout << "customer id= " << deleteId << endl;
             }
         }
 
@@ -502,12 +502,12 @@ int main()
               string trimmedSearchValue = searchValue;
 
               //bawah ni untuk trim whitesoace
-              currentValue.erase(remove_if(currentValue.begin(), currentValue.end(), ::isspace), currentValue.end());
-              trimmedSearchValue.erase(remove_if(trimmedSearchValue.begin(), trimmedSearchValue.end(), ::isspace), trimmedSearchValue.end());
+             // currentValue.erase(remove_if(currentValue.begin(), currentValue.end(), ::isspace), currentValue.end());
+              //trimmedSearchValue.erase(remove_if(trimmedSearchValue.begin(), trimmedSearchValue.end(), ::isspace), trimmedSearchValue.end());
 
               // Optionally, make the comparison case-insensitive
-              transform(currentValue.begin(), currentValue.end(), currentValue.begin(), ::tolower);
-              transform(trimmedSearchValue.begin(), trimmedSearchValue.end(), trimmedSearchValue.begin(), ::tolower);
+             // transform(currentValue.begin(), currentValue.end(), currentValue.begin(), ::tolower);
+             // transform(trimmedSearchValue.begin(), trimmedSearchValue.end(), trimmedSearchValue.begin(), ::tolower);
 
               //check if value same w search value
               if (currentValue == trimmedSearchValue) {

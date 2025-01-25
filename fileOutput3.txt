@@ -6,3 +6,95 @@ customer_id,customer_name,customer_city,customer_state,customer_country,customer
 3,Sophia,Brisbane,Queensland,Australia,055556,'sophia@email.com';
 4,Noah,Perth,Western Australia,Australia,066667,'noah@email.com';
 5,Olivia,Adelaide,South Australia,Australia,077778,'olivia@email.com';
+>CREATE C:\cpp_assignment\fileOutput3.txt;
+>DATABASES;
+C:\cpp_assignment\fileInput3.mdb
+>CREATE TABLE 
+(
+customer_id
+customer_name
+customer_city
+customer_state
+customer_country
+customer_phone
+customer_email
+);
+>INSERT INTO 
+customer_id,customer_name,customer_city,customer_state,customer_country,customer_phone,customer_email,VALUES(1 'Everly' 'Sydney' 'New South Wales' 'Australia' '033331' 'everly@email.com'); 
+>INSERT INTO 
+customer_id,customer_name,customer_city,customer_state,customer_country,customer_phone,customer_email,VALUES(2 'Filip' 'Mumbai' 'Maharashtra' 'India' '033332' 'filip@email.com'); 
+>INSERT INTO 
+customer_id,customer_name,customer_city,customer_state,customer_country,customer_phone,customer_email,VALUES(3 'Dean' 'Lagos' 'Lagos State' 'Nigeria' '033333' 'dean@email.com'); 
+>INSERT INTO 
+customer_id,customer_name,customer_city,customer_state,customer_country,customer_phone,customer_email,VALUES(4 'Maria' 'Kazan' 'Tatarstan' 'Russia' '033334' 'maria@email.com'); 
+>INSERT INTOcustomer_id , customer_name , customer_city , customer_state , customer_country , customer_phone , customer_email
+VALUES(1 , 'Everly' , 'Sydney' , 'New South Wales' , 'Australia' , '033331' , 'everly@email.com');
+VALUES(2 , 'Filip' , 'Mumbai' , 'Maharashtra' , 'India' , '033332' , 'filip@email.com');
+VALUES(3 , 'Dean' , 'Lagos' , 'Lagos State' , 'Nigeria' , '033333' , 'dean@email.com');
+VALUES(4 , 'Maria' , 'Kazan' , 'Tatarstan' , 'Russia' , '033334' , 'maria@email.com');
+>CREATE TABLE 
+(
+customer_id
+customer_name
+customer_city
+customer_state
+customer_country
+customer_phone
+customer_email
+);
+>INSERT INTO 
+customer_id,customer_name,customer_city,customer_state,customer_country,customer_phone,customer_email,VALUES (1  'Everly'  'Sydney'  'New South Wales'  'Australia'  '033331'  'everly@email.com'); 
+>INSERT INTO 
+customer_id,customer_name,customer_city,customer_state,customer_country,customer_phone,customer_email,VALUES (2  'Liam'  'Melbourne'  'Victoria'  'Australia'  '044445'  'liam@email.com'); 
+>INSERT INTO 
+customer_id,customer_name,customer_city,customer_state,customer_country,customer_phone,customer_email,VALUES (3  'Sophia'  'Brisbane'  'Queensland'  'Australia'  '055556'  'sophia@email.com'); 
+>INSERT INTO 
+customer_id,customer_name,customer_city,customer_state,customer_country,customer_phone,customer_email,VALUES (4  'Noah'  'Perth'  'Western Australia'  'Australia'  '066667'  'noah@email.com'); 
+>INSERT INTO 
+customer_id,customer_name,customer_city,customer_state,customer_country,customer_phone,customer_email,VALUES (5  'Olivia'  'Adelaide'  'South Australia'  'Australia'  '077778'  'olivia@email.com'); 
+>CREATE C:\cpp_assignment\fileOutput3.txt;
+>DATABASES;
+C:\cpp_assignment\fileInput3.mdb
+>CREATE TABLE 
+(
+customer_id
+customer_name
+customer_city
+customer_state
+customer_country
+customer_phone
+customer_email
+);
+>INSERT INTO 
+customer_id,customer_name,customer_city,customer_state,customer_country,customer_phone,customer_email,VALUES(1 'Everly' 'Sydney' 'New South Wales' 'Australia' '033331' 'everly@email.com'); 
+>INSERT INTO 
+customer_id,customer_name,customer_city,customer_state,customer_country,customer_phone,customer_email,VALUES(2 'Filip' 'Mumbai' 'Maharashtra' 'India' '033332' 'filip@email.com'); 
+>INSERT INTO 
+customer_id,customer_name,customer_city,customer_state,customer_country,customer_phone,customer_email,VALUES(3 'Dean' 'Lagos' 'Lagos State' 'Nigeria' '033333' 'dean@email.com'); 
+>INSERT INTO 
+customer_id,customer_name,customer_city,customer_state,customer_country,customer_phone,customer_email,VALUES(4 'Maria' 'Kazan' 'Tatarstan' 'Russia' '033334' 'maria@email.com'); 
+>INSERT INTOcustomer_id , customer_name , customer_city , customer_state , customer_country , customer_phone , customer_email
+VALUES(1 , 'Everly' , 'Sydney' , 'New South Wales' , 'Australia' , '033331' , 'everly@email.com');
+VALUES(2 , 'Filip' , 'Mumbai' , 'Maharashtra' , 'India' , '033332' , 'filip@email.com');
+VALUES(3 , 'Dean' , 'Lagos' , 'Lagos State' , 'Nigeria' , '033333' , 'dean@email.com');
+VALUES(4 , 'Maria' , 'Kazan' , 'Tatarstan' , 'Russia' , '033334' , 'maria@email.com');
+>CREATE TABLE 
+(
+customer_id
+customer_name
+customer_city
+customer_state
+customer_country
+customer_phone
+customer_email
+);
+>INSERT INTO 
+customer_id,customer_name,customer_city,customer_state,customer_country,customer_phone,customer_email,VALUES (1  'Everly'  'Sydney'  'New South Wales'  'Australia'  '033331'  'everly@email.com'); 
+>INSERT INTO 
+customer_id,customer_name,customer_city,customer_state,customer_country,customer_phone,customer_email,VALUES (2  'Liam'  'Melbourne'  'Victoria'  'Australia'  '044445'  'liam@email.com'); 
+>INSERT INTO 
+customer_id,customer_name,customer_city,customer_state,customer_country,customer_phone,customer_email,VALUES (3  'Sophia'  'Brisbane'  'Queensland'  'Australia'  '055556'  'sophia@email.com'); 
+>INSERT INTO 
+customer_id,customer_name,customer_city,customer_state,customer_country,customer_phone,customer_email,VALUES (4  'Noah'  'Perth'  'Western Australia'  'Australia'  '066667'  'noah@email.com'); 
+>INSERT INTO 
+customer_id,customer_name,customer_city,customer_state,customer_country,customer_phone,customer_email,VALUES (5  'Olivia'  'Adelaide'  'South Australia'  'Australia'  '077778'  'olivia@email.com'); 
