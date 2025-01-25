@@ -462,15 +462,33 @@ int main()
         {
             if(has_substring(line, "DELETE FROM") && has_substring(line, "WHERE") && has_substring(line, ";"))
             {
+                // to take row id number (string)
                 size_t deleteStart = line.find("customer_id=")+12;
                 size_t deleteEnd = line.find(";", deleteStart);
-
                 string deleteID = line.substr(deleteStart, deleteEnd - deleteStart);
+                // to turn the string into int
                 int deleteId = stoi(deleteID);
-                //cout << "delete id:" << deleteId;
 
-                cout << "> DELETE FROM customer WHERE ";
-                cout << "customer id= " << deleteId << endl;
+                cout << "> DELETE FROM customer WHERE customer id= " << deleteId << endl;
+                fileOutput << "> DELETE FROM customer WHERE customer id= " << deleteId << endl;
+
+                // the actual deleting process
+                for (size_t i = 0; i < table.size(); ++i) //go through table's rows
+                {
+                    if (i == deleteId) //
+                    {
+                        cout << "delete THIS LINE HSADKJHSJHDAK: ";
+                        for (const auto& cell : table[i]) // go through elements of each row
+                        {
+                            cout << cell << " , ";
+                        }
+                        cout << endl;
+
+                        table.erase(table.begin() + i); // table.begin() = first element = 0, + i = exact row id, so it becomes table.erase(i) = specific row
+                        break;
+                    }
+                }
+
             }
         }
 
