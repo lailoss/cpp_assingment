@@ -74,7 +74,8 @@ int main()
 
 
     ifstream fileInput(fileInputName);
-    ofstream fileOutput(fileOutputName);
+
+    ofstream fileOutput(fileOutputName, ios::app);
     vector<vector<string>> table;
     //string tableName;
     vector<string> headers = {"customer_id", "customer_name", "customer_city", "customer_state", "customer_country", "customer_phone", "customer_email"};
@@ -138,10 +139,7 @@ int main()
 
 
 
-        while (getline(fileInput, line))
-        {
-             // Combine lines for multi-line commands
-            if (has_substring(line, "INSERT INTO") || !completeCommand.empty())
+        if (has_substring(line, "INSERT INTO") || !completeCommand.empty())
             {
                 completeCommand += line;
                 if (line.find(';') != string::npos)
@@ -207,17 +205,17 @@ int main()
             //call create_database to display n log database name
 
 
-            count_row(table,fileOutputName);
+
             // Output table in CSV mode
-            fileInput.close();
+            //fileInput.close();
 
 
 
-            fileInput.close();
-            fileOutput.close();
+            //fileInput.close();
+            //fileOutput.close();
 
-            return 0;
-}
+            //return 0;
+//}
 
     // function definitions
     bool has_substring(const string& line, const string& substring)
@@ -306,7 +304,7 @@ int main()
     }
         cout <<");"<< endl;
         fileOutput <<");"<< endl;
-fileOutput.close();
+     fileOutput.close();
 
     }
 
@@ -348,7 +346,7 @@ fileOutput.close();
     //fileOutput<<"VALUE";
     cout<<"customer (";
     table.push_back(newRow);
-for (size_t i = 0; i < headers.size(); ++i) {
+    for (size_t i = 0; i < headers.size(); ++i) {
 
         cout <<headers[i] << ",";
         fileOutput << headers[i] << "," ;
@@ -420,6 +418,45 @@ for (size_t i = 0; i < headers.size(); ++i) {
 
     }
 
+    //DELETE FROM TABLE------------------------------------------------------------------------------------------
+    void delete_from_table(vector<vector<string>>& table, const string& fileInputName, const string& fileOutputName)
+    {
+        ifstream fileInput(fileInputName);
+        ofstream fileOutput(fileOutputName, ios::app);
+
+        if (!fileInput.is_open())
+        {
+            cerr << "Unable to open file for deleting row." << endl;
+            return;
+        }
+
+        if (!fileOutput.is_open())
+        {
+            cerr << "Unable to open file for deleting row." << endl;
+            return;
+        }
+
+        string line;
+        cout << "test"<<endl;
+
+        while(getline(fileInput, line))
+        {
+            if(has_substring(line, "DELETE FROM") && has_substring(line, "WHERE") && has_substring(line, ";"))
+            {
+                size_t deleteStart = line.find("customer_id=")+12;
+                size_t deleteEnd = line.find(";", deleteStart);
+
+                string deleteID = line.substr(deleteStart, deleteEnd - deleteStart);
+                int deleteId = stoi(deleteID);
+                cout << "delete id:" << deleteId;
+
+                cout << "> DELETE FROM customer WHERE customer_id=4;" << endl;
+                cout << "delete id: " << deleteId << endl;
+            }
+        }
+
+    }
+
     //UPDATE TABLE----------------------------------------------------------------------------------------------------------
 
     //my reference ( notes) ----------------
@@ -468,6 +505,10 @@ for (size_t i = 0; i < headers.size(); ++i) {
               currentValue.erase(remove_if(currentValue.begin(), currentValue.end(), ::isspace), currentValue.end());
               trimmedSearchValue.erase(remove_if(trimmedSearchValue.begin(), trimmedSearchValue.end(), ::isspace), trimmedSearchValue.end());
 
+              // Optionally, make the comparison case-insensitive
+              transform(currentValue.begin(), currentValue.end(), currentValue.begin(), ::tolower);
+              transform(trimmedSearchValue.begin(), trimmedSearchValue.end(), trimmedSearchValue.begin(), ::tolower);
+
               //check if value same w search value
               if (currentValue == trimmedSearchValue) {
                   //update value inside table
@@ -489,43 +530,5 @@ for (size_t i = 0; i < headers.size(); ++i) {
 }
 
 
-    //DELETE FROM TABLE------------------------------------------------------------------------------------------
-    void delete_from_table(vector<vector<string>>& table, const string& fileInputName, const string& fileOutputName)
-    {
-        ifstream fileInput(fileInputName);
-        ofstream fileOutput(fileOutputName, ios::app);
-
-        if (!fileInput.is_open())
-        {
-            cerr << "Unable to open file for deleting row." << endl;
-            return;
-        }
-
-        if (!fileOutput.is_open())
-        {
-            cerr << "Unable to open file for deleting row." << endl;
-            return;
-        }
-
-        string line;
-        cout << "test"<<endl;
-
-        while(getline(fileInput, line))
-        {
-            if(has_substring(line, "DELETE FROM") && has_substring(line, "WHERE") && has_substring(line, ";"))
-            {
-                size_t deleteStart = line.find("customer_id=")+12;
-                size_t deleteEnd = line.find(";", deleteStart);
-
-                string deleteID = line.substr(deleteStart, deleteEnd - deleteStart);
-                int deleteId = stoi(deleteID);
-                cout << "delete id:" << deleteId;
-
-                cout << "> DELETE FROM customer WHERE customer_id=4;" << endl;
-                cout << "delete id: " << deleteId << endl;
-            }
-        }
-
-    }
 
 
