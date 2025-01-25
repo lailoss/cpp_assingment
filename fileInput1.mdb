@@ -30,7 +30,5 @@ customer(customer_id,customer_name,customer_city,customer_state,customer_country
 
 SELECT*FROM customer;
 
-UPDATE customer SET customer_name = 'John Doe' WHERE customer_id = 1;
-SELECT*FROM customer;
 
 

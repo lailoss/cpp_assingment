@@ -117,8 +117,10 @@ int main()
                 updateColumn.erase(remove_if(updateColumn.begin(), updateColumn.end(), ::isspace), updateColumn.end());
                 newValue.erase(remove_if(newValue.begin(), newValue.end(), ::isspace), newValue.end());
 
-                // Buang('), kalau ada (need to remove manually later)
-                newValue.erase(remove(newValue.begin(), newValue.end(), '\''), newValue.end());
+                // Remove quotes from newValue
+                if (newValue.front() == '\'' && newValue.back() == '\'') {
+                    newValue = newValue.substr(1, newValue.size() - 2);
+                }
 
                 // parse the "WHERE" part to get search column and search value
                 string searchPart = line.substr(wherePos + 5); // ambik part lepas "WHERE"
@@ -129,11 +131,12 @@ int main()
                 getline(searchStream, searchColumn, '=');
                 getline(searchStream, searchValue, ';');
 
-                // Remove spaces and (') -- need to remove manually after this..
+                // Remove spaces and quotes
                 searchColumn.erase(remove_if(searchColumn.begin(), searchColumn.end(), ::isspace), searchColumn.end());
-                searchValue.erase(remove(searchValue.begin(), searchValue.end(), '\''), searchValue.end());
-
-                update_table(table, searchColumn, searchValue, updateColumn, newValue, fileOutputName);
+                if (searchValue.front() == '\'' && searchValue.back() == '\'') {
+                    searchValue = searchValue.substr(1, searchValue.size() - 2);
+                 }
+                 update_table(table, searchColumn, searchValue, updateColumn, newValue, fileOutputName);
             }
         }
 
@@ -187,15 +190,20 @@ int main()
                      }
                      cout << endl;
                      fileOutput << endl;
+
                  }
             }
+
 
             else if (has_substring (line, "DELETE"))
             {
                 delete_from_table(table, fileInputName, fileOutputName);
             }
 
+
+
         }
+        int rowCount = count_row(table, fileOutputName);
     }
 
             //fileOutputName = "fileOutput1.txt"; //incorrect
@@ -309,57 +317,73 @@ int main()
     }
 
     //INSERT INTO TABLE-----------------------------------------------------------------------------------------------------
-    void insert_into_table(vector<vector<string>>& table, const string& line, const vector<string>& headers, const string& fileInputName, const string& fileOutputName)
-    {
-        ifstream fileInput(fileInputName);
-        ofstream fileOutput(fileOutputName, ios::app);
+    void insert_into_table(vector<vector<string>>& table, const string& line, const vector<string>& headers, const string& fileInputName, const string& fileOutputName) {
+    ofstream fileOutput(fileOutputName, ios::app);
+    if (!fileOutput.is_open()) {
+        cerr << "Unable to open output file for writing." << endl;
+        return;
+    }
 
-
-       size_t pos = line.find("VALUES");
-    if (pos == string::npos)
-    {
+    size_t pos = line.find("VALUES");
+    if (pos == string::npos) {
         cerr << "Error: Invalid INSERT INTO statement. Missing 'VALUES' keyword." << endl;
         return;
     }
 
     // Extract the part after "VALUES"
-    string valuesPart = line.substr(pos);
-    size_t keywordLength = string("VALUES").length();
+    string valuesPart = line.substr(pos + string("VALUES").length());
+    valuesPart = valuesPart.substr(1, valuesPart.length() - 2);
 
+    size_t start = valuesPart.find('(') + 1; // Start after '('
+    size_t end = valuesPart.find(')'); // End at ')'
+    string values = valuesPart.substr(start, end - start); // Get the values inside the parentheses
 
     // Parse the values
     vector<string> newRow;
-    stringstream ss(valuesPart);
+    stringstream ss(values);
     string value;
 
     while (getline(ss, value, ',')) {
-
+        // Trim spaces and quotes
+        value.erase(remove_if(value.begin(), value.end(), ::isspace), value.end());
         newRow.push_back(value);
     }
 
+    // Ensure the new row has the correct number of columns
+    if (newRow.size() != headers.size()) {
+        cerr << "Error: Number of values does not match number of columns." << endl;
+        return;
+    }
 
-
-    // Confirmation message
-    cout << ">INSERT INTO "<<endl;
-    fileOutput << ">INSERT INTO "<<endl;
-    //cout<<"VALUE";
-    //fileOutput<<"VALUE";
-    cout<<"customer (";
+    // Add the new row to the table (only once)
     table.push_back(newRow);
-    for (size_t i = 0; i < headers.size(); ++i) {
 
-        cout <<headers[i] << ",";
-        fileOutput << headers[i] << "," ;
-    };
-    cout<<")";
-    for (const auto& val : newRow)
-    {
+    // Confirmation message (matching terminal output)
+    cout << ">INSERT INTO " << endl;
+    fileOutput << ">INSERT INTO " << endl;
+
+    // Print the column names
+    cout << "customer (";
+    fileOutput << "customer (";
+    for (size_t i = 0; i < headers.size(); ++i) {
+        cout << headers[i];
+        fileOutput << headers[i];
+        if (i < headers.size() - 1) {
+            cout << ", ";
+            fileOutput << ", ";
+        }
+    }
+    cout << ")" << endl;
+    fileOutput << ")" << endl;
+
+    // Print the values
+    for (const auto& val : newRow) {
         cout << val << " ";
         fileOutput << val << " ";
-
     }
     cout << endl;
     fileOutput << endl;
+
     fileOutput.close();
 }
     //SELECT ALL FROM TABLE------------------------------------------------------------------------------------------
@@ -379,6 +403,7 @@ int main()
         }
 
         cout<<"SELECT * FROM customer"<<endl;
+        fileOutput << "> SELECT * FROM customer;" << endl;
 
 
           for (const auto& row : table){
@@ -408,12 +433,13 @@ int main()
     int count_row(vector<vector<string>>& table, const string& fileOutputName)
     {
         ofstream fileOutput(fileOutputName, ios::app);
+
         int rowcount=  table.empty()? 0:table.size()-1;
         cout<<">SELECT COUNT (*) FROM customer;"<<endl;
         cout<<rowcount<<endl;
         fileOutput<<">SELECT COUNT (*) FROM customer;"<<endl;
         fileOutput<<rowcount<<endl;
-
+        fileOutput.close();
         return rowcount;
 
     }
@@ -430,14 +456,7 @@ int main()
             return;
         }
 
-        if (!fileOutput.is_open())
-        {
-            cerr << "Unable to open file for deleting row." << endl;
-            return;
-        }
-
         string line;
-        ;
 
         while(getline(fileInput, line))
         {
@@ -478,8 +497,14 @@ int main()
     void update_table(vector<vector<string>>& table, const string& searchColumn, const string& searchValue, const string& updateColumn, const string& newValue, const string& fileOutputName) {
          ofstream fileOutput(fileOutputName, ios::app); //open file output utk append
 
-         int searchIndex = -1, updateIndex = -1;
+         // Print table before update for debugging
+        //cout << "Table before update:" << endl;
+        //for (const auto& row : table) {
+         //   for (const auto& col : row) cout << col << " ";
+         //  cout << endl;
+         //}
 
+         int searchIndex = -1, updateIndex = -1;
          //to find index column utk search and update dlm header
          for (size_t i = 0; i < table[0].size(); ++i) {
             if (table[0][i] == searchColumn) searchIndex = i; //find column yg kita nak search
@@ -494,33 +519,32 @@ int main()
          }
 
          bool updated = false; // track if any row was updated
-
          //loop for each row
          for (size_t i = 1; i < table.size(); ++i){
+                if (table[i][searchIndex] == searchValue) {
 
-              string currentValue = table[i][searchIndex];
-              string trimmedSearchValue = searchValue;
+              //string currentValue = table[i][searchIndex];
+              //string trimmedSearchValue = searchValue;
 
               //bawah ni untuk trim whitesoace
-             // currentValue.erase(remove_if(currentValue.begin(), currentValue.end(), ::isspace), currentValue.end());
+              //currentValue.erase(remove_if(currentValue.begin(), currentValue.end(), ::isspace), currentValue.end());
               //trimmedSearchValue.erase(remove_if(trimmedSearchValue.begin(), trimmedSearchValue.end(), ::isspace), trimmedSearchValue.end());
 
               // Optionally, make the comparison case-insensitive
-             // transform(currentValue.begin(), currentValue.end(), currentValue.begin(), ::tolower);
+              //transform(currentValue.begin(), currentValue.end(), currentValue.begin(), ::tolower);
              // transform(trimmedSearchValue.begin(), trimmedSearchValue.end(), trimmedSearchValue.begin(), ::tolower);
 
               //check if value same w search value
-              if (currentValue == trimmedSearchValue) {
+              //if (currentValue == trimmedSearchValue) {
                   //update value inside table
-                  table[i][updateIndex] = newValue;
-                  updated = true; //successfully updated
-                  cout << "Updated row " << i << ": " << table[i][updateIndex] << endl; // Debug output
+                    table[i][updateIndex] = newValue;
+                    updated = true; //successfully updated
               }
          }
 
         if(updated){
-           fileOutput << ">UPDATE " << table[0][0] << " SET " << updateColumn << " = " << newValue << "' WHERE " << searchColumn << " = '" << searchValue << ";" << endl ;
-           cout << "Rows Updated successfully!" << endl;
+           fileOutput << "> UPDATE " << table[0][0] << " SET " << updateColumn << " = " << newValue << " WHERE " << searchColumn << " = " << searchValue << ";" << endl ;
+           cout << "> UPDATE " << table[0][0] << " SET " << updateColumn << " = " << newValue << "' WHERE " << searchColumn << " = " << searchValue << ";" << endl ;
         } else {
            fileOutput << "No rows found matching the condition: " << searchColumn << " = " << searchValue << endl;
            cout << "No rows updated!" << endl;
