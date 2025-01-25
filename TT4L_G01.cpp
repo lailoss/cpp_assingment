@@ -118,6 +118,7 @@ int main()
         }
 
 
+
         while (getline(fileInput, line))
         {
              // Combine lines for multi-line commands
@@ -307,13 +308,20 @@ fileOutput.close();
     }
 
 
-    table.push_back(newRow);
 
     // Confirmation message
     cout << ">INSERT INTO "<<endl;
     fileOutput << ">INSERT INTO "<<endl;
-    cout<<"VALUE";
-    fileOutput<<"VALUE";
+    //cout<<"VALUE";
+    //fileOutput<<"VALUE";
+    cout<<"customer (";
+    table.push_back(newRow);
+for (size_t i = 0; i < headers.size(); ++i) {
+
+        cout <<headers[i] << ",";
+        fileOutput << headers[i] << "," ;
+    };
+    cout<<")";
     for (const auto& val : newRow)
     {
         cout << val << " ";
@@ -354,10 +362,13 @@ fileOutput.close();
                         cout<<",";
                         fileOutput << ",";
                     }
-                }
+
                 }
                 cout<<endl;
                 fileOutput << "\n";
+                }
+
+
         fileOutput.close();
        // cout << "Table exported to " << fileOutputName << endl;
     }
