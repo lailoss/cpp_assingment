@@ -79,7 +79,7 @@ int main()
     //string tableName;
     vector<string> headers = {"customer_id", "customer_name", "customer_city", "customer_state", "customer_country", "customer_phone", "customer_email"};
 
-     create_database(fileInputName, fileOutputName);
+    create_database(fileInputName, fileOutputName);
 
     if ( !fileInput.is_open() )
     {
@@ -95,25 +95,44 @@ int main()
     string line;
     string completeCommand; //for full command
 
-    while (getline(fileInput, line))
-    {
-        if (has_substring(line, "UPDATE"))
-        {
-        // Parse the UPDATE command
-           size_t setPos = line.find("SET");
-           size_t wherePos = line.find("WHERE");
+    //update fn in main
+    while (getline(fileInput, line)) {
+        if (has_substring(line, "UPDATE")) {
+            // check if ada "UPDATE" dalam line
+            size_t setPos = line.find("SET"); //find "SET" position
+            size_t wherePos = line.find("WHERE"); // finf "WHERE" position
 
-            if (setPos != string::npos && wherePos != string::npos)
-            {
-                // Extract column and value to update
+            if (setPos != string::npos && wherePos != string::npos) {
+                //proceed if got "SET","WHERE"
+                string updatePart = line.substr(setPos + 3, wherePos - setPos - 3);
+                stringstream updateStream(updatePart); //stream for processing update
+                string updateColumn, newValue;
 
+                // read column and new value to update
+                getline(updateStream, updateColumn, '=');
+                getline(updateStream, newValue, ';');
 
-                // Extract column and value to search
+                // Remove spaces before and after update column and new value
+                updateColumn.erase(remove_if(updateColumn.begin(), updateColumn.end(), ::isspace), updateColumn.end());
+                newValue.erase(remove_if(newValue.begin(), newValue.end(), ::isspace), newValue.end());
 
+                // Buang('), kalau ada (need to remove manually later)
+                newValue.erase(remove(newValue.begin(), newValue.end(), '\''), newValue.end());
 
+                // parse the "WHERE" part to get search column and search value
+                string searchPart = line.substr(wherePos + 5); // ambik part lepas "WHERE"
+                stringstream searchStream(searchPart);
+                string searchColumn, searchValue;
 
-               // Call the update function
-               //update_table(table, searchColumn, searchValue, updateColumn, newValue, fileOutputName);
+                // read search column and search value
+                getline(searchStream, searchColumn, '=');
+                getline(searchStream, searchValue, ';');
+
+                // Remove spaces and (') -- need to remove manually after this..
+                searchColumn.erase(remove_if(searchColumn.begin(), searchColumn.end(), ::isspace), searchColumn.end());
+                searchValue.erase(remove(searchValue.begin(), searchValue.end(), '\''), searchValue.end());
+
+                update_table(table, searchColumn, searchValue, updateColumn, newValue, fileOutputName);
             }
         }
 
@@ -157,7 +176,20 @@ int main()
 
                        // Print table rows
 
-                 select_all_from_table_in_csv_mode(table,fileOutputName);
+                 //select_all_from_table_in_csv_mode(table,fileOutputName);
+                 fileOutput<<">INSERT INTO";
+                  for (const auto& row : table) {
+                    for (size_t j = 0; j < row.size(); ++j) {
+                       cout << row[j];
+                       fileOutput << row[j];
+                       if (j < row.size() - 1) {
+                           cout << " , ";
+                           fileOutput << " , ";
+                       }
+                     }
+                     cout << endl;
+                     fileOutput << endl;
+                 }
             }
 
             else if (has_substring (line, "DELETE"))
@@ -406,27 +438,56 @@ for (size_t i = 0; i < headers.size(); ++i) {
 
     // vector<vector<string>>& table,  // The table itself
     // UPDATE TABLE FUNCTION
-    void update_table(vector<vector<string>>& table, const string& searchColumn, const string& searchValue, const string& updateColumn, const string& newValue, const string& fileOutputName)
-    {
-        ofstream fileOutput(fileOutputName, ios::app); // Open the output file in append mode
+    void update_table(vector<vector<string>>& table, const string& searchColumn, const string& searchValue, const string& updateColumn, const string& newValue, const string& fileOutputName) {
+         ofstream fileOutput(fileOutputName, ios::app); //open file output utk append
 
-        if (!fileOutput.is_open()) {
-            cerr << "Unable to open file for writing updates." << endl;
-            return;
+         int searchIndex = -1, updateIndex = -1;
+
+         //to find index column utk search and update dlm header
+         for (size_t i = 0; i < table[0].size(); ++i) {
+            if (table[0][i] == searchColumn) searchIndex = i; //find column yg kita nak search
+            if (table[0][i] == updateColumn) updateIndex = i; //find column yg nak update
+         }
+
+        //if column not found..
+         if (searchIndex == -1 || updateIndex == -1) {
+            fileOutput << "Error: Column not found!" << endl;
+            cout << "Error: Column not found!" << endl;
+            return; //return if got any error
+         }
+
+         bool updated = false; // track if any row was updated
+
+         //loop for each row
+         for (size_t i = 1; i < table.size(); ++i){
+
+              string currentValue = table[i][searchIndex];
+              string trimmedSearchValue = searchValue;
+
+              //bawah ni untuk trim whitesoace
+              currentValue.erase(remove_if(currentValue.begin(), currentValue.end(), ::isspace), currentValue.end());
+              trimmedSearchValue.erase(remove_if(trimmedSearchValue.begin(), trimmedSearchValue.end(), ::isspace), trimmedSearchValue.end());
+
+              //check if value same w search value
+              if (currentValue == trimmedSearchValue) {
+                  //update value inside table
+                  table[i][updateIndex] = newValue;
+                  updated = true; //successfully updated
+                  cout << "Updated row " << i << ": " << table[i][updateIndex] << endl; // Debug output
+              }
+         }
+
+        if(updated){
+           fileOutput << ">UPDATE " << table[0][0] << " SET " << updateColumn << " = " << newValue << "' WHERE " << searchColumn << " = '" << searchValue << ";" << endl ;
+           cout << "Rows Updated successfully!" << endl;
+        } else {
+           fileOutput << "No rows found matching the condition: " << searchColumn << " = " << searchValue << endl;
+           cout << "No rows updated!" << endl;
         }
 
-        // Find the index of the search and update columns
-        int searchColumnIndex = -1, updateColumnIndex = -1;
-        if (!table.empty()) {
-            const vector<string>& headers = table[0];
-            for (size_t i = 0; i < headers.size(); ++i) {
-                if (headers[i] == searchColumn) searchColumnIndex = i;
-                if (headers[i] == updateColumn) updateColumnIndex = i;
-            }
-        }
+        fileOutput.close();
+}
 
-        fileOutput.close(); // Close the output file
-    }
 
     //DELETE FROM TABLE------------------------------------------------------------------------------------------
     void delete_from_table(vector<vector<string>>& table, const string& fileInputName, const string& fileOutputName)
