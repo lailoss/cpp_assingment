@@ -1,7 +1,6 @@
-<<<<<<< HEAD
-CREATE fileOutput3.txt;
+CREATE fileOutput2.txt;
 DATABASES;
-
+ 
 CREATE TABLE customer(
 customer_id INT,
 customer_name TEXT,
@@ -11,48 +10,20 @@ customer_country TEXT,
 customer_phone TEXT,
 customer_email TEXT
 );
+ 
+INSERT INTO customer(customer_id,customer_name,customer_city,customer_state,customer_country,customer_phone,customer_email) VALUES (1,'oyen','meowcity','Texas','USA','019877313','oyen@gmail.com');
+INSERT INTO customer(customer_id,customer_name,customer_city,customer_state,customer_country,customer_phone,customer_email) VALUES (2,'sarah','kuantan','Pahang','Malaysia','3434532','sarah@gmail.com');
+INSERT INTO customer(customer_id,customer_name,customer_city,customer_state,customer_country,customer_phone,customer_email) VALUES (3,'Rosie','Vienna','Vienna State','Austria','0928833','email3');
+INSERT INTO customer(customer_id,customer_name,customer_city,customer_state,customer_country,customer_phone,customer_email) VALUES (4,'Billy','Sofia','Republic Of Bulgaria','Bulgaria','00009323','billygoat@yahoo');
+INSERT INTO customer(customer_id,customer_name,customer_city,customer_state,customer_country,customer_phone,customer_email) VALUES (5,'Robbie','Hondacity','Honda','Japan','00009323','robbiedobi@yahoo');
+SELECT * FROM customer;
+ 
 TABLES;
-
-INSERT INTO
-customer(customer_id,customer_name,customer_city,customer_state,customer_country,customer_phone,customer_email)VALUES
-(1,'Everly','Sydney','New South Wales','Australia','033331','everly@email.com');
-
-INSERT INTO
-customer(customer_id,customer_name,customer_city,customer_state,customer_country,customer_phone,customer_email)VALUES
-(2,'Filip','Mumbai','Maharashtra','India','033332','filip@email.com');
-
-INSERT INTO
-customer(customer_id,customer_name,customer_city,customer_state,customer_country,customer_phone,customer_email)VALUES
-(3,'Dean','Lagos','Lagos State','Nigeria','033333','dean@email.com');
-
-INSERT INTO
-customer(customer_id,customer_name,customer_city,customer_state,customer_country,customer_phone,customer_email)VALUES
-(4,'Maria','Kazan','Tatarstan','Russia','033334','maria@email.com');
-
-SELECT*FROM customer;
-=======
-CREATE TABLE customer (
-    customer_id INT,
-    customer_name VARCHAR(255),
-    customer_city VARCHAR(255),
-    customer_state VARCHAR(255),
-    customer_country VARCHAR(255),
-    customer_phone VARCHAR(50),
-    customer_email VARCHAR(255)
-);
-
-INSERT INTO customer(customer_id, customer_name, customer_city, customer_state, customer_country, customer_phone, customer_email)
-VALUES (1, 'Everly', 'Sydney', 'New South Wales', 'Australia', '033331', 'everly@email.com');
-
-INSERT INTO customer(customer_id, customer_name, customer_city, customer_state, customer_country, customer_phone, customer_email)
-VALUES (2, 'Liam', 'Melbourne', 'Victoria', 'Australia', '044445', 'liam@email.com');
-
-INSERT INTO customer(customer_id, customer_name, customer_city, customer_state, customer_country, customer_phone, customer_email)
-VALUES (3, 'Sophia', 'Brisbane', 'Queensland', 'Australia', '055556', 'sophia@email.com');
-
-INSERT INTO customer(customer_id, customer_name, customer_city, customer_state, customer_country, customer_phone, customer_email)
-VALUES (4, 'Noah', 'Perth', 'Western Australia', 'Australia', '066667', 'noah@email.com');
-
-INSERT INTO customer(customer_id, customer_name, customer_city, customer_state, customer_country, customer_phone, customer_email)
-VALUES (5, 'Olivia', 'Adelaide', 'South Australia', 'Australia', '077778', 'olivia@email.com');
->>>>>>> 72220666dece4c459bd7a1a9a02055fa80c8bb60
+ 
+UPDATE customer SET customer_name='Olaf' WHERE customer_id=1; 
+SELECT * FROM customer;
+ 
+DELETE FROM customer WHERE customer_id=2;
+SELECT * FROM customer;
+ 
+SELECT COUNT(*) FROM customer;

@@ -24,8 +24,9 @@
 
 // Member_2: Wan Hanani Iman
 // Table Operations:
-// - Write the functions create_table() and insert_into_table().
+// - Write the functions create_table() and insert_into_table(), and countrow()
 // - Ensure the table supports two data types (INT and TEXT) and inserts rows correctly.
+//- fixed and ensure format is the same as report
 // Error Handling:
 // - Add error-checking mechanisms for file processing and database/table creation.
 // - Assist in writing pseudocode and documentation for these functions.
@@ -69,8 +70,8 @@ void delete_from_table(vector<vector<string>>& table,const string& fileInputName
 int main()
 {
 
-    string fileInputName = "C:\\cpp_assignment\\fileInput2.mdb";
-    string fileOutputName =  "C:\\cpp_assignment\\fileOutput2.txt";
+    string fileInputName = "C:\\cpp_assignment\\fileInput3.mdb";
+    string fileOutputName =  "C:\\cpp_assignment\\fileOutput3.txt";
     system("mkdir C:\\cpp_assignment"); //to ensure directory exist
 
 
