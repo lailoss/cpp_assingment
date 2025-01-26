@@ -14,7 +14,7 @@ customer_email TEXT
 INSERT INTO customer(customer_id,customer_name,customer_city,customer_state,customer_country,customer_phone,customer_email) VALUES (1,'oyen','meowcity','Texas','USA','019877313','oyen@gmail.com');
 INSERT INTO customer(customer_id,customer_name,customer_city,customer_state,customer_country,customer_phone,customer_email) VALUES (2,'sarah','kuantan','Pahang','Malaysia','3434532','sarah@gmail.com');
 INSERT INTO customer(customer_id,customer_name,customer_city,customer_state,customer_country,customer_phone,customer_email) VALUES (3,'Rosie','Vienna','Vienna State','Austria','0928833','email3');
-INSERT INTO customer(customer_id,customer_name,customer_city,customer_state,customer_country,customer_phone,customer_email) VALUES (4,'Billy','Sofia','Republic Of Bulgaria','Bulgaria','00009323','billygoat@yahoo');
+INSERT INTO customer(customer_id,customer_name,customer_city,customer_state,customer_country,customer_phone,customer_email) VALUES (4,'Billy','Sofia','Bulgaria','Bulgaria','00009323','billygoat@yahoo');
 INSERT INTO customer(customer_id,customer_name,customer_city,customer_state,customer_country,customer_phone,customer_email) VALUES (5,'Robbie','Hondacity','Honda','Japan','00009323','robbiedobi@yahoo');
 SELECT * FROM customer;
  

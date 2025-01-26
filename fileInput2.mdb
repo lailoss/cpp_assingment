@@ -11,10 +11,10 @@ customer_phone TEXT,
 customer_email TEXT
 );
  
-INSERT INTO customer(customer_id,customer_name,customer_city,customer_state,customer_country,customer_phone,customer_email) VALUES (1,'maria','Paris','ile de france','France','11111','maria@gmail.com');
-INSERT INTO customer(customer_id,customer_name,customer_city,customer_state,customer_country,customer_phone,customer_email) VALUES (2,'oyen','Putrajaya','Wilayah persekutuan','Malaysia','22222','apoo@gmail.com');
+INSERT INTO customer(customer_id,customer_name,customer_city,customer_state,customer_country,customer_phone,customer_email) VALUES (1,'maria','Paris','france','France','11111','maria@gmail.com');
+INSERT INTO customer(customer_id,customer_name,customer_city,customer_state,customer_country,customer_phone,customer_email) VALUES (2,'oyen','Putrajaya','Putrajaya','Malaysia','22222','apoo@gmail.com');
 INSERT INTO customer(customer_id,customer_name,customer_city,customer_state,customer_country,customer_phone,customer_email) VALUES (3,'shawn','Toronto','Ontario','Canada','333333','shawnthesheep@gmail.com');
-INSERT INTO customer(customer_id,customer_name,customer_city,customer_state,customer_country,customer_phone,customer_email) VALUES (4,'mendes','Kuala Lumpur','KL','Malaysia','44444','endestia@gmail.com');
+INSERT INTO customer(customer_id,customer_name,customer_city,customer_state,customer_country,customer_phone,customer_email) VALUES (4,'mendes','Subang','KL','Malaysia','44444','endestia@gmail.com');
 
 SELECT * FROM customer;
  
