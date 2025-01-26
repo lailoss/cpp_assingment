@@ -70,8 +70,8 @@ void delete_from_table(vector<vector<string>>& table,const string& fileInputName
 int main()
 {
 
-    string fileInputName = "C:\\cpp_assignment\\fileInput1.mdb";
-    string fileOutputName =  "C:\\cpp_assignment\\fileOutput1.txt";
+    string fileInputName = "C:\\cpp_assignment\\fileInput2.mdb";
+    string fileOutputName =  "C:\\cpp_assignment\\fileOutput2.txt";
     //system("mkdir C:\\cpp_assignment"); //to ensure directory exist
 
 
@@ -519,7 +519,6 @@ vector<string> header_types={"INT", "TEXT", "TEXT", "TEXT", "TEXT", "TEXT", "TEX
     //---------------------------------------
 
     // vector<vector<string>>& table,  // The table itself
-    // UPDATE TABLE FUNCTION
     void update_table(vector<vector<string>>& table, const string& searchColumn, const string& searchValue, const string& updateColumn, const string& newValue, const string& fileOutputName) {
          ofstream fileOutput(fileOutputName, ios::app); //open file output utk append
 
@@ -549,20 +548,6 @@ vector<string> header_types={"INT", "TEXT", "TEXT", "TEXT", "TEXT", "TEXT", "TEX
          for (size_t i = 1; i < table.size(); ++i){
                 if (table[i][searchIndex] == searchValue) {
 
-              //string currentValue = table[i][searchIndex];
-              //string trimmedSearchValue = searchValue;
-
-              //bawah ni untuk trim whitesoace
-              //currentValue.erase(remove_if(currentValue.begin(), currentValue.end(), ::isspace), currentValue.end());
-              //trimmedSearchValue.erase(remove_if(trimmedSearchValue.begin(), trimmedSearchValue.end(), ::isspace), trimmedSearchValue.end());
-
-              // Optionally, make the comparison case-insensitive
-              //transform(currentValue.begin(), currentValue.end(), currentValue.begin(), ::tolower);
-             // transform(trimmedSearchValue.begin(), trimmedSearchValue.end(), trimmedSearchValue.begin(), ::tolower);
-
-              //check if value same w search value
-              //if (currentValue == trimmedSearchValue) {
-                  //update value inside table
                     table[i][updateIndex] = newValue;
                     updated = true; //successfully updated
               }
