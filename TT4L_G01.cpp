@@ -58,7 +58,7 @@ using namespace std;
 bool has_substring(const string& line, const string& substring);
 void create_output_screen_and_file(const string& fileOutputName);
 void create_database(const string& fileInputName, const string& fileOutputName); //to display & log database name
-void create_table(vector<vector<string>>& table, const vector<string>& headers, const string& fileOutputName);
+void create_table(vector<vector<string>>& table, const vector<string>& headers, const vector<string>& header_types, const string& fileOutputName);
 void insert_into_table(vector<vector<string>>& table, const string& line, const vector<string>& headers, const string& fileInputName, const string& fileOutputName);
 void select_all_from_table_in_csv_mode(const vector<vector<string>>& table, const string& fileOutputName);
 void update_table(vector<vector<string>>& table, const string& searchColumn, const string& searchValue, const string& updateColumn, const string& newValue, const string& fileOutputName);
@@ -80,7 +80,7 @@ int main()
     vector<vector<string>> table;
     //string tableName;
     vector<string> headers = {"customer_id", "customer_name", "customer_city", "customer_state", "customer_country", "customer_phone", "customer_email"};
-
+vector<string> header_types={"INT", "TEXT", "TEXT", "TEXT", "TEXT", "TEXT", "TEXT"};
     create_database(fileInputName, fileOutputName);
 
     if ( !fileInput.is_open() )
@@ -99,7 +99,12 @@ int main()
 
     //update fn in main
     while (getline(fileInput, line)) {
+
         if (has_substring(line, "UPDATE")) {
+
+            select_all_from_table_in_csv_mode(table,fileOutputName);
+         cout<<">TABLES; "<<endl;
+    cout<<"customer"<<endl;
             // check if ada "UPDATE" dalam line
             size_t setPos = line.find("SET"); //find "SET" position
             size_t wherePos = line.find("WHERE"); // finf "WHERE" position
@@ -138,6 +143,7 @@ int main()
                     searchValue = searchValue.substr(1, searchValue.size() - 2);
                  }
                  update_table(table, searchColumn, searchValue, updateColumn, newValue, fileOutputName);
+                 select_all_from_table_in_csv_mode(table, fileOutputName);
             }
         }
 
@@ -156,7 +162,7 @@ int main()
 
             if (has_substring(line, "CREATE TABLE"))
             {
-                create_table(table, headers, fileOutputName);
+                create_table(table, headers, header_types, fileOutputName);
             }
 
             /*if (has_substring(line, "CREATE TABLE"))  //original dell code ---------
@@ -199,6 +205,7 @@ int main()
             else if (has_substring (line, "DELETE"))
             {
                 delete_from_table(table, fileInputName, fileOutputName);
+                select_all_from_table_in_csv_mode(table, fileOutputName);
             }
 
 
@@ -244,7 +251,7 @@ int main()
             return;
         }
 
-        cout<<"CREATE"<<fileOutputName;
+        cout<<" CREATE"<<fileOutputName;
 
         string summary = "Database output summary.";
         cout << summary << endl;
@@ -263,11 +270,11 @@ int main()
         return;
     }
 
-    cout << ">CREATE " << fileOutputName << endl;
-    fileOutput << ">CREATE " << fileOutputName << ";" << endl;
+    cout << "> CREATE " << fileOutputName << endl;
+    fileOutput << "> CREATE " << fileOutputName << ";" << endl;
 
-    cout << ">DATABASES;" << endl;
-    fileOutput << ">DATABASES;" << endl;
+    cout << "> DATABASES;" << endl;
+    fileOutput << "> DATABASES;" << endl;
 
     cout << fileInputName << endl;
     fileOutput << fileInputName << endl;
@@ -294,22 +301,22 @@ int main()
 
 
     //CREATE TABLE-----------------------------------------------------------------------------------------------------
-    void create_table(vector<vector<string>>& table, const vector<string>& headers, const string& fileOutputName)
+   void create_table(vector<vector<string>>& table, const vector<string>& headers, const vector<string>& header_types, const string& fileOutputName)
     {
 
         ofstream fileOutput(fileOutputName, ios::app); //open output file for writing
 
         table.clear(); //clear existing data
         table.push_back(headers); //add headers as first row
-        cout << ">CREATE TABLE "<<endl;
+        cout << "> CREATE TABLE "<<endl;
         cout<<"("<<endl;
 
-        fileOutput << ">CREATE TABLE "<<endl;
+        fileOutput << "> CREATE TABLE "<<endl;
         fileOutput<<"("<<endl;
 
         for (size_t i = 0; i < headers.size(); ++i) {
-        cout << headers[i] << endl;
-        fileOutput << headers[i] << endl;
+        cout << headers[i] <<" "<< header_types[i]<< endl;
+        fileOutput << headers[i] <<" "<< header_types[i]<<endl;
     }
         cout <<");"<< endl;
         fileOutput <<");"<< endl;
@@ -360,8 +367,8 @@ int main()
     table.push_back(newRow);
 
     // Confirmation message (matching terminal output)
-    cout << ">INSERT INTO " << endl;
-    fileOutput << ">INSERT INTO " << endl;
+    cout << "> INSERT INTO " << endl;
+    fileOutput << "> INSERT INTO " << endl;
 
     // Print the column names
     cout << "customer (";
@@ -374,16 +381,21 @@ int main()
             fileOutput << ", ";
         }
     }
+
     cout << ")" << endl;
     fileOutput << ")" << endl;
+
+    cout << "VALUES (" ;
+    fileOutput << "VALUES (" ;
 
     // Print the values
     for (const auto& val : newRow) {
         cout << val << " ";
         fileOutput << val << " ";
     }
-    cout << endl;
-    fileOutput << endl;
+    cout << ")" << endl;
+    fileOutput << ")" << endl;
+
 
     fileOutput.close();
 }
@@ -403,7 +415,7 @@ int main()
             return;
         }
 
-        cout<<"SELECT * FROM customer"<<endl;
+        cout<<"> SELECT * FROM customer"<<endl;
         fileOutput << "> SELECT * FROM customer;" << endl;
 
 
@@ -436,9 +448,9 @@ int main()
         ofstream fileOutput(fileOutputName, ios::app);
 
         int rowcount=  table.empty()? 0:table.size()-1;
-        cout<<">SELECT COUNT (*) FROM customer;"<<endl;
+        cout<<"> SELECT COUNT (*) FROM customer;"<<endl;
         cout<<rowcount<<endl;
-        fileOutput<<">SELECT COUNT (*) FROM customer;"<<endl;
+        fileOutput<<"> SELECT COUNT (*) FROM customer;"<<endl;
         fileOutput<<rowcount<<endl;
         fileOutput.close();
         return rowcount;
