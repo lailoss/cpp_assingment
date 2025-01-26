@@ -6,7 +6,7 @@
 // Trimester: 2430
 // Member_1: 242UC244FY | FEQHAH DELILAH BINTI MOHD FAIZUL | feqhah01@gmail.com | 013-662 0012
 // Member_2: 242UC244CK | WAN HANANI IMAN | EMAIL | PHONE
-// Member_3: 242UC244L8 | VIDHYA DARINEY A/P RAJASINGAM | EMAIL | PHONE
+// Member_3: 242UC244L8 | VIDHYA DARINEY A/P RAJASINGAM | vidhya.dariney.rajasingam@student.mmu.edu.my | PHONE
 // *********************************************************
 // *********************************************************
 // Task Distribution
@@ -32,12 +32,13 @@
 // - Assist in writing pseudocode and documentation for these functions.
 
 // Member_3: Vidhya Dariney
-// -create_output_screen_and_file()
-// -select_all_from_table_in_csv_mode()
-// -delete_from_table()
+// -Write the functions create_output_screen_and_file(), select_all_from_table_in_csv_mode(), and delete_from_table()
 // Output and CSV Mode:
 // - Implement select_all_from_table_in_csv_mode() to view the table data in CSV format.
 // - Ensure data from all three input files is properly exported and formatted in CSV outputs.
+// - Assist in writing pseudocode and documentation for these functions.
+// - Clean up code
+
 
 // Explanations and Reports:
 // - Create pseudocode, flowcharts, and sample input/output screenshots.
@@ -70,8 +71,8 @@ void delete_from_table(vector<vector<string>>& table,const string& fileInputName
 int main()
 {
 
-    string fileInputName = "C:\\cpp_assignment\\fileInput1.mdb";
-    string fileOutputName =  "C:\\cpp_assignment\\fileOutput1.txt";
+    string fileInputName = "C:\\cpp_assignment\\fileInput2.mdb";
+    string fileOutputName =  "C:\\cpp_assignment\\fileOutput2.txt";
     //system("mkdir C:\\cpp_assignment"); //to ensure directory exist
 
 
@@ -90,10 +91,6 @@ vector<string> header_types={"INT", "TEXT", "TEXT", "TEXT", "TEXT", "TEXT", "TEX
         return -1;
     }
 
-
-    //cout << ">DATABASES;"<<endl;
-    //cout << fileInputName << endl;
-
     // Process input file
     string line;
     string completeCommand; //for full command
@@ -101,11 +98,13 @@ vector<string> header_types={"INT", "TEXT", "TEXT", "TEXT", "TEXT", "TEXT", "TEX
     //update fn in main
     while (getline(fileInput, line)) {
 
-        if (has_substring(line, "UPDATE")) {
+        if (has_substring(line, "UPDATE"))
+        {
 
             select_all_from_table_in_csv_mode(table,fileOutputName);
-         cout<<">TABLES; "<<endl;
-    cout<<"customer"<<endl;
+            cout<<">TABLES; "<<endl;
+            cout<<"customer"<<endl;
+
             // check if ada "UPDATE" dalam line
             size_t setPos = line.find("SET"); //find "SET" position
             size_t wherePos = line.find("WHERE"); // finf "WHERE" position
@@ -468,6 +467,12 @@ vector<string> header_types={"INT", "TEXT", "TEXT", "TEXT", "TEXT", "TEXT", "TEX
         if (!fileInput.is_open())
         {
             cerr << "Unable to open file for deleting row." << endl;
+            return;
+        }
+
+        if (!fileOutput.is_open())
+        {
+            cerr << "Unable to open file for storing the deleting process." << endl;
             return;
         }
 
