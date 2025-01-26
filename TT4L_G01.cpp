@@ -10,6 +10,7 @@
 // *********************************************************
 // *********************************************************
 // Task Distribution
+
 // Member_1: Feqhah Delilah
 // File Handling: fileInput1.mdb & fileOutput1.txt
 // - Create and read from the first input file (fileInput1.mdb).
@@ -18,32 +19,39 @@
 // - Implement create_database() to display the database name.
 // - Write code to load and display table data using the first file.
 // - Assist in writing pseudocode and documentation for these functions.
-//Accepts the table, the column name, the value to search, the column to update, and the new value.
-//Searches for rows matching the search criteria.
-//Updates the row and logs the changes to the output file.
+// Update Functionality:
+// - Accepts the table, the column name, the value to search, the column to update, and the new value.
+// - Searches for rows matching the search criteria.
+// - Updates the row and logs the changes to the output file.
+// Collaborative Tasks:
+// - Fix errors in other members' code and ensure consistent functionality across modules.
 
 // Member_2: Wan Hanani Iman
 // Table Operations:
-// - Write the functions create_table() and insert_into_table(), and countrow()
+// - Write the functions create_table(), insert_into_table(), and countrow().
+// - Implement countrow() to count the number of rows in a given table.
 // - Ensure the table supports two data types (INT and TEXT) and inserts rows correctly.
-//- fixed and ensure format is the same as report
+// - Fixed and ensure format is the same as the report.
 // Error Handling:
 // - Add error-checking mechanisms for file processing and database/table creation.
 // - Assist in writing pseudocode and documentation for these functions.
+// Collaborative Tasks:
+// - Fix errors in other members' code and ensure consistent functionality across modules.
 
 // Member_3: Vidhya Dariney
-// -Write the functions create_output_screen_and_file(), select_all_from_table_in_csv_mode(), and delete_from_table()
 // Output and CSV Mode:
+// - Write the functions create_output_screen_and_file(), select_all_from_table_in_csv_mode(), and delete_from_table().
+// Delete Functionality:
+// - Implement delete_from_table() to remove rows based on the given criteria.
+// - Ensure the delete function logs changes to the output file.
 // - Implement select_all_from_table_in_csv_mode() to view the table data in CSV format.
 // - Ensure data from all three input files is properly exported and formatted in CSV outputs.
+// Code Cleanup:
+// - Clean up and organize code to ensure readability and maintainability.
 // - Assist in writing pseudocode and documentation for these functions.
-// - Clean up code
+// Collaborative Tasks:
+// - Fix errors in other members' code and ensure consistent functionality across modules.
 
-
-// Explanations and Reports:
-// - Create pseudocode, flowcharts, and sample input/output screenshots.
-// - Draft the overall user documentation and explanations for program behavior.
-// - Collaborate on pseudocode.
 // *********************************************************
 
 #include <iostream>
@@ -72,8 +80,8 @@ int main()
 {
 
 
-    string fileInputName = "C:\\cpp_assignment\\fileInput1.mdb";
-    string fileOutputName =  "C:\\cpp_assignment\\fileOutput1.txt";
+    string fileInputName = "C:\\cpp_assignment\\fileInput3.mdb";
+    string fileOutputName =  "C:\\cpp_assignment\\fileOutput3.txt";
     system("mkdir C:\\cpp_assignment"); //to ensure directory exist
 
     ifstream fileInput(fileInputName);
