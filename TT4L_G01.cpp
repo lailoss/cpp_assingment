@@ -72,12 +72,12 @@ int main()
 
     string fileInputName = "C:\\cpp_assignment\\fileInput1.mdb";
     string fileOutputName =  "C:\\cpp_assignment\\fileOutput1.txt";
-    //system("mkdir C:\\cpp_assignment"); //to ensure directory exist
+    system("mkdir C:\\cpp_assignment"); //to ensure directory exist
 
 
     ifstream fileInput(fileInputName);
 
-    ofstream fileOutput(fileOutputName); //HERE MF !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    ofstream fileOutput(fileOutputName, ios::app); //HERE MF !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     vector<vector<string>> table;
     //string tableName;
     vector<string> headers = {"customer_id", "customer_name", "customer_city", "customer_state", "customer_country", "customer_phone", "customer_email"};
@@ -213,8 +213,6 @@ vector<string> header_types={"INT", "TEXT", "TEXT", "TEXT", "TEXT", "TEXT", "TEX
 
         }
         int rowCount = count_row(table, fileOutputName);
-         fileInput.close();
-            fileOutput.close();
     }
 
             //fileOutputName = "fileOutput1.txt"; //incorrect
@@ -230,7 +228,8 @@ vector<string> header_types={"INT", "TEXT", "TEXT", "TEXT", "TEXT", "TEXT", "TEX
 
 
 
-
+            //fileInput.close();
+            //fileOutput.close();
 
             //return 0;
 //}
