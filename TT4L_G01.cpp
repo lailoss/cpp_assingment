@@ -70,9 +70,9 @@ void delete_from_table(vector<vector<string>>& table,const string& fileInputName
 int main()
 {
 
-    string fileInputName = "C:\\cpp_assignment\\fileInput3.mdb";
-    string fileOutputName =  "C:\\cpp_assignment\\fileOutput3.txt";
-    system("mkdir C:\\cpp_assignment"); //to ensure directory exist
+    string fileInputName = "C:\\cpp_assignment\\fileInput1.mdb";
+    string fileOutputName =  "C:\\cpp_assignment\\fileOutput1.txt";
+    //system("mkdir C:\\cpp_assignment"); //to ensure directory exist
 
 
     ifstream fileInput(fileInputName);
@@ -213,6 +213,8 @@ vector<string> header_types={"INT", "TEXT", "TEXT", "TEXT", "TEXT", "TEXT", "TEX
 
         }
         int rowCount = count_row(table, fileOutputName);
+         fileInput.close();
+            fileOutput.close();
     }
 
             //fileOutputName = "fileOutput1.txt"; //incorrect
@@ -228,8 +230,7 @@ vector<string> header_types={"INT", "TEXT", "TEXT", "TEXT", "TEXT", "TEXT", "TEX
 
 
 
-            //fileInput.close();
-            //fileOutput.close();
+
 
             //return 0;
 //}
