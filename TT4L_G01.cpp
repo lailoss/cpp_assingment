@@ -6,7 +6,7 @@
 // Trimester: 2430
 // Member_1: 242UC244FY | FEQHAH DELILAH BINTI MOHD FAIZUL | feqhah01@gmail.com | 013-662 0012
 // Member_2: 242UC244CK | WAN HANANI IMAN | EMAIL | PHONE
-// Member_3: 242UC244L8 | VIDHYA DARINEY A/P RAJASINGAM | EMAIL | PHONE
+// Member_3: 242UC244L8 | VIDHYA DARINEY A/P RAJASINGAM | vidhya.dariney.rajasingam@student.mmu.edu.my | PHONE
 // *********************************************************
 // *********************************************************
 // Task Distribution
@@ -32,12 +32,13 @@
 // - Assist in writing pseudocode and documentation for these functions.
 
 // Member_3: Vidhya Dariney
-// -create_output_screen_and_file()
-// -select_all_from_table_in_csv_mode()
-// -delete_from_table()
+// -Write the functions create_output_screen_and_file(), select_all_from_table_in_csv_mode(), and delete_from_table()
 // Output and CSV Mode:
 // - Implement select_all_from_table_in_csv_mode() to view the table data in CSV format.
 // - Ensure data from all three input files is properly exported and formatted in CSV outputs.
+// - Assist in writing pseudocode and documentation for these functions.
+// - Clean up code
+
 
 // Explanations and Reports:
 // - Create pseudocode, flowcharts, and sample input/output screenshots.
@@ -70,18 +71,17 @@ void delete_from_table(vector<vector<string>>& table,const string& fileInputName
 int main()
 {
 
+
     string fileInputName = "C:\\cpp_assignment\\fileInput1.mdb";
     string fileOutputName =  "C:\\cpp_assignment\\fileOutput1.txt";
     system("mkdir C:\\cpp_assignment"); //to ensure directory exist
 
-
     ifstream fileInput(fileInputName);
-
-    ofstream fileOutput(fileOutputName, ios::app); //HERE MF !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    ofstream fileOutput(fileOutputName);
     vector<vector<string>> table;
-    //string tableName;
     vector<string> headers = {"customer_id", "customer_name", "customer_city", "customer_state", "customer_country", "customer_phone", "customer_email"};
-vector<string> header_types={"INT", "TEXT", "TEXT", "TEXT", "TEXT", "TEXT", "TEXT"};
+    vector<string> header_types={"INT", "TEXT", "TEXT", "TEXT", "TEXT", "TEXT", "TEXT"};
+
     create_database(fileInputName, fileOutputName);
 
     if ( !fileInput.is_open() )
@@ -90,27 +90,27 @@ vector<string> header_types={"INT", "TEXT", "TEXT", "TEXT", "TEXT", "TEXT", "TEX
         return -1;
     }
 
-
-    //cout << ">DATABASES;"<<endl;
-    //cout << fileInputName << endl;
-
     // Process input file
     string line;
     string completeCommand; //for full command
 
     //update fn in main
-    while (getline(fileInput, line)) {
+    while (getline(fileInput, line))
+    {
 
-        if (has_substring(line, "UPDATE")) {
+        if (has_substring(line, "UPDATE"))
+        {
 
             select_all_from_table_in_csv_mode(table,fileOutputName);
-         cout<<">TABLES; "<<endl;
-    cout<<"customer"<<endl;
+            cout<<">TABLES; "<<endl;
+            cout<<"customer"<<endl;
+
             // check if ada "UPDATE" dalam line
             size_t setPos = line.find("SET"); //find "SET" position
             size_t wherePos = line.find("WHERE"); // finf "WHERE" position
 
-            if (setPos != string::npos && wherePos != string::npos) {
+            if (setPos != string::npos && wherePos != string::npos)
+            {
                 //proceed if got "SET","WHERE"
                 string updatePart = line.substr(setPos + 3, wherePos - setPos - 3);
                 stringstream updateStream(updatePart); //stream for processing update
@@ -125,7 +125,8 @@ vector<string> header_types={"INT", "TEXT", "TEXT", "TEXT", "TEXT", "TEXT", "TEX
                 newValue.erase(remove_if(newValue.begin(), newValue.end(), ::isspace), newValue.end());
 
                 // Remove quotes from newValue
-                if (newValue.front() == '\'' && newValue.back() == '\'') {
+                if (newValue.front() == '\'' && newValue.back() == '\'')
+                {
                     newValue = newValue.substr(1, newValue.size() - 2);
                 }
 
@@ -140,99 +141,75 @@ vector<string> header_types={"INT", "TEXT", "TEXT", "TEXT", "TEXT", "TEXT", "TEX
 
                 // Remove spaces and quotes
                 searchColumn.erase(remove_if(searchColumn.begin(), searchColumn.end(), ::isspace), searchColumn.end());
-                if (searchValue.front() == '\'' && searchValue.back() == '\'') {
+                if (searchValue.front() == '\'' && searchValue.back() == '\'')
+                {
                     searchValue = searchValue.substr(1, searchValue.size() - 2);
-                 }
-                 update_table(table, searchColumn, searchValue, updateColumn, newValue, fileOutputName);
-                 select_all_from_table_in_csv_mode(table, fileOutputName);
-            }
-        }
-
-
-
-        if (has_substring(line, "INSERT INTO") || !completeCommand.empty())
-            {
-                completeCommand += line;
-                if (line.find(';') != string::npos)
-                { // End of command
-                    insert_into_table(table, completeCommand, headers, fileInputName, fileOutputName);
-                    completeCommand.clear();
                 }
-                continue; // Skip the rest of the processing for this line
-            }
 
-            if (has_substring(line, "CREATE TABLE"))
-            {
-                create_table(table, headers, header_types, fileOutputName);
-            }
-
-            /*if (has_substring(line, "CREATE TABLE"))  //original dell code ---------
-            {
-                cout << "Creating table. " << endl;
-                create_table(table, headers);
-            }
-
-            else if (has_substring(line, "INSERT INTO"))
-            {
-                cout << "Inserting data into table " << endl;
-                insert_into_table(table,line,headers);
-            }*/
-
-            else if (has_substring(line, "SELECT*FROM customer"))
-            {
-                //cout << "Displaying table in terminal:" << endl;
-                //fileOutput << "Displaying table in terminal:" << endl;
-
-                       // Print table rows
-
-                 //select_all_from_table_in_csv_mode(table,fileOutputName);
-                 fileOutput<<">INSERT INTO";
-                  for (const auto& row : table) {
-                    for (size_t j = 0; j < row.size(); ++j) {
-                       cout << row[j];
-                       fileOutput << row[j];
-                       if (j < row.size() - 1) {
-                           cout << " , ";
-                           fileOutput << " , ";
-                       }
-                     }
-                     cout << endl;
-                     fileOutput << endl;
-
-                 }
-            }
-
-
-            else if (has_substring (line, "DELETE"))
-            {
-                delete_from_table(table, fileInputName, fileOutputName);
+                update_table(table, searchColumn, searchValue, updateColumn, newValue, fileOutputName);
                 select_all_from_table_in_csv_mode(table, fileOutputName);
             }
-
-
-
         }
-        int rowCount = count_row(table, fileOutputName);
+
+
+
+         if (has_substring(line, "INSERT INTO") || !completeCommand.empty())
+        {
+            completeCommand += line;
+            if (line.find(';') != string::npos)
+            { // End of command
+                insert_into_table(table, completeCommand, headers, fileInputName, fileOutputName);
+                completeCommand.clear();
+            }
+            continue; // Skip the rest of the processing for this line
+        }
+
+
+        else if (has_substring(line, "CREATE TABLE"))
+        {
+            create_table(table, headers, header_types, fileOutputName);
+        }
+
+
+        else if (has_substring(line, "SELECT*FROM customer"))
+        {
+            fileOutput<<">INSERT INTO";
+            for (const auto& row : table)
+            {
+                for (size_t j = 0; j < row.size(); ++j)
+                {
+                   cout << row[j];
+                   fileOutput << row[j];
+
+                   if (j < row.size() - 1)
+                   {
+                       cout << " , ";
+                       fileOutput << " , ";
+                   }
+
+                }
+
+                cout << endl;
+                fileOutput << endl;
+
+             }
+        }
+
+        else if (has_substring (line, "DELETE"))
+        {
+            delete_from_table(table, fileInputName, fileOutputName);
+            select_all_from_table_in_csv_mode(table, fileOutputName);
+        }
+
+
     }
 
-            //fileOutputName = "fileOutput1.txt"; //incorrect
-            //cout << "> CREATE " << fileOutputName << ";" endl;
-
-            //create_database(fileInputName);
-            //call create_database to display n log database name
-
+    int rowCount = count_row(table, fileOutputName);
+    fileInput.close();
+    fileOutput.close();
+}
 
 
-            // Output table in CSV mode
-            //fileInput.close();
-
-
-
-            //fileInput.close();
-            //fileOutput.close();
-
-            //return 0;
-//}
 
     // function definitions
     bool has_substring(const string& line, const string& substring)
@@ -264,41 +241,26 @@ vector<string> header_types={"INT", "TEXT", "TEXT", "TEXT", "TEXT", "TEXT", "TEX
     }
 
     //CREATE DATABASE-----------------------------------------------------------------------------------------------------
-   void create_database(const string& fileInputName, const string& fileOutputName) {
-    ofstream fileOutput(fileOutputName, ios::app);
-    if (!fileOutput.is_open()) {
-        cerr << "Error: Unable to create output file: " << fileOutputName << endl;
-        return;
-    }
-
-    cout << "> CREATE " << fileOutputName << endl;
-    fileOutput << "> CREATE " << fileOutputName << ";" << endl;
-
-    cout << "> DATABASES;" << endl;
-    fileOutput << "> DATABASES;" << endl;
-
-    cout << fileInputName << endl;
-    fileOutput << fileInputName << endl;
-
-    fileOutput.close(); // Ensure file is closed after writing
-}
-
-
-        /*if (!fileOutput.is_open())
-        {
-            cout << "Error: Unable to create output file: " << fileOutputName << endl; //display error message if output file cant be created
+   void create_database(const string& fileInputName, const string& fileOutputName)
+   {
+       ofstream fileOutput(fileOutputName, ios::app);
+       if (!fileOutput.is_open())
+       {
+            cerr << "Error: Unable to create output file: " << fileOutputName << endl;
             return;
-        }
+       }
 
+       cout << "> CREATE " << fileOutputName << endl;
+       fileOutput << "> CREATE " << fileOutputName << ";" << endl;
 
-        //write db info to the output file
-        //fileOutput << "> DATABASE ;" << endl; //db header
-        //fileOutput<<":"<<endl;
-         //name of the db file */
+       cout << "> DATABASES;" << endl;
+       fileOutput << "> DATABASES;" << endl;
 
-       // fileOutput.close();
+       cout << fileInputName << endl;
+       fileOutput << fileInputName << endl;
 
-
+       fileOutput.close(); // Ensure file is closed after writing
+    }
 
 
     //CREATE TABLE-----------------------------------------------------------------------------------------------------
@@ -315,92 +277,102 @@ vector<string> header_types={"INT", "TEXT", "TEXT", "TEXT", "TEXT", "TEXT", "TEX
         fileOutput << "> CREATE TABLE "<<endl;
         fileOutput<<"("<<endl;
 
-        for (size_t i = 0; i < headers.size(); ++i) {
-        cout << headers[i] <<" "<< header_types[i]<< endl;
-        fileOutput << headers[i] <<" "<< header_types[i]<<endl;
-    }
+        for (size_t i = 0; i < headers.size(); ++i)
+        {
+            cout << headers[i] <<" "<< header_types[i]<< endl;
+            fileOutput << headers[i] <<" "<< header_types[i]<<endl;
+        }
+
         cout <<");"<< endl;
         fileOutput <<");"<< endl;
-     fileOutput.close();
+        fileOutput.close();
 
     }
 
     //INSERT INTO TABLE-----------------------------------------------------------------------------------------------------
-    void insert_into_table(vector<vector<string>>& table, const string& line, const vector<string>& headers, const string& fileInputName, const string& fileOutputName) {
-    ofstream fileOutput(fileOutputName, ios::app);
-    if (!fileOutput.is_open()) {
-        cerr << "Unable to open output file for writing." << endl;
-        return;
-    }
-
-    size_t pos = line.find("VALUES");
-    if (pos == string::npos) {
-        cerr << "Error: Invalid INSERT INTO statement. Missing 'VALUES' keyword." << endl;
-        return;
-    }
-
-    // Extract the part after "VALUES"
-    string valuesPart = line.substr(pos + string("VALUES").length());
-    valuesPart = valuesPart.substr(1, valuesPart.length() - 2);
-
-    size_t start = valuesPart.find('(') + 1; // Start after '('
-    size_t end = valuesPart.find(')'); // End at ')'
-    string values = valuesPart.substr(start, end - start); // Get the values inside the parentheses
-
-    // Parse the values
-    vector<string> newRow;
-    stringstream ss(values);
-    string value;
-
-    while (getline(ss, value, ',')) {
-        // Trim spaces and quotes
-        value.erase(remove_if(value.begin(), value.end(), ::isspace), value.end());
-        newRow.push_back(value);
-    }
-
-    // Ensure the new row has the correct number of columns
-    if (newRow.size() != headers.size()) {
-        cerr << "Error: Number of values does not match number of columns." << endl;
-        return;
-    }
-
-    // Add the new row to the table (only once)
-    table.push_back(newRow);
-
-    // Confirmation message (matching terminal output)
-    cout << "> INSERT INTO " << endl;
-    fileOutput << "> INSERT INTO " << endl;
-
-    // Print the column names
-    cout << "customer (";
-    fileOutput << "customer (";
-    for (size_t i = 0; i < headers.size(); ++i) {
-        cout << headers[i];
-        fileOutput << headers[i];
-        if (i < headers.size() - 1) {
-            cout << ", ";
-            fileOutput << ", ";
+    void insert_into_table(vector<vector<string>>& table, const string& line, const vector<string>& headers, const string& fileInputName, const string& fileOutputName)
+    {
+        ofstream fileOutput(fileOutputName, ios::app);
+        if (!fileOutput.is_open())
+        {
+                cerr << "Unable to open output file for writing." << endl;
+                return;
         }
+
+        size_t pos = line.find("VALUES");
+        if (pos == string::npos)
+        {
+            cerr << "Error: Invalid INSERT INTO statement. Missing 'VALUES' keyword." << endl;
+            return;
+        }
+
+        // Extract the part after "VALUES"
+        string valuesPart = line.substr(pos + string("VALUES").length());
+        valuesPart = valuesPart.substr(1, valuesPart.length() - 2);
+
+        size_t start = valuesPart.find('(') + 1; // Start after '('
+        size_t end = valuesPart.find(')'); // End at ')'
+        string values = valuesPart.substr(start, end - start); // Get the values inside the parentheses
+
+        // Parse the values
+        vector<string> newRow;
+        stringstream ss(values);
+        string value;
+
+        while (getline(ss, value, ','))
+        {
+            // Trim spaces and quotes
+            value.erase(remove_if(value.begin(), value.end(), ::isspace), value.end());
+            newRow.push_back(value);
+        }
+
+        // Ensure the new row has the correct number of columns
+        if (newRow.size() != headers.size())
+        {
+            cerr << "Error: Number of values does not match number of columns." << endl;
+            return;
+        }
+
+        // Add the new row to the table (only once)
+        table.push_back(newRow);
+
+        // Confirmation message (matching terminal output)
+        cout << "> INSERT INTO " << endl;
+        fileOutput << "> INSERT INTO " << endl;
+
+        // Print the column names
+        cout << "customer (";
+        fileOutput << "customer (";
+        for (size_t i = 0; i < headers.size(); ++i)
+        {
+            cout << headers[i];
+            fileOutput << headers[i];
+            if (i < headers.size() - 1)
+            {
+                cout << ", ";
+                fileOutput << ", ";
+            }
+        }
+
+        cout << ")" << endl;
+        fileOutput << ")" << endl;
+
+        cout << "VALUES (" ;
+        fileOutput << "VALUES (" ;
+
+        // Print the values
+        for (const auto& val : newRow)
+        {
+            cout << val << " ";
+            fileOutput << val << " ";
+        }
+
+        cout << ")" << endl;
+        fileOutput << ")" << endl;
+        fileOutput.close();
+
     }
-
-    cout << ")" << endl;
-    fileOutput << ")" << endl;
-
-    cout << "VALUES (" ;
-    fileOutput << "VALUES (" ;
-
-    // Print the values
-    for (const auto& val : newRow) {
-        cout << val << " ";
-        fileOutput << val << " ";
-    }
-    cout << ")" << endl;
-    fileOutput << ")" << endl;
-
-
-    fileOutput.close();
-}
-    //SELECT ALL FROM TABLE------------------------------------------------------------------------------------------
+    //SELECT ALL FROM TABLE-------------------------------------------------------------------------------------------------
     void select_all_from_table_in_csv_mode(const vector<vector<string>>& table, const string& fileOutputName)
     {
         if (table.empty()) //check if table is empty
@@ -420,30 +392,29 @@ vector<string> header_types={"INT", "TEXT", "TEXT", "TEXT", "TEXT", "TEXT", "TEX
         fileOutput << "> SELECT * FROM customer;" << endl;
 
 
-          for (const auto& row : table){
-                for (size_t j =0;j <row.size(); ++j) //iterates through the data value you get what i mean??
+        for (const auto& row : table)
+        {
+            for (size_t j =0;j <row.size(); ++j) //iterates through the data value you get what i mean??
+            {
+                cout<<row[j];
+                fileOutput << row[j];
+                if (j < row.size() - 1)
                 {
-
-                    cout<<row[j];
-                    fileOutput << row[j];
-                    if (j < row.size() - 1)
-                    {
-                        cout<<",";
-                        fileOutput << ",";
-                    }
-
-                }
-                cout<<endl;
-                fileOutput << "\n";
+                    cout<<",";
+                    fileOutput << ",";
                 }
 
+            }
+            cout<<endl;
+            fileOutput << "\n";
+        }
 
         fileOutput.close();
-       // cout << "Table exported to " << fileOutputName << endl;
+
     }
 
 
-    //COUNT ROW------------------------------------------------------------------------------------------------------------
+    //COUNT ROW-------------------------------------------------------------------------------------------------------------
     int count_row(vector<vector<string>>& table, const string& fileOutputName)
     {
         ofstream fileOutput(fileOutputName, ios::app);
@@ -458,7 +429,7 @@ vector<string> header_types={"INT", "TEXT", "TEXT", "TEXT", "TEXT", "TEXT", "TEX
 
     }
 
-    //DELETE FROM TABLE------------------------------------------------------------------------------------------
+    //DELETE FROM TABLE-----------------------------------------------------------------------------------------------------
     void delete_from_table(vector<vector<string>>& table, const string& fileInputName, const string& fileOutputName)
     {
         ifstream fileInput(fileInputName);
@@ -467,6 +438,12 @@ vector<string> header_types={"INT", "TEXT", "TEXT", "TEXT", "TEXT", "TEXT", "TEX
         if (!fileInput.is_open())
         {
             cerr << "Unable to open file for deleting row." << endl;
+            return;
+        }
+
+        if (!fileOutput.is_open())
+        {
+            cerr << "Unable to open file for storing the deleting process." << endl;
             return;
         }
 
@@ -501,76 +478,46 @@ vector<string> header_types={"INT", "TEXT", "TEXT", "TEXT", "TEXT", "TEXT", "TEX
 
     }
 
-    //UPDATE TABLE----------------------------------------------------------------------------------------------------------
-
-    //my reference ( notes) ----------------
-    //vector<vector<string>>: This is the entire table (rows&col)...if vector<string> only single row data in the table
-    //asal vector bukan array?
-    //vector can can grow or shrink in size automatically (arrays have a fixed size)
-    //vector -- easy to add,remove,access items
-
-    //why cerr instead of cout?
-    //cout for normal output but cerr used for error message.its specificallu meant to
-    //print errors or warning tht u want to be visible immediately
-
-    //append mode(ios::app)- tells C++ to open the file in append mode
-    //if the file already exists, it will not delete its contents,,instead, the program will add new data at the end of the file
-    //---------------------------------------
-
-    // vector<vector<string>>& table,  // The table itself
-    // UPDATE TABLE FUNCTION
-    void update_table(vector<vector<string>>& table, const string& searchColumn, const string& searchValue, const string& updateColumn, const string& newValue, const string& fileOutputName) {
-         ofstream fileOutput(fileOutputName, ios::app); //open file output utk append
-
-         // Print table before update for debugging
-        //cout << "Table before update:" << endl;
-        //for (const auto& row : table) {
-         //   for (const auto& col : row) cout << col << " ";
-         //  cout << endl;
-         //}
-
-         int searchIndex = -1, updateIndex = -1;
-         //to find index column utk search and update dlm header
-         for (size_t i = 0; i < table[0].size(); ++i) {
+    //UPDATE TABLE ----------------------------------------------------------------------------------------------------------
+    void update_table(vector<vector<string>>& table, const string& searchColumn, const string& searchValue, const string& updateColumn, const string& newValue, const string& fileOutputName)
+    {
+        ofstream fileOutput(fileOutputName, ios::app); //open file output utk append
+        int searchIndex = -1, updateIndex = -1;
+        //to find index column utk search and update dlm header
+        for (size_t i = 0; i < table[0].size(); ++i)
+        {
             if (table[0][i] == searchColumn) searchIndex = i; //find column yg kita nak search
             if (table[0][i] == updateColumn) updateIndex = i; //find column yg nak update
-         }
+        }
 
         //if column not found..
-         if (searchIndex == -1 || updateIndex == -1) {
+        if (searchIndex == -1 || updateIndex == -1)
+        {
             fileOutput << "Error: Column not found!" << endl;
             cout << "Error: Column not found!" << endl;
             return; //return if got any error
+        }
+
+        bool updated = false; // track if any row was updated
+
+        //loop for each row
+        for (size_t i = 1; i < table.size(); ++i)
+        {
+            if (table[i][searchIndex] == searchValue)
+            {
+                table[i][updateIndex] = newValue;
+                updated = true; //successfully updated
+            }
          }
 
-         bool updated = false; // track if any row was updated
-         //loop for each row
-         for (size_t i = 1; i < table.size(); ++i){
-                if (table[i][searchIndex] == searchValue) {
-
-              //string currentValue = table[i][searchIndex];
-              //string trimmedSearchValue = searchValue;
-
-              //bawah ni untuk trim whitesoace
-              //currentValue.erase(remove_if(currentValue.begin(), currentValue.end(), ::isspace), currentValue.end());
-              //trimmedSearchValue.erase(remove_if(trimmedSearchValue.begin(), trimmedSearchValue.end(), ::isspace), trimmedSearchValue.end());
-
-              // Optionally, make the comparison case-insensitive
-              //transform(currentValue.begin(), currentValue.end(), currentValue.begin(), ::tolower);
-             // transform(trimmedSearchValue.begin(), trimmedSearchValue.end(), trimmedSearchValue.begin(), ::tolower);
-
-              //check if value same w search value
-              //if (currentValue == trimmedSearchValue) {
-                  //update value inside table
-                    table[i][updateIndex] = newValue;
-                    updated = true; //successfully updated
-              }
-         }
-
-        if(updated){
+        if(updated)
+        {
            fileOutput << "> UPDATE " << table[0][0] << " SET " << updateColumn << " = " << newValue << " WHERE " << searchColumn << " = " << searchValue << ";" << endl ;
            cout << "> UPDATE " << table[0][0] << " SET " << updateColumn << " = " << newValue << "' WHERE " << searchColumn << " = " << searchValue << ";" << endl ;
-        } else {
+        }
+
+        else
+        {
            fileOutput << "No rows found matching the condition: " << searchColumn << " = " << searchValue << endl;
            cout << "No rows updated!" << endl;
         }
